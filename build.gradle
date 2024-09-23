@@ -8,22 +8,7 @@ plugins {
     id 'de.marcphilipp.nexus-publish' version '0.4.0'
     id 'de.undercouch.download' version '4.1.2'
     id 'org.ajoberstar.git-publish' version '3.0.1'
-    id 'com.android.library'
 }
-
-android {
-    compileSdkVersion 34
-
-    defaultConfig {
-        minSdkVersion 24
-        targetSdkVersion 34
-        versionCode 1
-        versionName "4.12.1"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-}
-
 
 ext {
     bouncycastleVersion = '1.78.1'
@@ -33,21 +18,21 @@ ext {
     kotlinPoetVersion = '1.16.0'
     jnr_unixsocketVersion = '0.38.22'
     okhttpVersion = '4.12.0'
-    rxjavaVersion = '2.2.21'
-    slf4jVersion = '2.0.13'
-    javaWebSocketVersion = '1.5.6'
+    rxjavaVersion = '3.1.9'
+    slf4jVersion = '2.0.16'
+    javaWebSocketVersion = '1.5.7'
     picocliVersion = '4.7.6'
     ensAdraffyVersion = '0.2.0'
     kzg4844Version = '2.0.0'
     tuweniVersion = '2.4.2'
     // test dependencies
-    equalsverifierVersion = '3.16.1'
-    junitVersion = '5.5.2'
+    equalsverifierVersion = '3.16.2'
+    junitVersion = '5.11.0'
     web3jUnitVersion = '4.12.2'
     junitBenchmarkVersion = '0.7.2'
     logbackVersion = '1.5.6'
-    mockitoJunitVersion = '3.1.0'
-    junitPlatformLauncherVersion = '1.5.2'
+    mockitoJunitVersion = '5.13.0'
+    junitPlatformLauncherVersion = '1.11.0'
 }
 
 
