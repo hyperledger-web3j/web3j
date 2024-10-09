@@ -1,9 +1,36 @@
+plugins {
+    id 'com.android.library'
+}
+
+android {
+    namespace 'com.org.web3j'
+    compileSdkVersion 33
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 33
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java']
+        }
+        test {
+            java.srcDirs = ['src/test/java']
+        }
+    }
+}
 
 description 'web3j support for Ethereum Improvement Proposals (EIP\'s)'
 
 dependencies {
     implementation project(':core')
     testImplementation project(path: ':core', configuration: 'testArtifacts')
+    testImplementation 'junit:junit:4.13.2'
 }
-tasks.named("spotlessJava").configure { dependsOn("compileJava","javadoc","processResources","spotlessGroovyGradle") }
-tasks.named("spotlessKotlin").configure { dependsOn("compileJava","javadoc","processResources","spotlessJava","spotlessGroovyGradle") }
+
