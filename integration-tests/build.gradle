@@ -1,4 +1,32 @@
+plugins {
+    id 'com.android.library'
+}
+
 description 'web3j integration tests'
+
+android {
+    namespace 'com.org.web3j'
+    compileSdkVersion 33
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 33
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java']
+        }
+        test {
+            java.srcDirs = ['src/test/java']
+        }
+    }
+}
 
 
 repositories {
@@ -18,11 +46,12 @@ ext {
 def withoutAbi = { exclude group: 'org.web3j', module: 'abi' }
 
 dependencies {
-    testImplementation project(':core'),
-            project(':besu'),
-            project(':parity'),
-            project(':geth'),
-            project(':codegen')
+    testImplementation project(':core')
+    testImplementation project(':besu')
+    testImplementation project(':parity')
+    testImplementation project(':geth')
+    testImplementation project(':codegen')
+    testImplementation 'junit:junit:4.13.2'
     testImplementation "ch.qos.logback:logback-core:$logbackVersion"
     testImplementation "ch.qos.logback:logback-classic:$logbackVersion"
     testImplementation "com.carrotsearch:junit-benchmarks:$junitBenchmarkVersion"
@@ -49,8 +78,8 @@ dependencies {
 tasks.withType(Test) {
     useJUnitPlatform()
     systemProperties = [
-        'junit.jupiter.extensions.autodetection.enabled': 'true',
-        'junit.jupiter.testinstance.lifecycle.default'  : 'per_class'
+            'junit.jupiter.extensions.autodetection.enabled': 'true',
+            'junit.jupiter.testinstance.lifecycle.default'  : 'per_class'
     ]
 }
 
@@ -62,15 +91,10 @@ sourceSets {
     }
 }
 
-// we don't want integration tests to run by default
-test {
-    enabled = project.hasProperty('integration-tests') ?
-            project.getProperty('integration-tests') : false
-    dependsOn project(':codegen').getTasksByName('test', false)
-}
-compileTestJava {
-    dependsOn project(':codegen').getTasksByName("testClasses", false)
-}
 
-tasks.named("spotlessJava").configure { dependsOn("compileTestJava","spotlessGroovyGradle","processTestResources") }
-tasks.named("spotlessKotlin").configure { dependsOn("compileTestJava","spotlessJava", "spotlessGroovyGradle","processTestResources") }
+//compileTestJava {
+//    dependsOn project(':codegen').getTasksByName("testClasses", false)
+//}
+
+//tasks.named("spotlessJava").configure { dependsOn("compileTestJava","spotlessGroovyGradle","processTestResources") }
+//tasks.named("spotlessKotlin").configure { dependsOn("compileTestJava","spotlessJava", "spotlessGroovyGradle","processTestResources") }

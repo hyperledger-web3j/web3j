@@ -1,12 +1,42 @@
+plugins {
+    id 'com.android.library' // Android library plugin for Android compatibility
+}
+
+android {
+    namespace 'com.org.web3j'
+    compileSdkVersion 33
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 33
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java']
+        }
+        test {
+            java.srcDirs = ['src/test/java']
+        }
+    }
+}
 
 description 'web3j customisations for working with hosted web3 providers (Infura.io & Nodesmith.io)'
 
-dependencies { implementation project(':core') }
-
-tasks.named("spotlessJava").configure {
-    dependsOn("spotlessGroovyGradle", "compileJava", "compileTestJava", "javadoc", "test", "jacocoTestReport")
+dependencies {
+    implementation project(':core') // Changed api to implementation for Android compatibility
+    testImplementation 'junit:junit:4.13.2'
 }
 
-tasks.named("spotlessKotlin").configure {
-    dependsOn("compileJava", "spotlessJava", "spotlessGroovyGradle", "compileTestJava", "processTestResources", "javadoc", "test", "jacocoTestReport")
-}
+//tasks.named("spotlessJava").configure {
+//    dependsOn("spotlessGroovyGradle", "compileJava", "compileTestJava", "javadoc", "test", "jacocoTestReport")
+//}
+//
+//tasks.named("spotlessKotlin").configure {
+//    dependsOn("compileJava", "spotlessJava", "spotlessGroovyGradle", "compileTestJava", "processTestResources", "javadoc", "test", "jacocoTestReport")
+//}

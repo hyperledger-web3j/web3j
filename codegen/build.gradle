@@ -1,16 +1,48 @@
+plugins {
+    id 'com.android.library'
+}
+
+android {
+    namespace 'com.org.web3j'
+    compileSdkVersion 33
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 33
+
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java']
+        }
+        debug {
+            java.srcDirs = ['src/test/java']
+        }
+    }
+}
+
 description 'web3j project code generators'
 
 dependencies {
-    implementation project(':core'),
-            "com.squareup:kotlinpoet:$kotlinPoetVersion",
-            "com.squareup:javapoet:$javaPoetVersion",
-            "info.picocli:picocli:$picocliVersion"
-    testImplementation project(':core').sourceSets.test.output,
-            "ch.qos.logback:logback-core:$logbackVersion",
-            "ch.qos.logback:logback-classic:$logbackVersion"
-    implementation("org.junit.platform:junit-platform-launcher:$junitPlatformLauncherVersion")
-    implementation("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
-    implementation("org.junit.vintage:junit-vintage-engine:$junitVersion")
+    implementation project(':core')
+    implementation "com.squareup:kotlinpoet:$kotlinPoetVersion"
+    implementation "com.squareup:javapoet:$javaPoetVersion"
+    implementation "info.picocli:picocli:$picocliVersion"
+
+    //testImplementation project(':core').sourceSets.test.output
+    testImplementation "ch.qos.logback:logback-core:$logbackVersion"
+    testImplementation "ch.qos.logback:logback-classic:$logbackVersion"
+    testImplementation 'junit:junit:4.13.2'
+
+    implementation "org.junit.platform:junit-platform-launcher:$junitPlatformLauncherVersion"
+    implementation "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+    implementation "org.junit.vintage:junit-vintage-engine:$junitVersion"
 }
 
 file("src/test/resources/solidity").listFiles().each { File file ->
@@ -20,28 +52,24 @@ file("src/test/resources/solidity").listFiles().each { File file ->
     if (contractFile != null) {
         def contractName = contractFile.name.substring(0, contractFile.name.length() - 4)
         def generateTask = tasks.register("generate${contractName}Wrapper", JavaExec) {
-            classpath = sourceSets.test.runtimeClasspath
+            classpath = files(fileTree(dir: 'src/test/java', include: '**/*.class'))
             main = 'org.web3j.codegen.SolidityFunctionWrapperGenerator'
             args = [
-                'generate',
-                '--abiFile',
-                "${contractFile.parent}/build/${contractName}.abi",
-                '--binFile',
-                "${contractFile.parent}/build/${contractName}.bin",
-                '--outputDir',
-                'build/resources/test/java',
-                '--package',
-                'org.web3j.test.contract'
+                    'generate',
+                    '--abiFile', "${contractFile.parent}/build/${contractName}.abi",
+                    '--binFile', "${contractFile.parent}/build/${contractName}.bin",
+                    '--outputDir', 'build/resources/test/java',
+                    '--package', 'org.web3j.test.contract'
             ]
         }
-        test.dependsOn generateTask
+        // test.dependsOn generateTask
     }
 }
-
-tasks.named("spotlessJava").configure {
-    dependsOn("spotlessGroovyGradle", "compileJava", "compileTestJava", "javadoc", "test", "jacocoTestReport")
-}
-
-tasks.named("spotlessKotlin").configure {
-    dependsOn("compileJava", "spotlessJava", "spotlessGroovyGradle", "compileTestJava", "processTestResources", "javadoc", "test", "jacocoTestReport")
-}
+//
+//tasks.named("spotlessJava").configure {
+//    dependsOn("spotlessGroovyGradle", "compileTestJava", "javadoc", "test", "jacocoTestReport")
+//}
+//
+//tasks.named("spotlessKotlin").configure {
+//    dependsOn("spotlessJava", "spotlessGroovyGradle", "compileTestJava", "processTestResources", "javadoc", "test", "jacocoTestReport")
+//}

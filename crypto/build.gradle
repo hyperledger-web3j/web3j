@@ -1,11 +1,35 @@
 plugins {
-    id 'java-library'
+    id 'com.android.library'
+}
+
+android {
+    namespace 'com.org.web3j'
+    compileSdkVersion 33
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 33
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java']
+        }
+        test {
+            java.srcDirs = ['src/test/java']
+        }
+    }
 }
 
 description 'web3j Ethereum crypto library'
 
 dependencies {
-    api project(':abi'),
+    implementation project(':abi'),
             project(':rlp'),
             project(':utils'),
             "org.slf4j:slf4j-api:$slf4jVersion",
@@ -13,16 +37,9 @@ dependencies {
             "io.consensys.protocols:jc-kzg-4844:$kzg4844Version"
     implementation("io.tmio:tuweni-bytes:$tuweniVersion")
     implementation("io.tmio:tuweni-units:$tuweniVersion")
+    testImplementation 'junit:junit:4.13.2'
 }
 
 configurations { testArtifacts.extendsFrom testRuntime }
 
-artifacts { testArtifacts testsJar }
 
-tasks.named("spotlessJava").configure {
-    dependsOn("spotlessGroovyGradle", "compileJava", "compileTestJava", "javadoc", "test", "jacocoTestReport")
-}
-
-tasks.named("spotlessKotlin").configure {
-    dependsOn("compileJava", "spotlessJava", "spotlessGroovyGradle", "compileTestJava", "processTestResources", "javadoc", "test", "jacocoTestReport")
-}

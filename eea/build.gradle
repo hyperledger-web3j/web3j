@@ -1,19 +1,43 @@
 plugins {
-    id 'java-library'
+    id 'com.android.library' // Android library plugin for Android compatibility
+}
+
+android {
+    namespace 'com.org.web3j'
+    compileSdkVersion 33
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 33
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java']
+        }
+        test {
+            java.srcDirs = ['src/test/java']
+        }
+    }
 }
 
 description 'EEA JSON-RPC API'
 
-
 dependencies {
-    api project(':core')
+    implementation project(':core') // Changed api to implementation for Android compatibility
     testImplementation project(path: ':core', configuration: 'testArtifacts')
+    testImplementation 'junit:junit:4.13.2'
 }
 
-tasks.named("spotlessJava").configure {
-    dependsOn("spotlessGroovyGradle", "compileJava", "compileTestJava", "javadoc", "test", "jacocoTestReport")
-}
-
-tasks.named("spotlessKotlin").configure {
-    dependsOn("compileJava", "spotlessJava", "spotlessGroovyGradle", "compileTestJava", "processTestResources", "javadoc", "test", "jacocoTestReport")
-}
+//tasks.named("spotlessJava").configure {
+//    dependsOn("spotlessGroovyGradle", "compileJava", "compileTestJava", "javadoc", "test", "jacocoTestReport")
+//}
+//
+//tasks.named("spotlessKotlin").configure {
+//    dependsOn("compileJava", "spotlessJava", "spotlessGroovyGradle", "compileTestJava", "processTestResources", "javadoc", "test", "jacocoTestReport")
+//}

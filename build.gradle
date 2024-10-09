@@ -1,6 +1,7 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
-    id 'java'
-    id 'idea'
+
+    id "com.android.library" apply false
     id 'org.sonarqube' version '5.0.0.4638'
     id 'jacoco'
     id 'com.diffplug.spotless' version '6.25.0'
@@ -18,54 +19,35 @@ ext {
     kotlinPoetVersion = '1.16.0'
     jnr_unixsocketVersion = '0.38.22'
     okhttpVersion = '4.12.0'
-    rxjavaVersion = '3.1.9'
-    slf4jVersion = '2.0.16'
-    javaWebSocketVersion = '1.5.7'
+    rxjavaVersion = '2.2.21'
+    slf4jVersion = '2.0.13'
+    javaWebSocketVersion = '1.5.6'
     picocliVersion = '4.7.6'
     ensAdraffyVersion = '0.2.0'
     kzg4844Version = '2.0.0'
-    awsSdkVersion = '2.27.24'
     tuweniVersion = '2.4.2'
     // test dependencies
-    equalsverifierVersion = '3.16.2'
-    junitVersion = '5.11.0'
+    equalsverifierVersion = '3.16.1'
+    junitVersion = '5.5.2'
     web3jUnitVersion = '4.12.2'
     junitBenchmarkVersion = '0.7.2'
     logbackVersion = '1.5.6'
-    mockitoJunitVersion = '5.13.0'
-    junitPlatformLauncherVersion = '1.11.0'
-}
-
-
-description 'Web3j base project.'
-
-[
-    'jacoco',
-    'java',
-    'javadoc',
-    'publish',
-    'repositories',
-    'spotless'
-].each { buildScript ->
-    download {
-        src "https://raw.githubusercontent.com/hyperledger/web3j-build-tools/main/gradle/$buildScript/build.gradle"
-        dest "$rootDir/gradle/$buildScript/build.gradle"
-        overwrite false
-        quiet true
-        onlyIfModified true
-    }
+    mockitoJunitVersion = '3.1.0'
+    junitPlatformLauncherVersion = '1.5.2'
 }
 
 allprojects {
     apply {
         [
-            'java',
-            'javadoc',
-            'repositories',
-            'spotless'
+                'repositories'
         ].each { buildScript ->
             from("$rootDir/gradle/$buildScript/build.gradle")
         }
+    }
+
+    repositories {
+        google()
+        mavenCentral()
     }
 
     tasks.withType(Test) {
@@ -73,9 +55,8 @@ allprojects {
         useJUnitPlatform()
     }
 
+
     dependencies {
-        testImplementation "org.junit.jupiter:junit-jupiter:$junitVersion"
-        testImplementation "org.mockito:mockito-junit-jupiter:$mockitoJunitVersion"
 
         configurations.all {
             resolutionStrategy {
@@ -96,10 +77,3 @@ allprojects {
         apply from: "$rootDir/gradle/publish/build.gradle"
     }
 }
-configure(subprojects.findAll { it.name != 'integration-tests' }) {
-    apply from: "$rootDir/gradle/jacoco/build.gradle"
-}
-
-
-tasks.named("spotlessJava").configure { dependsOn("spotlessGroovyGradle") }
-tasks.named("spotlessKotlin").configure { dependsOn("spotlessJava", "spotlessGroovyGradle") }
