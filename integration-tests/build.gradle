@@ -9,7 +9,7 @@ android {
     compileSdkVersion 33
 
     defaultConfig {
-        minSdkVersion 21
+        minSdkVersion 24
         targetSdkVersion 33
     }
 
@@ -51,7 +51,8 @@ dependencies {
     testImplementation project(':parity')
     testImplementation project(':geth')
     testImplementation project(':codegen')
-    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
     testImplementation "ch.qos.logback:logback-core:$logbackVersion"
     testImplementation "ch.qos.logback:logback-classic:$logbackVersion"
     testImplementation "com.carrotsearch:junit-benchmarks:$junitBenchmarkVersion"
