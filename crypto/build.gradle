@@ -7,8 +7,12 @@ android {
     compileSdkVersion 33
 
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 33
+        minSdkVersion 24
+        targetSdkVersion 34
+    }
+
+    lint {
+        baseline = file("lint-baseline.xml")
     }
 
     compileOptions {
@@ -29,15 +33,18 @@ android {
 description 'web3j Ethereum crypto library'
 
 dependencies {
-    implementation project(':abi'),
-            project(':rlp'),
-            project(':utils'),
-            "org.slf4j:slf4j-api:$slf4jVersion",
-            "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion",
-            "io.consensys.protocols:jc-kzg-4844:$kzg4844Version"
+    api project(':abi')
+    api project(':rlp')
+    api project(':utils')
+    api "org.slf4j:slf4j-api:$slf4jVersion"
+    api "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
+    api "io.consensys.protocols:jc-kzg-4844:$kzg4844Version"
     implementation("io.tmio:tuweni-bytes:$tuweniVersion")
     implementation("io.tmio:tuweni-units:$tuweniVersion")
-    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.9.3'
 }
 
 configurations { testArtifacts.extendsFrom testRuntime }

@@ -6,17 +6,17 @@ plugins {
 }
 
 android {
-    namespace 'com.org.web3j'
-    compileSdkVersion 33
+    namespace 'org.web3j'
+    compileSdkVersion 34
 
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 33
+        minSdkVersion 24
+        targetSdkVersion 34
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     sourceSets {
@@ -24,7 +24,7 @@ android {
             java.srcDirs = ['src/main/java']
         }
         test {
-            java.srcDirs = ['src/test/java']
+            test.java.srcDirs += ["${project(':core').projectDir}/src/test/java"]
         }
     }
 }
@@ -32,23 +32,32 @@ android {
 description 'web3j is a lightweight Java library for integration with Ethereum clients'
 
 dependencies {
-    implementation project(':abi'),
-            project(':crypto'),
-            project(':tuples'),
-            "com.github.jnr:jnr-unixsocket:$jnr_unixsocketVersion",
-            "com.squareup.okhttp3:okhttp:$okhttpVersion",
-            "com.squareup.okhttp3:logging-interceptor:$okhttpVersion",
-            "io.reactivex.rxjava2:rxjava:$rxjavaVersion",
-            "org.java-websocket:Java-WebSocket:$javaWebSocketVersion",
-            "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion",
-            "org.slf4j:slf4j-api:$slf4jVersion",
-            "io.github.adraffy:ens-normalize:$ensAdraffyVersion",
-            "io.tmio:tuweni-bytes:$tuweniVersion",
-            "io.tmio:tuweni-units:$tuweniVersion"
-    testImplementation 'junit:junit:4.13.2'
-    testImplementation project(path: ':crypto', configuration: 'testArtifacts'),
-            "nl.jqno.equalsverifier:equalsverifier:$equalsverifierVersion",
-            "ch.qos.logback:logback-classic:$logbackVersion"
+    api project(':abi')
+    api project(':crypto')
+    api project(':tuples')
+
+    api "com.github.jnr:jnr-unixsocket:$jnr_unixsocketVersion"
+    api "com.squareup.okhttp3:okhttp:$okhttpVersion"
+    api "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
+
+    api "io.reactivex.rxjava2:rxjava:$rxjavaVersion"
+    api "org.java-websocket:Java-WebSocket:$javaWebSocketVersion"
+    api "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
+
+    api "org.slf4j:slf4j-api:$slf4jVersion"
+    api "io.github.adraffy:ens-normalize:$ensAdraffyVersion"
+    api "io.tmio:tuweni-bytes:$tuweniVersion"
+    api "io.tmio:tuweni-units:$tuweniVersion"
+    api 'software.amazon.awssdk:kms:2.20.50'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+    testImplementation 'org.mockito:mockito-core:5.5.0'
+    testImplementation project(path: ':crypto', configuration: 'testArtifacts')
+    testImplementation "nl.jqno.equalsverifier:equalsverifier:$equalsverifierVersion"
+    testImplementation "ch.qos.logback:logback-classic:$logbackVersion"
+
+
 }
 
 def getTimestamp() {
@@ -88,7 +97,28 @@ gitPublish {
     commitMessage = 'Publishing a new page'
 }
 
+// Define the testArtifacts configuration
+configurations {
+    testArtifacts.extendsFrom testImplementation // or testRuntime
+}
 
-configurations { testArtifacts.extendsFrom testRuntime }
+// Create the testsJar task
+task testsJar(type: Jar) {
+    archiveClassifier.set('tests')
 
+    // Include the compiled test classes
+    from("$buildDir/intermediates/classes/test") {
+        include '**/*.class' // Include all class files
+    }
+}
+
+artifacts {
+    testArtifacts testsJar // Associate the testsJar with the configuration
+}
+
+tasks.whenTaskAdded { task ->
+    if (task.name == "compileTestJavaWithJavac") {
+        task.finalizedBy(testsJar) // Ensure testsJar is generated after test compilation
+    }
+}
 

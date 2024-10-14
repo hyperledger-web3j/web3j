@@ -3,17 +3,17 @@ plugins {
 }
 
 android {
-    namespace 'com.org.web3j'
-    compileSdkVersion 33
+    namespace 'org.web3j'
+    compileSdkVersion 34
 
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 33
+        minSdkVersion 24
+        targetSdkVersion 34
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     sourceSets {
@@ -29,9 +29,10 @@ android {
 description 'EEA JSON-RPC API'
 
 dependencies {
-    implementation project(':core') // Changed api to implementation for Android compatibility
+    api project(':core')
     testImplementation project(path: ':core', configuration: 'testArtifacts')
-    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
 }
 
 //tasks.named("spotlessJava").configure {

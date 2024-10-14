@@ -7,13 +7,17 @@ android {
     compileSdkVersion 33
 
     defaultConfig {
-        minSdkVersion 21
+        minSdkVersion 24
         targetSdkVersion 33
     }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    lint {
+        baseline = file("lint-baseline.xml")
     }
 
     sourceSets {
@@ -30,7 +34,8 @@ description 'web3j customisations for working with hosted web3 providers (Infura
 
 dependencies {
     implementation project(':core') // Changed api to implementation for Android compatibility
-    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
 }
 
 //tasks.named("spotlessJava").configure {
