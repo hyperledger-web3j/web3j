@@ -22,8 +22,8 @@ import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
+import org.web3j.android_test_utils.RequestTester;
 import org.web3j.crypto.WalletFile;
-import org.web3j.protocol.RequestTester;
 import org.web3j.protocol.core.DefaultBlockParameter;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.DefaultBlockParameterNumber;

@@ -20,16 +20,17 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import org.web3j.android_test_utils.SampleKeys;
 import org.web3j.utils.Numeric;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.web3j.android_test_utils.SampleKeys.CREDENTIALS;
+import static org.web3j.android_test_utils.SampleKeys.KEY_PAIR;
+import static org.web3j.android_test_utils.SampleKeys.MNEMONIC;
+import static org.web3j.android_test_utils.SampleKeys.PASSWORD;
 import static org.web3j.crypto.Hash.sha256;
-import static org.web3j.crypto.SampleKeys.CREDENTIALS;
-import static org.web3j.crypto.SampleKeys.KEY_PAIR;
-import static org.web3j.crypto.SampleKeys.MNEMONIC;
-import static org.web3j.crypto.SampleKeys.PASSWORD;
 import static org.web3j.crypto.WalletUtils.isValidAddress;
 import static org.web3j.crypto.WalletUtils.isValidPrivateKey;
 

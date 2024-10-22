@@ -16,6 +16,10 @@ android {
         targetCompatibility JavaVersion.VERSION_17
     }
 
+    lint {
+        baseline = file("lint-baseline.xml")
+    }
+
     sourceSets {
         main {
             java.srcDirs = ['src/main/java']
@@ -32,7 +36,9 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
     testImplementation 'org.junit.jupiter:junit-jupiter-params:5.9.3'
     testImplementation 'org.mockito:mockito-core:5.5.0'
+    //testImplementation(project(path: ':core', configuration: 'testArtifacts'))
     testImplementation project(':core')
+    testImplementation project(':android-test-utils')
 
 
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'

@@ -19,10 +19,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import javax.lang.model.element.Modifier;
 
-import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.ParameterSpec;
+import com.squareup.kotlinpoet.FunSpec;
+import com.squareup.kotlinpoet.KModifier;
+import com.squareup.kotlinpoet.ParameterSpec;
 import org.junit.jupiter.api.BeforeAll;
 
 import org.web3j.codegen.unit.gen.utils.JavaMappingHelper;
@@ -44,12 +44,12 @@ public class MethodParser {
         this.uniqueMethodName = uniqueMethodName;
     }
 
-    public MethodSpec getMethodSpec() {
+    public FunSpec getMethodSpec() {
         return methodNeedsInjection()
                 ? new MethodSpecGenerator(
                                 uniqueMethodName,
                                 BeforeAll.class,
-                                Modifier.STATIC,
+                                KModifier.FINAL,
                                 defaultParameterSpecsForEachUnitTest(),
                                 generateStatementBody())
                         .generate()
@@ -65,14 +65,14 @@ public class MethodParser {
 
     private List<ParameterSpec> defaultParameterSpecsForEachUnitTest() {
         return Stream.of(
-                        ParameterSpec.builder(Web3j.class, toCamelCase(Web3j.class)).build(),
-                        ParameterSpec.builder(
-                                        TransactionManager.class,
-                                        toCamelCase(TransactionManager.class))
+                        ParameterSpec.builder(toCamelCase(Web3j.class), Web3j.class).build(),
+                        ParameterSpec.builder(toCamelCase(TransactionManager.class),
+                                        TransactionManager.class
+                                        )
                                 .build(),
-                        ParameterSpec.builder(
-                                        ContractGasProvider.class,
-                                        toCamelCase(ContractGasProvider.class))
+                        ParameterSpec.builder(toCamelCase(ContractGasProvider.class),
+                                        ContractGasProvider.class
+                                        )
                                 .build())
                 .collect(Collectors.toList());
     }

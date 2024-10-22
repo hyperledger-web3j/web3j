@@ -15,12 +15,15 @@ package org.web3j.codegen;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.lang.model.element.Modifier;
 
-import com.squareup.javapoet.FieldSpec;
-import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.TypeSpec;
-import com.squareup.javapoet.TypeVariableName;
+
+import com.squareup.kotlinpoet.ClassName;
+import com.squareup.kotlinpoet.KModifier;
+import com.squareup.kotlinpoet.PropertySpec;
+import com.squareup.kotlinpoet.FunSpec;
+import com.squareup.kotlinpoet.TypeName;
+import com.squareup.kotlinpoet.TypeSpec;
+import com.squareup.kotlinpoet.TypeVariableName;
 
 import org.web3j.tuples.Tuple;
 import org.web3j.utils.Strings;
@@ -56,20 +59,21 @@ public class TupleGenerator extends Generator {
     private TypeSpec createTuple(int size) {
         String javadoc = "@deprecated use 'component$L' method instead \n @return returns a value";
         String className = CLASS_NAME + size;
+        TypeName tupleTypeName = new ClassName(String.valueOf(Tuple.class));
         TypeSpec.Builder typeSpecBuilder =
                 TypeSpec.classBuilder(className)
-                        .addSuperinterface(Tuple.class)
-                        .addField(
-                                FieldSpec.builder(int.class, SIZE)
+                        .addSuperinterface(tupleTypeName, String.valueOf(TypeVariableName.get("T")))
+                        .addProperty(
+                                PropertySpec.builder( SIZE, int.class)
                                         .addModifiers(
-                                                Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL)
+                                                KModifier.PRIVATE, KModifier.FINAL, KModifier.FINAL)
                                         .initializer("$L", size)
                                         .build());
 
-        MethodSpec.Builder constructorBuilder =
-                MethodSpec.constructorBuilder().addModifiers(Modifier.PUBLIC);
+        FunSpec.Builder constructorBuilder =
+                FunSpec.constructorBuilder().addModifiers(KModifier.PUBLIC);
 
-        List<MethodSpec> methodSpecs = new ArrayList<>(size);
+        List<FunSpec> methodSpecs = new ArrayList<>(size);
 
         for (int i = 1; i <= size; i++) {
             String value = VALUE + i;
@@ -77,64 +81,62 @@ public class TupleGenerator extends Generator {
 
             typeSpecBuilder
                     .addTypeVariable(typeVariableName)
-                    .addField(typeVariableName, value, Modifier.PRIVATE, Modifier.FINAL);
+                    .addProperty( value, typeVariableName, KModifier.PRIVATE, KModifier.FINAL);
 
             constructorBuilder
-                    .addParameter(typeVariableName, value)
+                    .addParameter(value,typeVariableName)
                     .addStatement("this.$N = $N", value, value);
 
-            MethodSpec getterSpec =
-                    MethodSpec.methodBuilder("get" + Strings.capitaliseFirstLetter(value))
+            FunSpec getterSpec =
+                    FunSpec.builder("get" + Strings.capitaliseFirstLetter(value))
                             .addAnnotation(Deprecated.class)
-                            .addJavadoc(javadoc, i)
-                            .addModifiers(Modifier.PUBLIC)
+                            .addModifiers(KModifier.PUBLIC)
                             .returns(typeVariableName)
                             .addStatement("return $N", value)
                             .build();
             methodSpecs.add(getterSpec);
 
-            MethodSpec getterSpec2 =
-                    MethodSpec.methodBuilder("component" + i)
-                            .addModifiers(Modifier.PUBLIC)
+            FunSpec getterSpec2 =
+                    FunSpec.builder("component" + i)
+                            .addModifiers(KModifier.PUBLIC)
                             .returns(typeVariableName)
                             .addStatement("return $N", value)
                             .build();
             methodSpecs.add(getterSpec2);
         }
 
-        MethodSpec constructorSpec = constructorBuilder.build();
-        MethodSpec sizeSpec = generateSizeSpec();
-        MethodSpec equalsSpec = generateEqualsSpec(className, size);
-        MethodSpec hashCodeSpec = generateHashCodeSpec(size);
-        MethodSpec toStringSpec = generateToStringSpec(size);
+        FunSpec constructorSpec = constructorBuilder.build();
+        FunSpec sizeSpec = generateSizeSpec();
+        FunSpec equalsSpec = generateEqualsSpec(className, size);
+        FunSpec hashCodeSpec = generateHashCodeSpec(size);
+        FunSpec toStringSpec = generateToStringSpec(size);
 
         return typeSpecBuilder
-                .addJavadoc(buildWarning(TupleGenerator.class))
-                .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
-                .addMethod(constructorSpec)
-                .addMethods(methodSpecs)
-                .addMethod(sizeSpec)
-                .addMethod(equalsSpec)
-                .addMethod(hashCodeSpec)
-                .addMethod(toStringSpec)
+                .addModifiers(KModifier.PUBLIC, KModifier.FINAL)
+                .addFunction(constructorSpec)
+                .addFunctions(methodSpecs)
+                .addFunction(sizeSpec)
+                .addFunction(equalsSpec)
+                .addFunction(hashCodeSpec)
+                .addFunction(toStringSpec)
                 .build();
     }
 
-    private MethodSpec generateSizeSpec() {
-        return MethodSpec.methodBuilder("getSize")
+    private FunSpec generateSizeSpec() {
+        return FunSpec.builder("getSize")
                 .addAnnotation(Override.class)
-                .addModifiers(Modifier.PUBLIC)
+                .addModifiers(KModifier.PUBLIC)
                 .returns(int.class)
                 .addStatement("return $L", SIZE)
                 .build();
     }
 
-    private MethodSpec generateEqualsSpec(String className, int size) {
-        MethodSpec.Builder equalsSpecBuilder =
-                MethodSpec.methodBuilder("equals")
+    private FunSpec generateEqualsSpec(String className, int size) {
+        FunSpec.Builder equalsSpecBuilder =
+                FunSpec.builder("equals")
                         .addAnnotation(Override.class)
-                        .addModifiers(Modifier.PUBLIC)
-                        .addParameter(Object.class, "o")
+                        .addModifiers(KModifier.PUBLIC)
+                        .addParameter( "o", Object.class)
                         .returns(boolean.class)
                         .beginControlFlow("if (this == o)")
                         .addStatement("return true")
@@ -180,11 +182,11 @@ public class TupleGenerator extends Generator {
         return equalsSpecBuilder.build();
     }
 
-    private MethodSpec generateHashCodeSpec(int size) {
-        MethodSpec.Builder hashCodeSpec =
-                MethodSpec.methodBuilder("hashCode")
+    private FunSpec generateHashCodeSpec(int size) {
+        FunSpec.Builder hashCodeSpec =
+                FunSpec.builder("hashCode")
                         .addAnnotation(Override.class)
-                        .addModifiers(Modifier.PUBLIC)
+                        .addModifiers(KModifier.PUBLIC)
                         .returns(int.class)
                         .addStatement("int $L = $L.hashCode()", RESULT, VALUE + 1);
 
@@ -203,7 +205,7 @@ public class TupleGenerator extends Generator {
         return hashCodeSpec.build();
     }
 
-    private MethodSpec generateToStringSpec(int size) {
+    private FunSpec generateToStringSpec(int size) {
         String toString = "return \"" + CLASS_NAME + size + "{\" +\n";
         String firstValue = VALUE + 1;
         toString += "\"" + firstValue + "=\"" + " + " + firstValue + " +\n";
@@ -215,9 +217,9 @@ public class TupleGenerator extends Generator {
 
         toString += "\"}\"";
 
-        return MethodSpec.methodBuilder("toString")
+        return FunSpec.builder("toString")
                 .addAnnotation(Override.class)
-                .addModifiers(Modifier.PUBLIC)
+                .addModifiers(KModifier.PUBLIC)
                 .returns(String.class)
                 .addStatement(toString)
                 .build();

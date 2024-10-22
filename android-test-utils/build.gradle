@@ -1,0 +1,61 @@
+plugins {
+    id 'com.android.library'
+}
+
+android {
+    namespace 'org.web3j.android_test_utils'
+    compileSdk 34
+
+    defaultConfig {
+        minSdk 24
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'com.google.android.material:material:1.12.0'
+    api project(':abi')
+    api project(':crypto')
+    api project(':tuples')
+
+    api "com.github.jnr:jnr-unixsocket:$jnr_unixsocketVersion"
+    api "com.squareup.okhttp3:okhttp:$okhttpVersion"
+    api "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
+
+    api "io.reactivex.rxjava2:rxjava:$rxjavaVersion"
+    api "org.java-websocket:Java-WebSocket:$javaWebSocketVersion"
+    api "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
+
+    api "org.slf4j:slf4j-api:$slf4jVersion"
+    api "io.github.adraffy:ens-normalize:$ensAdraffyVersion"
+    api "io.tmio:tuweni-bytes:$tuweniVersion"
+    api "io.tmio:tuweni-units:$tuweniVersion"
+    api 'software.amazon.awssdk:kms:2.20.50'
+    implementation project(':core')
+    implementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+    testImplementation 'org.mockito:mockito-core:5.5.0'
+    testImplementation 'org.mockito:mockito-junit-jupiter:5.5.0'
+    testImplementation project(path: ':crypto', configuration: 'testArtifacts')
+    testImplementation "nl.jqno.equalsverifier:equalsverifier:$equalsverifierVersion"
+    testImplementation "ch.qos.logback:logback-classic:$logbackVersion"
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
+}

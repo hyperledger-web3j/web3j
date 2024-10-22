@@ -15,12 +15,14 @@ package org.web3j.codegen.unit.gen.java;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import javax.lang.model.element.Modifier;
 
-import com.squareup.javapoet.CodeBlock;
-import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.ParameterSpec;
-import com.squareup.javapoet.TypeName;
+
+import com.squareup.kotlinpoet.CodeBlock;
+import com.squareup.kotlinpoet.FunSpec;
+import com.squareup.kotlinpoet.ParameterSpec;
+import com.squareup.kotlinpoet.TypeName;
+import com.squareup.kotlinpoet.KModifier;
+
 import org.junit.jupiter.api.Test;
 
 public class MethodSpecGenerator {
@@ -28,12 +30,12 @@ public class MethodSpecGenerator {
     private final Map<String, Object[]> statementBody;
     private final List<ParameterSpec> testMethodParameters;
     private final Class testMethodAnnotation;
-    private final Modifier testMethodModifier;
+    private final KModifier testMethodModifier;
 
     public MethodSpecGenerator(
             String testMethodName,
             Class testMethodAnnotation,
-            Modifier testMethodModifier,
+            KModifier testMethodModifier,
             List<ParameterSpec> testMethodParameters,
             Map<String, Object[]> statementBody) {
         this.statementBody = statementBody;
@@ -47,7 +49,7 @@ public class MethodSpecGenerator {
         this.statementBody = statementBody;
         this.testMethodName = testMethodName;
         this.testMethodAnnotation = Test.class;
-        this.testMethodModifier = Modifier.PUBLIC;
+        this.testMethodModifier = KModifier.PUBLIC;
         this.testMethodParameters = Collections.emptyList();
     }
 
@@ -58,17 +60,16 @@ public class MethodSpecGenerator {
         this.statementBody = statementBody;
         this.testMethodName = testMethodName;
         this.testMethodAnnotation = Test.class;
-        this.testMethodModifier = Modifier.PUBLIC;
+        this.testMethodModifier = KModifier.PUBLIC;
         this.testMethodParameters = testMethodParameters;
     }
 
-    public MethodSpec generate() {
-        return MethodSpec.methodBuilder(testMethodName)
+    public FunSpec generate() {
+        return FunSpec.builder(testMethodName)
                 .addAnnotation(testMethodAnnotation)
                 .addModifiers(testMethodModifier)
                 .addParameters(testMethodParameters)
-                .addException(Exception.class)
-                .returns(TypeName.VOID)
+//                .returns(TypeName.VOID)
                 .addCode(setMethodBody())
                 .build();
     }
