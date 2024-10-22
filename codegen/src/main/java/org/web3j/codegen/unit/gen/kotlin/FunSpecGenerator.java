@@ -15,10 +15,11 @@ package org.web3j.codegen.unit.gen.kotlin;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import javax.lang.model.element.Modifier;
+
 
 import com.squareup.kotlinpoet.CodeBlock;
 import com.squareup.kotlinpoet.FunSpec;
+import com.squareup.kotlinpoet.KModifier;
 import com.squareup.kotlinpoet.ParameterSpec;
 import org.junit.jupiter.api.Test;
 
@@ -27,7 +28,7 @@ public class FunSpecGenerator {
     private final Map<String, Object[]> statementBody;
     private final List<ParameterSpec> testMethodParameters;
     private final Class testMethodAnnotation;
-    private final Modifier testMethodModifier;
+    private final KModifier testMethodModifier;
 
     public FunSpecGenerator(
             String testMethodName,
@@ -37,7 +38,7 @@ public class FunSpecGenerator {
         this.statementBody = statementBody;
         this.testMethodName = testMethodName;
         this.testMethodAnnotation = testMethodAnnotation;
-        this.testMethodModifier = Modifier.PUBLIC;
+        this.testMethodModifier = KModifier.PUBLIC;
         this.testMethodParameters = testMethodParameters;
     }
 
@@ -45,7 +46,7 @@ public class FunSpecGenerator {
         this.statementBody = statementBody;
         this.testMethodName = testMethodName;
         this.testMethodAnnotation = Test.class;
-        this.testMethodModifier = Modifier.PUBLIC;
+        this.testMethodModifier = KModifier.PUBLIC;
         this.testMethodParameters = Collections.emptyList();
     }
 
@@ -56,7 +57,7 @@ public class FunSpecGenerator {
         this.statementBody = statementBody;
         this.testMethodName = testMethodName;
         this.testMethodAnnotation = Test.class;
-        this.testMethodModifier = Modifier.PUBLIC;
+        this.testMethodModifier = KModifier.PUBLIC;
         this.testMethodParameters = testMethodParameters;
     }
 

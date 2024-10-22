@@ -17,6 +17,7 @@ import java.io.IOException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 
+import org.web3j.android_test_utils.SampleKeys;
 import org.web3j.utils.Numeric;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;

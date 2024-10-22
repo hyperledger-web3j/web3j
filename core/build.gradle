@@ -7,11 +7,15 @@ plugins {
 
 android {
     namespace 'org.web3j'
-    compileSdkVersion 34
 
     defaultConfig {
+        compileSdk 34
         minSdkVersion 24
         targetSdkVersion 34
+    }
+
+    lint {
+        baseline = file("lint-baseline.xml")
     }
 
     compileOptions {
@@ -53,10 +57,11 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
     testImplementation 'org.mockito:mockito-core:5.5.0'
+    testImplementation 'org.mockito:mockito-junit-jupiter:5.5.0'
     testImplementation project(path: ':crypto', configuration: 'testArtifacts')
     testImplementation "nl.jqno.equalsverifier:equalsverifier:$equalsverifierVersion"
     testImplementation "ch.qos.logback:logback-classic:$logbackVersion"
-
+    testImplementation project(':android-test-utils')
 
 }
 

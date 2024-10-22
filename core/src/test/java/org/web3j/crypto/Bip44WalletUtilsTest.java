@@ -17,12 +17,13 @@ import java.io.File;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.web3j.android_test_utils.Base58;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.web3j.crypto.Bip32Test.addChecksum;
-import static org.web3j.crypto.Bip32Test.serializePrivate;
-import static org.web3j.crypto.Bip32Test.serializePublic;
-import static org.web3j.crypto.SampleKeys.PASSWORD;
+import static org.web3j.android_test_utils.Bip32Test.addChecksum;
+import static org.web3j.android_test_utils.Bip32Test.serializePrivate;
+import static org.web3j.android_test_utils.Bip32Test.serializePublic;
+import static org.web3j.android_test_utils.SampleKeys.PASSWORD;
 import static org.web3j.crypto.WalletUtilsTest.createTempDir;
 
 public class Bip44WalletUtilsTest {

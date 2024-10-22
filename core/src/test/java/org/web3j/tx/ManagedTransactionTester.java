@@ -17,9 +17,9 @@ import java.math.BigInteger;
 
 import org.junit.jupiter.api.BeforeEach;
 
+import org.web3j.android_test_utils.SampleKeys;
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.RawTransaction;
-import org.web3j.crypto.SampleKeys;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.Request;

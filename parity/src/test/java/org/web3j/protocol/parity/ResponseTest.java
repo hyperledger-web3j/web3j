@@ -23,8 +23,8 @@ import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
+import org.web3j.android_test_utils.ResponseTester;
 import org.web3j.crypto.WalletFile;
-import org.web3j.protocol.ResponseTester;
 import org.web3j.protocol.core.methods.response.VoidResponse;
 import org.web3j.protocol.parity.methods.response.FullTraceInfo;
 import org.web3j.protocol.parity.methods.response.ParityAddressesResponse;

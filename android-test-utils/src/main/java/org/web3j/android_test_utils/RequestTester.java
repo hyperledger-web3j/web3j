@@ -10,7 +10,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package org.web3j.protocol;
+package org.web3j.android_test_utils;
 
 import java.io.IOException;
 
@@ -22,12 +22,13 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import okio.Buffer;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 
 import org.web3j.protocol.http.HttpService;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 
 public abstract class RequestTester {
 
@@ -49,12 +50,12 @@ public abstract class RequestTester {
 
     protected void verifyResult(String expected) throws Exception {
         RequestBody requestBody = requestInterceptor.getRequestBody();
-        assertNotNull(requestBody);
-        assertEquals(requestBody.contentType(), (HttpService.JSON_MEDIA_TYPE));
+        Assertions.assertNotNull(requestBody);
+        Assertions.assertEquals(requestBody.contentType(), (HttpService.JSON_MEDIA_TYPE));
 
         Buffer buffer = new Buffer();
         requestBody.writeTo(buffer);
-        assertEquals((replaceRequestId(expected)), replaceRequestId(buffer.readUtf8()));
+        Assertions.assertEquals((replaceRequestId(expected)), replaceRequestId(buffer.readUtf8()));
     }
 
     private String replaceRequestId(String json) {

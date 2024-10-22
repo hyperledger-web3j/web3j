@@ -21,7 +21,8 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import org.web3j.TempFileProvider;
+
+import org.web3j.android_test_utils.TempFileProvider;
 import org.web3j.utils.Strings;
 
 import static org.web3j.codegen.FunctionWrapperGenerator.JAVA_TYPES_ARG;

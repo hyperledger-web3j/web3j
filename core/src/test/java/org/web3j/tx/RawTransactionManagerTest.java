@@ -24,8 +24,8 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 import org.junit.jupiter.api.Test;
 
+import org.web3j.android_test_utils.SampleKeys;
 import org.web3j.crypto.HSMHTTPPass;
-import org.web3j.crypto.SampleKeys;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.service.HSMHTTPRequestProcessor;
 import org.web3j.service.TxHSMSignService;

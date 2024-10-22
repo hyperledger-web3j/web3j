@@ -30,6 +30,8 @@ android {
 dependencies {
     implementation project(':core')
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testImplementation project(':android-test-utils')
+    testImplementation project(':android-test-utils')
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
     testImplementation project(path: ':core', configuration: 'testArtifacts'),
             "nl.jqno.equalsverifier:equalsverifier:$equalsverifierVersion"

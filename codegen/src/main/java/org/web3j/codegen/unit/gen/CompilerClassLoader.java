@@ -1,16 +1,6 @@
-/*
- * Copyright 2019 Web3 Labs Ltd.
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
- * the License. You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
- * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- */
 package org.web3j.codegen.unit.gen;
+
+import android.os.Build;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,10 +13,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import javax.tools.JavaCompiler;
-import javax.tools.JavaCompiler.CompilationTask;
-import javax.tools.JavaFileObject;
-import javax.tools.ToolProvider;
 
 /** Class loader with compilation capabilities. */
 public class CompilerClassLoader extends ClassLoader {
@@ -69,8 +55,6 @@ public class CompilerClassLoader extends ClassLoader {
     private List<File> compileClass(final String name) {
 
         final String path = name.replace(".", File.separator);
-        final JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
-
         File sourceFile = null;
         for (final URL url : urls) {
             File file;
@@ -95,33 +79,38 @@ public class CompilerClassLoader extends ClassLoader {
             return List.of();
         }
 
-        final Iterable<? extends JavaFileObject> javaFileObjects =
-                compiler.getStandardFileManager(null, null, null).getJavaFileObjects(sourceFile);
+        try {
+            // Compile the source file using an external process
+            Process process = new ProcessBuilder("javac",
+                    "-d", outputDir.getAbsolutePath(),
+                    "-cp", buildClassPath(),
+                    sourceFile.getAbsolutePath())
+                    .redirectErrorStream(true)
+                    .start();
 
-        final List<String> options =
-                Arrays.asList(
-                        "-d", outputDir.getAbsolutePath(),
-                        "-cp", buildClassPath());
+            process.waitFor();
 
-        final CompilationTask task =
-                compiler.getTask(null, null, System.err::println, options, null, javaFileObjects);
-
-        if (task.call()) {
-            try {
-                return Files.walk(Paths.get(outputDir.getAbsoluteFile().toURI()))
-                        .filter(Files::isRegularFile)
-                        .filter(
-                                filePath -> {
-                                    String fileName = extractClassName(filePath.toString());
-                                    return fileName.startsWith(name);
-                                })
-                        .map(Path::toFile)
-                        .toList();
-            } catch (IOException e) {
-                throw new IllegalStateException("Unable to process compiled classes: ", e);
+            if (process.exitValue() == 0) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                        return Files.walk(Paths.get(outputDir.getAbsoluteFile().toURI()))
+                                .filter(Files::isRegularFile)
+                                .filter(
+                                        filePath -> {
+                                            String fileName = extractClassName(filePath.toString());
+                                            return fileName.startsWith(name);
+                                        })
+                                .map(Path::toFile)
+                                .toList();
+                    }
+                }
+            } else {
+                throw new IllegalStateException("Compilation failed.");
             }
+        } catch (IOException | InterruptedException e) {
+            throw new IllegalStateException("Unable to compile classes: ", e);
         }
-        return List.of();
+        return java.util.Collections.emptyList();
     }
 
     private String extractClassName(final String pathName) {
@@ -156,9 +145,12 @@ public class CompilerClassLoader extends ClassLoader {
 
     private Optional<byte[]> readBytes(final File file) {
         try {
-            return Optional.of(Files.readAllBytes(Paths.get(file.toURI())));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                return Optional.of(Files.readAllBytes(Paths.get(file.toURI())));
+            }
         } catch (IOException e) {
             return Optional.empty();
         }
+        return Optional.empty();
     }
 }

@@ -23,8 +23,8 @@ import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
 
 import org.junit.jupiter.api.Test;
+import org.web3j.android_test_utils.TempFileProvider;
 
-import org.web3j.TempFileProvider;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.web3j.codegen.TupleGenerator.CLASS_NAME;
