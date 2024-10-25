@@ -13,6 +13,8 @@
 package org.web3j.codegen.unit.gen.kotlin;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import com.squareup.kotlinpoet.FileSpec;
 import com.squareup.kotlinpoet.KModifier;
@@ -73,10 +75,26 @@ public class KotlinClassGenerator implements UnitClassGenerator {
                         .addAnnotation(testAnnotationSpec.build())
                         .addProperty(contractInit)
                         .build();
+
+
         FileSpec kotlinFile =
                 FileSpec.builder(packageName, theContract.getSimpleName() + "Test")
                         .addType(testClass)
                         .build();
-        kotlinFile.writeTo(new File(writePath));
+
+        File file = new File(writePath);
+        String kotlinCode = kotlinFile.toString();
+
+        try {
+            FileWriter myWriter = new FileWriter(file);
+            myWriter.write(kotlinCode);
+            myWriter.close();
+            System.out.println("Successfully wrote to the file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+//        kotlinFile.writeTo(new File(writePath));
+
     }
 }
