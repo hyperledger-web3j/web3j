@@ -46,6 +46,61 @@
     </issue>
 
     <issue
+        id="NewApi"
+        message="Call requires API level 28 (current min is 26): `java.lang.reflect.Type#getTypeName`"
+        errorLine1="            if (returnType.getTypeName().contains(&quot;Tuple&quot;)) {"
+        errorLine2="                           ~~~~~~~~~~~">
+        <location
+            file="src/main/java/org/web3j/codegen/unit/gen/java/JavaParser.java"
+            line="45"
+            column="28"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 28 (current min is 26): `java.lang.reflect.Type#getTypeName`"
+        errorLine1="            if (returnType.getTypeName().contains(&quot;Tuple&quot;)) {"
+        errorLine2="                           ~~~~~~~~~~~">
+        <location
+            file="src/main/java/org/web3j/codegen/unit/gen/kotlin/KotlinParser.java"
+            line="42"
+            column="28"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 28 (current min is 26): `java.lang.reflect.Type#getTypeName`"
+        errorLine1="                type.getTypeName().substring(type.getTypeName().lastIndexOf(&quot;.&quot;) + 1);"
+        errorLine2="                     ~~~~~~~~~~~">
+        <location
+            file="src/main/java/org/web3j/codegen/unit/gen/utils/NameUtils.java"
+            line="25"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 28 (current min is 26): `java.lang.reflect.Type#getTypeName`"
+        errorLine1="                type.getTypeName().substring(type.getTypeName().lastIndexOf(&quot;.&quot;) + 1);"
+        errorLine2="                                                  ~~~~~~~~~~~">
+        <location
+            file="src/main/java/org/web3j/codegen/unit/gen/utils/NameUtils.java"
+            line="25"
+            column="51"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 28 (current min is 26): `java.lang.reflect.Type#getTypeName`"
+        errorLine1="            if (returnType.getTypeName().contains(&quot;Tuple&quot;)) {"
+        errorLine2="                           ~~~~~~~~~~~">
+        <location
+            file="src/main/java/org/web3j/codegen/unit/gen/Parser.java"
+            line="75"
+            column="28"/>
+    </issue>
+
+    <issue
         id="GradleDependency"
         message="A newer version of org.junit.platform:junit-platform-launcher than 1.5.2 is available: 1.11.0"
         errorLine1="    implementation &quot;org.junit.platform:junit-platform-launcher:$junitPlatformLauncherVersion&quot;"
@@ -395,6 +450,28 @@
             file="src/main/java/org/web3j/codegen/TupleGenerator.java"
             line="221"
             column="18"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        message="Unnecessary; SDK_INT is always >= 26"
+        errorLine1="                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/org/web3j/codegen/unit/gen/CompilerClassLoader.java"
+            line="94"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        message="Unnecessary; SDK_INT is always >= 26"
+        errorLine1="            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/org/web3j/codegen/unit/gen/CompilerClassLoader.java"
+            line="148"
+            column="17"/>
     </issue>
 
 </issues>

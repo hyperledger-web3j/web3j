@@ -32,6 +32,7 @@ dependencies {
     api project(':core')
     testImplementation project(path: ':core', configuration: 'testArtifacts')
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testImplementation project(':android-test-utils')
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
 }
 
