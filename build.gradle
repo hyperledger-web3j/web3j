@@ -10,6 +10,7 @@ plugins {
     id 'org.ajoberstar.git-publish' version '3.0.1'
     id 'com.android.application' version '8.5.1' apply false
     id 'org.jetbrains.kotlin.android' version '2.0.21' apply false
+    id 'maven-publish'
 }
 
 ext {

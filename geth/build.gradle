@@ -33,6 +33,8 @@ dependencies {
     testImplementation project(path: ':core')
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
     testImplementation project(':core')
+    testImplementation project(':android-test-utils')
+    testImplementation project(':android-test-utils')
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
     testImplementation 'org.mockito:mockito-core:5.5.0'
 }
