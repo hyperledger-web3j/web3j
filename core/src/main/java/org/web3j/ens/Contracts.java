@@ -22,6 +22,7 @@ public class Contracts {
     public static final String RINKEBY = "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e";
     public static final String GOERLI = "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e";
     public static final String SEPOLIA = "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e";
+    public static final String HOLESKY = "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e";
     public static final String LINEA = "0x50130b669B28C339991d8676FA73CF122a121267";
     public static final String LINEA_SEPOLIA = "0x5B2636F0f2137B4aE722C01dd5122D7d3e9541f7";
 
@@ -37,6 +38,8 @@ public class Contracts {
             return GOERLI;
         } else if (chainIdLong.equals(ChainIdLong.SEPOLIA)) {
             return SEPOLIA;
+        } else if (chainIdLong.equals(ChainIdLong.HOLESKY)) {
+            return HOLESKY;
         } else if (chainIdLong.equals(ChainIdLong.LINEA)) {
             return LINEA;
         } else if (chainIdLong.equals(ChainIdLong.LINEA_SEPOLIA)) {

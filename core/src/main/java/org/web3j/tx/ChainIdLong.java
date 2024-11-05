@@ -20,6 +20,7 @@ public class ChainIdLong {
     public static final long RINKEBY = 4;
     public static final long GOERLI = 5;
     public static final long SEPOLIA = 11155111;
+    public static final long HOLESKY = 17000;
     public static final long ROOTSTOCK_MAINNET = 30;
     public static final long ROOTSTOCK_TESTNET = 31;
     public static final long KOVAN = 42;
