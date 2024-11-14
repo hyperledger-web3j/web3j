@@ -36,8 +36,6 @@ import static org.web3j.crypto.Keys.PRIVATE_KEY_LENGTH_IN_HEX;
 /** Utility functions for working with Wallet files. */
 public class WalletUtils {
 
-    private WalletUtils() {}
-
     private static final ObjectMapper objectMapper = new ObjectMapper();
     private static final SecureRandom secureRandom = SecureRandomUtils.secureRandom();
 
