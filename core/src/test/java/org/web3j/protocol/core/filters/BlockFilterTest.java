@@ -19,10 +19,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.web3j.protocol.core.methods.response.EthLog;
 
 @ExtendWith(MockitoExtension.class)
-public class BlockFilterTest extends FilterTester {
+class BlockFilterTest extends FilterTester {
 
     @Test
-    public void testBlockFilter() throws Exception {
+    void testBlockFilter() throws Exception {
 
         EthLog ethLog =
                 objectMapper.readValue(

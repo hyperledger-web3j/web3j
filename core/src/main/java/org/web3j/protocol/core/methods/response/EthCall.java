@@ -27,7 +27,7 @@ import org.web3j.utils.EnsUtils;
 public class EthCall extends Response<String> {
 
     // Numeric.toHexString(Hash.sha3("Error(string)".getBytes())).substring(0, 10)
-    private static final String errorMethodId = "0x08c379a0";
+    private static final String ERROR_METHOD_ID = "0x08c379a0";
 
     @SuppressWarnings("unchecked")
     private static final List<TypeReference<Type>> revertReasonType =
@@ -52,12 +52,12 @@ public class EthCall extends Response<String> {
     }
 
     private boolean isErrorInResult() {
-        return getValue() != null && getValue().startsWith(errorMethodId);
+        return getValue() != null && getValue().startsWith(ERROR_METHOD_ID);
     }
 
     public String getRevertReason() {
         if (isErrorInResult()) {
-            String hexRevertReason = getValue().substring(errorMethodId.length());
+            String hexRevertReason = getValue().substring(ERROR_METHOD_ID.length());
             List<Type> decoded = FunctionReturnDecoder.decode(hexRevertReason, revertReasonType);
             Utf8String decodedRevertReason = (Utf8String) decoded.get(0);
             return decodedRevertReason.getValue();

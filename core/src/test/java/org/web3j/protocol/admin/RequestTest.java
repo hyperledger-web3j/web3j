@@ -20,7 +20,7 @@ import org.web3j.protocol.RequestTester;
 import org.web3j.protocol.core.methods.request.Transaction;
 import org.web3j.protocol.http.HttpService;
 
-public class RequestTest extends RequestTester {
+class RequestTest extends RequestTester {
 
     private Admin web3j;
 
@@ -30,7 +30,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testPersonalListAccounts() throws Exception {
+    void testPersonalListAccounts() throws Exception {
         web3j.personalListAccounts().send();
 
         verifyResult(
@@ -39,7 +39,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testPersonalNewAccount() throws Exception {
+    void testPersonalNewAccount() throws Exception {
         web3j.personalNewAccount("password").send();
 
         verifyResult(
@@ -48,7 +48,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testPersonalSendTransaction() throws Exception {
+    void testPersonalSendTransaction() throws Exception {
         web3j.personalSendTransaction(
                         new Transaction(
                                 "FROM",
@@ -68,7 +68,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testPersonalUnlockAccount() throws Exception {
+    void testPersonalUnlockAccount() throws Exception {
         web3j.personalUnlockAccount(
                         "0xfc390d8a8ddb591b010fda52f4db4945742c3809", "hunter2", BigInteger.ONE)
                 .send();
@@ -80,7 +80,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testPersonalUnlockAccountNoDuration() throws Exception {
+    void testPersonalUnlockAccountNoDuration() throws Exception {
         web3j.personalUnlockAccount("0xfc390d8a8ddb591b010fda52f4db4945742c3809", "hunter2").send();
 
         verifyResult(
@@ -90,7 +90,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testTxPoolContent() throws Exception {
+    void testTxPoolContent() throws Exception {
         web3j.txPoolContent().send();
 
         verifyResult(

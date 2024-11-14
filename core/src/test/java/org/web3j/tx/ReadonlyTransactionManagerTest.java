@@ -30,7 +30,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.web3j.tx.TransactionManager.REVERT_ERR_STR;
 
-public class ReadonlyTransactionManagerTest {
+class ReadonlyTransactionManagerTest {
 
     private static final String OWNER_REVERT_MSG_STR =
             "Only the contract owner can perform this action";
@@ -41,7 +41,7 @@ public class ReadonlyTransactionManagerTest {
     EthCall response = mock(EthCall.class);
 
     @Test
-    public void sendCallTest() throws IOException {
+    void sendCallTest() throws IOException {
         when(response.getValue()).thenReturn("test");
         when(service.send(any(), any())).thenReturn(response);
         ReadonlyTransactionManager readonlyTransactionManager =
@@ -51,7 +51,7 @@ public class ReadonlyTransactionManagerTest {
     }
 
     @Test
-    public void sendCallRevertedTest() throws IOException {
+    void sendCallRevertedTest() throws IOException {
         when(response.isReverted()).thenReturn(true);
         when(response.getRevertReason()).thenReturn(OWNER_REVERT_MSG_STR);
         when(service.send(any(), any())).thenReturn(response);
@@ -68,7 +68,7 @@ public class ReadonlyTransactionManagerTest {
     }
 
     @Test
-    public void testSendTransaction() {
+    void testSendTransaction() {
         ReadonlyTransactionManager readonlyTransactionManager =
                 new ReadonlyTransactionManager(web3j, "");
         assertThrows(

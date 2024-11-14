@@ -103,16 +103,13 @@ public abstract class BatchTester {
                 jsonResponse = responseBody.append(']').toString();
             }
 
-            okhttp3.Response response =
-                    new okhttp3.Response.Builder()
+            return new okhttp3.Response.Builder()
                             .request(chain.request())
                             .protocol(Protocol.HTTP_2)
                             .code(200)
                             .body(ResponseBody.create(jsonResponse, JSON_MEDIA_TYPE))
                             .message("")
                             .build();
-
-            return response;
         }
 
         public void setJsonResponse(String jsonResponse) {

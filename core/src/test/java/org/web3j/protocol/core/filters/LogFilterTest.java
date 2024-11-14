@@ -17,10 +17,10 @@ import org.junit.jupiter.api.Test;
 import org.web3j.protocol.core.methods.request.EthFilter;
 import org.web3j.protocol.core.methods.response.EthLog;
 
-public class LogFilterTest extends FilterTester {
+class LogFilterTest extends FilterTester {
 
     @Test
-    public void testLogFilter() throws Exception {
+    void testLogFilter() throws Exception {
 
         EthLog ethLog =
                 objectMapper.readValue(
