@@ -5,7 +5,7 @@ Web3j: Web3 Java Ethereum Ðapp API
 [![build status](https://github.com/web3j/web3j/actions/workflows/build.yml/badge.svg)](https://github.com/web3j/web3j/actions/workflows/build.yml)
 [![codecov](https://codecov.io/gh/web3j/web3j/branch/main/graph/badge.svg?token=a4G9ITI6CU)](https://codecov.io/gh/web3j/web3j)
 [![Discord](https://img.shields.io/discord/779382027614158919?label=discord)](https://discord.gg/A9UXfPF2tS)
-
+[![Gurubase](https://img.shields.io/badge/Gurubase-Ask%20Web3j%20Guru-006BFF)](https://gurubase.io/g/web3j)
 
 
 Web3j is a lightweight, highly modular, reactive, type safe Java and
