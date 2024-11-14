@@ -24,7 +24,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-public class IpcServiceTest {
+class IpcServiceTest {
 
     private IpcService ipcService;
     private IOFacade ioFacade;
@@ -42,7 +42,7 @@ public class IpcServiceTest {
     }
 
     @Test
-    public void testSend() throws IOException {
+    void testSend() throws IOException {
         when(ioFacade.read())
                 .thenReturn(
                         "{\"jsonrpc\":\"2.0\",\"id\":1,"

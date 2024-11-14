@@ -74,10 +74,7 @@ public abstract class ManagedTransactionTester {
         BigInteger gasLimit = BigInteger.TEN;
         String to = "0x0add5355";
         BigInteger value = BigInteger.valueOf(Long.MAX_VALUE);
-        RawTransaction rawTransaction =
-                RawTransaction.createEtherTransaction(nonce, gasPrice, gasLimit, to, value);
-
-        return rawTransaction;
+        return RawTransaction.createEtherTransaction(nonce, gasPrice, gasLimit, to, value);
     }
 
     @SuppressWarnings("unchecked")

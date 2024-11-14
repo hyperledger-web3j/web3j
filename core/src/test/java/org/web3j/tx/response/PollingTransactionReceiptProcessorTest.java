@@ -31,7 +31,7 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class PollingTransactionReceiptProcessorTest {
+class PollingTransactionReceiptProcessorTest {
     private static final String TRANSACTION_HASH = "0x00";
     private Web3j web3j;
     private long sleepDuration;
@@ -47,7 +47,7 @@ public class PollingTransactionReceiptProcessorTest {
     }
 
     @Test
-    public void returnsTransactionReceiptWhenItIsAvailableInstantly() throws Exception {
+    void returnsTransactionReceiptWhenItIsAvailableInstantly() throws Exception {
         TransactionReceipt transactionReceipt = new TransactionReceipt();
         doReturn(requestReturning(response(transactionReceipt)))
                 .when(web3j)
@@ -59,7 +59,7 @@ public class PollingTransactionReceiptProcessorTest {
     }
 
     @Test
-    public void throwsTransactionExceptionWhenReceiptIsNotAvailableInTime() throws Exception {
+    void throwsTransactionExceptionWhenReceiptIsNotAvailableInTime() throws Exception {
         doReturn(requestReturning(response(null)))
                 .when(web3j)
                 .ethGetTransactionReceipt(TRANSACTION_HASH);

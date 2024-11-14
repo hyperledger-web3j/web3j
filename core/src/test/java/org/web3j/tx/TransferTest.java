@@ -25,7 +25,7 @@ import org.web3j.utils.Convert;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class TransferTest extends ManagedTransactionTester {
+class TransferTest extends ManagedTransactionTester {
 
     protected TransactionReceipt transactionReceipt;
 
@@ -37,14 +37,14 @@ public class TransferTest extends ManagedTransactionTester {
     }
 
     @Test
-    public void testSendFunds() throws Exception {
+    void testSendFunds() throws Exception {
         assertEquals(
                 sendFunds(SampleKeys.CREDENTIALS, ADDRESS, BigDecimal.TEN, Convert.Unit.ETHER),
                 (transactionReceipt));
     }
 
     @Test
-    public void testTransferInvalidValue() {
+    void testTransferInvalidValue() {
 
         assertThrows(
                 UnsupportedOperationException.class,

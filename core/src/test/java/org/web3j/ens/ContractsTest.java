@@ -28,10 +28,10 @@ import static org.web3j.ens.Contracts.SEPOLIA;
 import static org.web3j.ens.Contracts.resolveRegistryContract;
 
 @SuppressWarnings("deprecation")
-public class ContractsTest {
+class ContractsTest {
 
     @Test
-    public void testResolveRegistryContract() {
+    void testResolveRegistryContract() {
         assertEquals(resolveRegistryContract(ChainIdLong.MAINNET + ""), (MAINNET));
         assertEquals(resolveRegistryContract(ChainIdLong.ROPSTEN + ""), (ROPSTEN));
         assertEquals(resolveRegistryContract(ChainIdLong.RINKEBY + ""), (RINKEBY));
@@ -42,7 +42,7 @@ public class ContractsTest {
     }
 
     @Test
-    public void testResolveRegistryContractInvalid() {
+    void testResolveRegistryContractInvalid() {
         assertThrows(
                 EnsResolutionException.class, () -> resolveRegistryContract(ChainIdLong.NONE + ""));
     }

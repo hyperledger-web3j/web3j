@@ -104,47 +104,36 @@ public class PublicResolver extends Contract {
 
     public static final Event ADDRESSCHANGED_EVENT = new Event("AddressChanged", 
             Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>(true) {}, new TypeReference<Uint256>() {}, new TypeReference<DynamicBytes>() {}));
-    ;
 
     public static final Event APPROVALFORALL_EVENT = new Event("ApprovalForAll", 
             Arrays.<TypeReference<?>>asList(new TypeReference<Address>(true) {}, new TypeReference<Address>(true) {}, new TypeReference<Bool>() {}));
-    ;
 
     public static final Event CONTENTHASHCHANGED_EVENT = new Event("ContenthashChanged", 
             Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>(true) {}, new TypeReference<DynamicBytes>() {}));
-    ;
 
     public static final Event DNSRECORDCHANGED_EVENT = new Event("DNSRecordChanged", 
             Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>(true) {}, new TypeReference<DynamicBytes>() {}, new TypeReference<Uint16>() {}, new TypeReference<DynamicBytes>() {}));
-    ;
 
     public static final Event DNSRECORDDELETED_EVENT = new Event("DNSRecordDeleted", 
             Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>(true) {}, new TypeReference<DynamicBytes>() {}, new TypeReference<Uint16>() {}));
-    ;
 
     public static final Event DNSZONECLEARED_EVENT = new Event("DNSZoneCleared", 
             Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>(true) {}));
-    ;
 
     public static final Event DNSZONEHASHCHANGED_EVENT = new Event("DNSZonehashChanged", 
             Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>(true) {}, new TypeReference<DynamicBytes>() {}, new TypeReference<DynamicBytes>() {}));
-    ;
 
     public static final Event INTERFACECHANGED_EVENT = new Event("InterfaceChanged", 
             Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>(true) {}, new TypeReference<Bytes4>(true) {}, new TypeReference<Address>() {}));
-    ;
 
     public static final Event NAMECHANGED_EVENT = new Event("NameChanged", 
             Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>(true) {}, new TypeReference<Utf8String>() {}));
-    ;
 
     public static final Event PUBKEYCHANGED_EVENT = new Event("PubkeyChanged", 
             Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>(true) {}, new TypeReference<Bytes32>() {}, new TypeReference<Bytes32>() {}));
-    ;
 
     public static final Event TEXTCHANGED_EVENT = new Event("TextChanged", 
             Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>(true) {}, new TypeReference<Utf8String>(true) {}, new TypeReference<Utf8String>() {}));
-    ;
 
     @Deprecated
     protected PublicResolver(String contractAddress, Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit) {
@@ -166,7 +155,7 @@ public class PublicResolver extends Contract {
 
     public List<ABIChangedEventResponse> getABIChangedEvents(TransactionReceipt transactionReceipt) {
         List<Contract.EventValuesWithLog> valueList = extractEventParametersWithLog(ABICHANGED_EVENT, transactionReceipt);
-        ArrayList<ABIChangedEventResponse> responses = new ArrayList<ABIChangedEventResponse>(valueList.size());
+        ArrayList<ABIChangedEventResponse> responses = new ArrayList<>(valueList.size());
         for (Contract.EventValuesWithLog eventValues : valueList) {
             ABIChangedEventResponse typedResponse = new ABIChangedEventResponse();
             typedResponse.log = eventValues.getLog();
@@ -178,17 +167,14 @@ public class PublicResolver extends Contract {
     }
 
     public Flowable<ABIChangedEventResponse> aBIChangedEventFlowable(EthFilter filter) {
-        return web3j.ethLogFlowable(filter).map(new Function<Log, ABIChangedEventResponse>() {
-            @Override
-            public ABIChangedEventResponse apply(Log log) {
-                Contract.EventValuesWithLog eventValues = extractEventParametersWithLog(ABICHANGED_EVENT, log);
-                ABIChangedEventResponse typedResponse = new ABIChangedEventResponse();
-                typedResponse.log = log;
-                typedResponse.node = (byte[]) eventValues.getIndexedValues().get(0).getValue();
-                typedResponse.contentType = (BigInteger) eventValues.getIndexedValues().get(1).getValue();
-                return typedResponse;
-            }
-        });
+        return web3j.ethLogFlowable(filter).map(log -> {
+			EventValuesWithLog eventValues = extractEventParametersWithLog(ABICHANGED_EVENT, log);
+			ABIChangedEventResponse typedResponse = new ABIChangedEventResponse();
+			typedResponse.log = log;
+			typedResponse.node = (byte[]) eventValues.getIndexedValues().get(0).getValue();
+			typedResponse.contentType = (BigInteger) eventValues.getIndexedValues().get(1).getValue();
+			return typedResponse;
+		});
     }
 
     public Flowable<ABIChangedEventResponse> aBIChangedEventFlowable(DefaultBlockParameter startBlock, DefaultBlockParameter endBlock) {
@@ -199,7 +185,7 @@ public class PublicResolver extends Contract {
 
     public List<AddrChangedEventResponse> getAddrChangedEvents(TransactionReceipt transactionReceipt) {
         List<Contract.EventValuesWithLog> valueList = extractEventParametersWithLog(ADDRCHANGED_EVENT, transactionReceipt);
-        ArrayList<AddrChangedEventResponse> responses = new ArrayList<AddrChangedEventResponse>(valueList.size());
+        ArrayList<AddrChangedEventResponse> responses = new ArrayList<>(valueList.size());
         for (Contract.EventValuesWithLog eventValues : valueList) {
             AddrChangedEventResponse typedResponse = new AddrChangedEventResponse();
             typedResponse.log = eventValues.getLog();
@@ -211,17 +197,14 @@ public class PublicResolver extends Contract {
     }
 
     public Flowable<AddrChangedEventResponse> addrChangedEventFlowable(EthFilter filter) {
-        return web3j.ethLogFlowable(filter).map(new Function<Log, AddrChangedEventResponse>() {
-            @Override
-            public AddrChangedEventResponse apply(Log log) {
-                Contract.EventValuesWithLog eventValues = extractEventParametersWithLog(ADDRCHANGED_EVENT, log);
-                AddrChangedEventResponse typedResponse = new AddrChangedEventResponse();
-                typedResponse.log = log;
-                typedResponse.node = (byte[]) eventValues.getIndexedValues().get(0).getValue();
-                typedResponse.a = (String) eventValues.getNonIndexedValues().get(0).getValue();
-                return typedResponse;
-            }
-        });
+        return web3j.ethLogFlowable(filter).map(log -> {
+			EventValuesWithLog eventValues = extractEventParametersWithLog(ADDRCHANGED_EVENT, log);
+			AddrChangedEventResponse typedResponse = new AddrChangedEventResponse();
+			typedResponse.log = log;
+			typedResponse.node = (byte[]) eventValues.getIndexedValues().get(0).getValue();
+			typedResponse.a = (String) eventValues.getNonIndexedValues().get(0).getValue();
+			return typedResponse;
+		});
     }
 
     public Flowable<AddrChangedEventResponse> addrChangedEventFlowable(DefaultBlockParameter startBlock, DefaultBlockParameter endBlock) {
@@ -232,7 +215,7 @@ public class PublicResolver extends Contract {
 
     public List<AddressChangedEventResponse> getAddressChangedEvents(TransactionReceipt transactionReceipt) {
         List<Contract.EventValuesWithLog> valueList = extractEventParametersWithLog(ADDRESSCHANGED_EVENT, transactionReceipt);
-        ArrayList<AddressChangedEventResponse> responses = new ArrayList<AddressChangedEventResponse>(valueList.size());
+        ArrayList<AddressChangedEventResponse> responses = new ArrayList<>(valueList.size());
         for (Contract.EventValuesWithLog eventValues : valueList) {
             AddressChangedEventResponse typedResponse = new AddressChangedEventResponse();
             typedResponse.log = eventValues.getLog();
@@ -245,18 +228,15 @@ public class PublicResolver extends Contract {
     }
 
     public Flowable<AddressChangedEventResponse> addressChangedEventFlowable(EthFilter filter) {
-        return web3j.ethLogFlowable(filter).map(new Function<Log, AddressChangedEventResponse>() {
-            @Override
-            public AddressChangedEventResponse apply(Log log) {
-                Contract.EventValuesWithLog eventValues = extractEventParametersWithLog(ADDRESSCHANGED_EVENT, log);
-                AddressChangedEventResponse typedResponse = new AddressChangedEventResponse();
-                typedResponse.log = log;
-                typedResponse.node = (byte[]) eventValues.getIndexedValues().get(0).getValue();
-                typedResponse.coinType = (BigInteger) eventValues.getNonIndexedValues().get(0).getValue();
-                typedResponse.newAddress = (byte[]) eventValues.getNonIndexedValues().get(1).getValue();
-                return typedResponse;
-            }
-        });
+        return web3j.ethLogFlowable(filter).map(log -> {
+			EventValuesWithLog eventValues = extractEventParametersWithLog(ADDRESSCHANGED_EVENT, log);
+			AddressChangedEventResponse typedResponse = new AddressChangedEventResponse();
+			typedResponse.log = log;
+			typedResponse.node = (byte[]) eventValues.getIndexedValues().get(0).getValue();
+			typedResponse.coinType = (BigInteger) eventValues.getNonIndexedValues().get(0).getValue();
+			typedResponse.newAddress = (byte[]) eventValues.getNonIndexedValues().get(1).getValue();
+			return typedResponse;
+		});
     }
 
     public Flowable<AddressChangedEventResponse> addressChangedEventFlowable(DefaultBlockParameter startBlock, DefaultBlockParameter endBlock) {
@@ -267,7 +247,7 @@ public class PublicResolver extends Contract {
 
     public List<ApprovalForAllEventResponse> getApprovalForAllEvents(TransactionReceipt transactionReceipt) {
         List<Contract.EventValuesWithLog> valueList = extractEventParametersWithLog(APPROVALFORALL_EVENT, transactionReceipt);
-        ArrayList<ApprovalForAllEventResponse> responses = new ArrayList<ApprovalForAllEventResponse>(valueList.size());
+        ArrayList<ApprovalForAllEventResponse> responses = new ArrayList<>(valueList.size());
         for (Contract.EventValuesWithLog eventValues : valueList) {
             ApprovalForAllEventResponse typedResponse = new ApprovalForAllEventResponse();
             typedResponse.log = eventValues.getLog();
@@ -280,18 +260,15 @@ public class PublicResolver extends Contract {
     }
 
     public Flowable<ApprovalForAllEventResponse> approvalForAllEventFlowable(EthFilter filter) {
-        return web3j.ethLogFlowable(filter).map(new Function<Log, ApprovalForAllEventResponse>() {
-            @Override
-            public ApprovalForAllEventResponse apply(Log log) {
-                Contract.EventValuesWithLog eventValues = extractEventParametersWithLog(APPROVALFORALL_EVENT, log);
-                ApprovalForAllEventResponse typedResponse = new ApprovalForAllEventResponse();
-                typedResponse.log = log;
-                typedResponse.owner = (String) eventValues.getIndexedValues().get(0).getValue();
-                typedResponse.operator = (String) eventValues.getIndexedValues().get(1).getValue();
-                typedResponse.approved = (Boolean) eventValues.getNonIndexedValues().get(0).getValue();
-                return typedResponse;
-            }
-        });
+        return web3j.ethLogFlowable(filter).map(log -> {
+			EventValuesWithLog eventValues = extractEventParametersWithLog(APPROVALFORALL_EVENT, log);
+			ApprovalForAllEventResponse typedResponse = new ApprovalForAllEventResponse();
+			typedResponse.log = log;
+			typedResponse.owner = (String) eventValues.getIndexedValues().get(0).getValue();
+			typedResponse.operator = (String) eventValues.getIndexedValues().get(1).getValue();
+			typedResponse.approved = (Boolean) eventValues.getNonIndexedValues().get(0).getValue();
+			return typedResponse;
+		});
     }
 
     public Flowable<ApprovalForAllEventResponse> approvalForAllEventFlowable(DefaultBlockParameter startBlock, DefaultBlockParameter endBlock) {
@@ -302,7 +279,7 @@ public class PublicResolver extends Contract {
 
     public List<ContenthashChangedEventResponse> getContenthashChangedEvents(TransactionReceipt transactionReceipt) {
         List<Contract.EventValuesWithLog> valueList = extractEventParametersWithLog(CONTENTHASHCHANGED_EVENT, transactionReceipt);
-        ArrayList<ContenthashChangedEventResponse> responses = new ArrayList<ContenthashChangedEventResponse>(valueList.size());
+        ArrayList<ContenthashChangedEventResponse> responses = new ArrayList<>(valueList.size());
         for (Contract.EventValuesWithLog eventValues : valueList) {
             ContenthashChangedEventResponse typedResponse = new ContenthashChangedEventResponse();
             typedResponse.log = eventValues.getLog();
@@ -314,17 +291,14 @@ public class PublicResolver extends Contract {
     }
 
     public Flowable<ContenthashChangedEventResponse> contenthashChangedEventFlowable(EthFilter filter) {
-        return web3j.ethLogFlowable(filter).map(new Function<Log, ContenthashChangedEventResponse>() {
-            @Override
-            public ContenthashChangedEventResponse apply(Log log) {
-                Contract.EventValuesWithLog eventValues = extractEventParametersWithLog(CONTENTHASHCHANGED_EVENT, log);
-                ContenthashChangedEventResponse typedResponse = new ContenthashChangedEventResponse();
-                typedResponse.log = log;
-                typedResponse.node = (byte[]) eventValues.getIndexedValues().get(0).getValue();
-                typedResponse.hash = (byte[]) eventValues.getNonIndexedValues().get(0).getValue();
-                return typedResponse;
-            }
-        });
+        return web3j.ethLogFlowable(filter).map(log -> {
+			EventValuesWithLog eventValues = extractEventParametersWithLog(CONTENTHASHCHANGED_EVENT, log);
+			ContenthashChangedEventResponse typedResponse = new ContenthashChangedEventResponse();
+			typedResponse.log = log;
+			typedResponse.node = (byte[]) eventValues.getIndexedValues().get(0).getValue();
+			typedResponse.hash = (byte[]) eventValues.getNonIndexedValues().get(0).getValue();
+			return typedResponse;
+		});
     }
 
     public Flowable<ContenthashChangedEventResponse> contenthashChangedEventFlowable(DefaultBlockParameter startBlock, DefaultBlockParameter endBlock) {
@@ -335,7 +309,7 @@ public class PublicResolver extends Contract {
 
     public List<DNSRecordChangedEventResponse> getDNSRecordChangedEvents(TransactionReceipt transactionReceipt) {
         List<Contract.EventValuesWithLog> valueList = extractEventParametersWithLog(DNSRECORDCHANGED_EVENT, transactionReceipt);
-        ArrayList<DNSRecordChangedEventResponse> responses = new ArrayList<DNSRecordChangedEventResponse>(valueList.size());
+        ArrayList<DNSRecordChangedEventResponse> responses = new ArrayList<>(valueList.size());
         for (Contract.EventValuesWithLog eventValues : valueList) {
             DNSRecordChangedEventResponse typedResponse = new DNSRecordChangedEventResponse();
             typedResponse.log = eventValues.getLog();
@@ -349,19 +323,16 @@ public class PublicResolver extends Contract {
     }
 
     public Flowable<DNSRecordChangedEventResponse> dNSRecordChangedEventFlowable(EthFilter filter) {
-        return web3j.ethLogFlowable(filter).map(new Function<Log, DNSRecordChangedEventResponse>() {
-            @Override
-            public DNSRecordChangedEventResponse apply(Log log) {
-                Contract.EventValuesWithLog eventValues = extractEventParametersWithLog(DNSRECORDCHANGED_EVENT, log);
-                DNSRecordChangedEventResponse typedResponse = new DNSRecordChangedEventResponse();
-                typedResponse.log = log;
-                typedResponse.node = (byte[]) eventValues.getIndexedValues().get(0).getValue();
-                typedResponse.name = (byte[]) eventValues.getNonIndexedValues().get(0).getValue();
-                typedResponse.resource = (BigInteger) eventValues.getNonIndexedValues().get(1).getValue();
-                typedResponse.record = (byte[]) eventValues.getNonIndexedValues().get(2).getValue();
-                return typedResponse;
-            }
-        });
+        return web3j.ethLogFlowable(filter).map(log -> {
+			EventValuesWithLog eventValues = extractEventParametersWithLog(DNSRECORDCHANGED_EVENT, log);
+			DNSRecordChangedEventResponse typedResponse = new DNSRecordChangedEventResponse();
+			typedResponse.log = log;
+			typedResponse.node = (byte[]) eventValues.getIndexedValues().get(0).getValue();
+			typedResponse.name = (byte[]) eventValues.getNonIndexedValues().get(0).getValue();
+			typedResponse.resource = (BigInteger) eventValues.getNonIndexedValues().get(1).getValue();
+			typedResponse.record = (byte[]) eventValues.getNonIndexedValues().get(2).getValue();
+			return typedResponse;
+		});
     }
 
     public Flowable<DNSRecordChangedEventResponse> dNSRecordChangedEventFlowable(DefaultBlockParameter startBlock, DefaultBlockParameter endBlock) {
@@ -372,7 +343,7 @@ public class PublicResolver extends Contract {
 
     public List<DNSRecordDeletedEventResponse> getDNSRecordDeletedEvents(TransactionReceipt transactionReceipt) {
         List<Contract.EventValuesWithLog> valueList = extractEventParametersWithLog(DNSRECORDDELETED_EVENT, transactionReceipt);
-        ArrayList<DNSRecordDeletedEventResponse> responses = new ArrayList<DNSRecordDeletedEventResponse>(valueList.size());
+        ArrayList<DNSRecordDeletedEventResponse> responses = new ArrayList<>(valueList.size());
         for (Contract.EventValuesWithLog eventValues : valueList) {
             DNSRecordDeletedEventResponse typedResponse = new DNSRecordDeletedEventResponse();
             typedResponse.log = eventValues.getLog();
@@ -385,18 +356,15 @@ public class PublicResolver extends Contract {
     }
 
     public Flowable<DNSRecordDeletedEventResponse> dNSRecordDeletedEventFlowable(EthFilter filter) {
-        return web3j.ethLogFlowable(filter).map(new Function<Log, DNSRecordDeletedEventResponse>() {
-            @Override
-            public DNSRecordDeletedEventResponse apply(Log log) {
-                Contract.EventValuesWithLog eventValues = extractEventParametersWithLog(DNSRECORDDELETED_EVENT, log);
-                DNSRecordDeletedEventResponse typedResponse = new DNSRecordDeletedEventResponse();
-                typedResponse.log = log;
-                typedResponse.node = (byte[]) eventValues.getIndexedValues().get(0).getValue();
-                typedResponse.name = (byte[]) eventValues.getNonIndexedValues().get(0).getValue();
-                typedResponse.resource = (BigInteger) eventValues.getNonIndexedValues().get(1).getValue();
-                return typedResponse;
-            }
-        });
+        return web3j.ethLogFlowable(filter).map(log -> {
+			EventValuesWithLog eventValues = extractEventParametersWithLog(DNSRECORDDELETED_EVENT, log);
+			DNSRecordDeletedEventResponse typedResponse = new DNSRecordDeletedEventResponse();
+			typedResponse.log = log;
+			typedResponse.node = (byte[]) eventValues.getIndexedValues().get(0).getValue();
+			typedResponse.name = (byte[]) eventValues.getNonIndexedValues().get(0).getValue();
+			typedResponse.resource = (BigInteger) eventValues.getNonIndexedValues().get(1).getValue();
+			return typedResponse;
+		});
     }
 
     public Flowable<DNSRecordDeletedEventResponse> dNSRecordDeletedEventFlowable(DefaultBlockParameter startBlock, DefaultBlockParameter endBlock) {
@@ -407,7 +375,7 @@ public class PublicResolver extends Contract {
 
     public List<DNSZoneClearedEventResponse> getDNSZoneClearedEvents(TransactionReceipt transactionReceipt) {
         List<Contract.EventValuesWithLog> valueList = extractEventParametersWithLog(DNSZONECLEARED_EVENT, transactionReceipt);
-        ArrayList<DNSZoneClearedEventResponse> responses = new ArrayList<DNSZoneClearedEventResponse>(valueList.size());
+        ArrayList<DNSZoneClearedEventResponse> responses = new ArrayList<>(valueList.size());
         for (Contract.EventValuesWithLog eventValues : valueList) {
             DNSZoneClearedEventResponse typedResponse = new DNSZoneClearedEventResponse();
             typedResponse.log = eventValues.getLog();
@@ -418,16 +386,13 @@ public class PublicResolver extends Contract {
     }
 
     public Flowable<DNSZoneClearedEventResponse> dNSZoneClearedEventFlowable(EthFilter filter) {
-        return web3j.ethLogFlowable(filter).map(new Function<Log, DNSZoneClearedEventResponse>() {
-            @Override
-            public DNSZoneClearedEventResponse apply(Log log) {
-                Contract.EventValuesWithLog eventValues = extractEventParametersWithLog(DNSZONECLEARED_EVENT, log);
-                DNSZoneClearedEventResponse typedResponse = new DNSZoneClearedEventResponse();
-                typedResponse.log = log;
-                typedResponse.node = (byte[]) eventValues.getIndexedValues().get(0).getValue();
-                return typedResponse;
-            }
-        });
+        return web3j.ethLogFlowable(filter).map(log -> {
+			EventValuesWithLog eventValues = extractEventParametersWithLog(DNSZONECLEARED_EVENT, log);
+			DNSZoneClearedEventResponse typedResponse = new DNSZoneClearedEventResponse();
+			typedResponse.log = log;
+			typedResponse.node = (byte[]) eventValues.getIndexedValues().get(0).getValue();
+			return typedResponse;
+		});
     }
 
     public Flowable<DNSZoneClearedEventResponse> dNSZoneClearedEventFlowable(DefaultBlockParameter startBlock, DefaultBlockParameter endBlock) {
@@ -438,7 +403,7 @@ public class PublicResolver extends Contract {
 
     public List<DNSZonehashChangedEventResponse> getDNSZonehashChangedEvents(TransactionReceipt transactionReceipt) {
         List<Contract.EventValuesWithLog> valueList = extractEventParametersWithLog(DNSZONEHASHCHANGED_EVENT, transactionReceipt);
-        ArrayList<DNSZonehashChangedEventResponse> responses = new ArrayList<DNSZonehashChangedEventResponse>(valueList.size());
+        ArrayList<DNSZonehashChangedEventResponse> responses = new ArrayList<>(valueList.size());
         for (Contract.EventValuesWithLog eventValues : valueList) {
             DNSZonehashChangedEventResponse typedResponse = new DNSZonehashChangedEventResponse();
             typedResponse.log = eventValues.getLog();
@@ -451,18 +416,15 @@ public class PublicResolver extends Contract {
     }
 
     public Flowable<DNSZonehashChangedEventResponse> dNSZonehashChangedEventFlowable(EthFilter filter) {
-        return web3j.ethLogFlowable(filter).map(new Function<Log, DNSZonehashChangedEventResponse>() {
-            @Override
-            public DNSZonehashChangedEventResponse apply(Log log) {
-                Contract.EventValuesWithLog eventValues = extractEventParametersWithLog(DNSZONEHASHCHANGED_EVENT, log);
-                DNSZonehashChangedEventResponse typedResponse = new DNSZonehashChangedEventResponse();
-                typedResponse.log = log;
-                typedResponse.node = (byte[]) eventValues.getIndexedValues().get(0).getValue();
-                typedResponse.lastzonehash = (byte[]) eventValues.getNonIndexedValues().get(0).getValue();
-                typedResponse.zonehash = (byte[]) eventValues.getNonIndexedValues().get(1).getValue();
-                return typedResponse;
-            }
-        });
+        return web3j.ethLogFlowable(filter).map(log -> {
+			EventValuesWithLog eventValues = extractEventParametersWithLog(DNSZONEHASHCHANGED_EVENT, log);
+			DNSZonehashChangedEventResponse typedResponse = new DNSZonehashChangedEventResponse();
+			typedResponse.log = log;
+			typedResponse.node = (byte[]) eventValues.getIndexedValues().get(0).getValue();
+			typedResponse.lastzonehash = (byte[]) eventValues.getNonIndexedValues().get(0).getValue();
+			typedResponse.zonehash = (byte[]) eventValues.getNonIndexedValues().get(1).getValue();
+			return typedResponse;
+		});
     }
 
     public Flowable<DNSZonehashChangedEventResponse> dNSZonehashChangedEventFlowable(DefaultBlockParameter startBlock, DefaultBlockParameter endBlock) {
@@ -473,7 +435,7 @@ public class PublicResolver extends Contract {
 
     public List<InterfaceChangedEventResponse> getInterfaceChangedEvents(TransactionReceipt transactionReceipt) {
         List<Contract.EventValuesWithLog> valueList = extractEventParametersWithLog(INTERFACECHANGED_EVENT, transactionReceipt);
-        ArrayList<InterfaceChangedEventResponse> responses = new ArrayList<InterfaceChangedEventResponse>(valueList.size());
+        ArrayList<InterfaceChangedEventResponse> responses = new ArrayList<>(valueList.size());
         for (Contract.EventValuesWithLog eventValues : valueList) {
             InterfaceChangedEventResponse typedResponse = new InterfaceChangedEventResponse();
             typedResponse.log = eventValues.getLog();
@@ -486,18 +448,15 @@ public class PublicResolver extends Contract {
     }
 
     public Flowable<InterfaceChangedEventResponse> interfaceChangedEventFlowable(EthFilter filter) {
-        return web3j.ethLogFlowable(filter).map(new Function<Log, InterfaceChangedEventResponse>() {
-            @Override
-            public InterfaceChangedEventResponse apply(Log log) {
-                Contract.EventValuesWithLog eventValues = extractEventParametersWithLog(INTERFACECHANGED_EVENT, log);
-                InterfaceChangedEventResponse typedResponse = new InterfaceChangedEventResponse();
-                typedResponse.log = log;
-                typedResponse.node = (byte[]) eventValues.getIndexedValues().get(0).getValue();
-                typedResponse.interfaceID = (byte[]) eventValues.getIndexedValues().get(1).getValue();
-                typedResponse.implementer = (String) eventValues.getNonIndexedValues().get(0).getValue();
-                return typedResponse;
-            }
-        });
+        return web3j.ethLogFlowable(filter).map(log -> {
+			EventValuesWithLog eventValues = extractEventParametersWithLog(INTERFACECHANGED_EVENT, log);
+			InterfaceChangedEventResponse typedResponse = new InterfaceChangedEventResponse();
+			typedResponse.log = log;
+			typedResponse.node = (byte[]) eventValues.getIndexedValues().get(0).getValue();
+			typedResponse.interfaceID = (byte[]) eventValues.getIndexedValues().get(1).getValue();
+			typedResponse.implementer = (String) eventValues.getNonIndexedValues().get(0).getValue();
+			return typedResponse;
+		});
     }
 
     public Flowable<InterfaceChangedEventResponse> interfaceChangedEventFlowable(DefaultBlockParameter startBlock, DefaultBlockParameter endBlock) {
@@ -508,7 +467,7 @@ public class PublicResolver extends Contract {
 
     public List<NameChangedEventResponse> getNameChangedEvents(TransactionReceipt transactionReceipt) {
         List<Contract.EventValuesWithLog> valueList = extractEventParametersWithLog(NAMECHANGED_EVENT, transactionReceipt);
-        ArrayList<NameChangedEventResponse> responses = new ArrayList<NameChangedEventResponse>(valueList.size());
+        ArrayList<NameChangedEventResponse> responses = new ArrayList<>(valueList.size());
         for (Contract.EventValuesWithLog eventValues : valueList) {
             NameChangedEventResponse typedResponse = new NameChangedEventResponse();
             typedResponse.log = eventValues.getLog();
@@ -520,17 +479,14 @@ public class PublicResolver extends Contract {
     }
 
     public Flowable<NameChangedEventResponse> nameChangedEventFlowable(EthFilter filter) {
-        return web3j.ethLogFlowable(filter).map(new Function<Log, NameChangedEventResponse>() {
-            @Override
-            public NameChangedEventResponse apply(Log log) {
-                Contract.EventValuesWithLog eventValues = extractEventParametersWithLog(NAMECHANGED_EVENT, log);
-                NameChangedEventResponse typedResponse = new NameChangedEventResponse();
-                typedResponse.log = log;
-                typedResponse.node = (byte[]) eventValues.getIndexedValues().get(0).getValue();
-                typedResponse.name = (String) eventValues.getNonIndexedValues().get(0).getValue();
-                return typedResponse;
-            }
-        });
+        return web3j.ethLogFlowable(filter).map(log -> {
+			EventValuesWithLog eventValues = extractEventParametersWithLog(NAMECHANGED_EVENT, log);
+			NameChangedEventResponse typedResponse = new NameChangedEventResponse();
+			typedResponse.log = log;
+			typedResponse.node = (byte[]) eventValues.getIndexedValues().get(0).getValue();
+			typedResponse.name = (String) eventValues.getNonIndexedValues().get(0).getValue();
+			return typedResponse;
+		});
     }
 
     public Flowable<NameChangedEventResponse> nameChangedEventFlowable(DefaultBlockParameter startBlock, DefaultBlockParameter endBlock) {
@@ -541,7 +497,7 @@ public class PublicResolver extends Contract {
 
     public List<PubkeyChangedEventResponse> getPubkeyChangedEvents(TransactionReceipt transactionReceipt) {
         List<Contract.EventValuesWithLog> valueList = extractEventParametersWithLog(PUBKEYCHANGED_EVENT, transactionReceipt);
-        ArrayList<PubkeyChangedEventResponse> responses = new ArrayList<PubkeyChangedEventResponse>(valueList.size());
+        ArrayList<PubkeyChangedEventResponse> responses = new ArrayList<>(valueList.size());
         for (Contract.EventValuesWithLog eventValues : valueList) {
             PubkeyChangedEventResponse typedResponse = new PubkeyChangedEventResponse();
             typedResponse.log = eventValues.getLog();
@@ -554,18 +510,15 @@ public class PublicResolver extends Contract {
     }
 
     public Flowable<PubkeyChangedEventResponse> pubkeyChangedEventFlowable(EthFilter filter) {
-        return web3j.ethLogFlowable(filter).map(new Function<Log, PubkeyChangedEventResponse>() {
-            @Override
-            public PubkeyChangedEventResponse apply(Log log) {
-                Contract.EventValuesWithLog eventValues = extractEventParametersWithLog(PUBKEYCHANGED_EVENT, log);
-                PubkeyChangedEventResponse typedResponse = new PubkeyChangedEventResponse();
-                typedResponse.log = log;
-                typedResponse.node = (byte[]) eventValues.getIndexedValues().get(0).getValue();
-                typedResponse.x = (byte[]) eventValues.getNonIndexedValues().get(0).getValue();
-                typedResponse.y = (byte[]) eventValues.getNonIndexedValues().get(1).getValue();
-                return typedResponse;
-            }
-        });
+        return web3j.ethLogFlowable(filter).map(log -> {
+			EventValuesWithLog eventValues = extractEventParametersWithLog(PUBKEYCHANGED_EVENT, log);
+			PubkeyChangedEventResponse typedResponse = new PubkeyChangedEventResponse();
+			typedResponse.log = log;
+			typedResponse.node = (byte[]) eventValues.getIndexedValues().get(0).getValue();
+			typedResponse.x = (byte[]) eventValues.getNonIndexedValues().get(0).getValue();
+			typedResponse.y = (byte[]) eventValues.getNonIndexedValues().get(1).getValue();
+			return typedResponse;
+		});
     }
 
     public Flowable<PubkeyChangedEventResponse> pubkeyChangedEventFlowable(DefaultBlockParameter startBlock, DefaultBlockParameter endBlock) {
@@ -576,7 +529,7 @@ public class PublicResolver extends Contract {
 
     public List<TextChangedEventResponse> getTextChangedEvents(TransactionReceipt transactionReceipt) {
         List<Contract.EventValuesWithLog> valueList = extractEventParametersWithLog(TEXTCHANGED_EVENT, transactionReceipt);
-        ArrayList<TextChangedEventResponse> responses = new ArrayList<TextChangedEventResponse>(valueList.size());
+        ArrayList<TextChangedEventResponse> responses = new ArrayList<>(valueList.size());
         for (Contract.EventValuesWithLog eventValues : valueList) {
             TextChangedEventResponse typedResponse = new TextChangedEventResponse();
             typedResponse.log = eventValues.getLog();
@@ -589,18 +542,15 @@ public class PublicResolver extends Contract {
     }
 
     public Flowable<TextChangedEventResponse> textChangedEventFlowable(EthFilter filter) {
-        return web3j.ethLogFlowable(filter).map(new Function<Log, TextChangedEventResponse>() {
-            @Override
-            public TextChangedEventResponse apply(Log log) {
-                Contract.EventValuesWithLog eventValues = extractEventParametersWithLog(TEXTCHANGED_EVENT, log);
-                TextChangedEventResponse typedResponse = new TextChangedEventResponse();
-                typedResponse.log = log;
-                typedResponse.node = (byte[]) eventValues.getIndexedValues().get(0).getValue();
-                typedResponse.indexedKey = (byte[]) eventValues.getIndexedValues().get(1).getValue();
-                typedResponse.key = (String) eventValues.getNonIndexedValues().get(0).getValue();
-                return typedResponse;
-            }
-        });
+        return web3j.ethLogFlowable(filter).map(log -> {
+			EventValuesWithLog eventValues = extractEventParametersWithLog(TEXTCHANGED_EVENT, log);
+			TextChangedEventResponse typedResponse = new TextChangedEventResponse();
+			typedResponse.log = log;
+			typedResponse.node = (byte[]) eventValues.getIndexedValues().get(0).getValue();
+			typedResponse.indexedKey = (byte[]) eventValues.getIndexedValues().get(1).getValue();
+			typedResponse.key = (String) eventValues.getNonIndexedValues().get(0).getValue();
+			return typedResponse;
+		});
     }
 
     public Flowable<TextChangedEventResponse> textChangedEventFlowable(DefaultBlockParameter startBlock, DefaultBlockParameter endBlock) {

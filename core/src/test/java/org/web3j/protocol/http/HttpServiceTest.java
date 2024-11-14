@@ -36,12 +36,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class HttpServiceTest {
+class HttpServiceTest {
 
     private HttpService httpService = new HttpService();
 
     @Test
-    public void testAddHeader() {
+    void testAddHeader() {
         String headerName = "customized_header0";
         String headerValue = "customized_value0";
         httpService.addHeader(headerName, headerValue);
@@ -49,7 +49,7 @@ public class HttpServiceTest {
     }
 
     @Test
-    public void testAddHeaders() {
+    void testAddHeaders() {
         String headerName1 = "customized_header1";
         String headerValue1 = "customized_value1";
 
@@ -67,7 +67,7 @@ public class HttpServiceTest {
     }
 
     @Test
-    public void httpWebException() throws IOException {
+    void httpWebException() throws IOException {
         String content = "400 error";
         Response response =
                 new Response.Builder()
@@ -108,7 +108,7 @@ public class HttpServiceTest {
     }
 
     @Test
-    public void subscriptionNotSupported() {
+    void subscriptionNotSupported() {
         Request<Object, EthSubscribe> subscribeRequest =
                 new Request<>(
                         "eth_subscribe",

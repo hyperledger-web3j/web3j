@@ -53,7 +53,7 @@ import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class JsonRpc2_0RxTest {
+class JsonRpc2_0RxTest {
 
     private final ObjectMapper objectMapper = ObjectMapperFactory.getObjectMapper();
 
@@ -68,7 +68,7 @@ public class JsonRpc2_0RxTest {
     }
 
     @Test
-    public void testReplayBlocksFlowable() throws Exception {
+    void testReplayBlocksFlowable() throws Exception {
 
         List<EthBlock> ethBlocks = Arrays.asList(createBlock(0), createBlock(1), createBlock(2));
 
@@ -107,7 +107,7 @@ public class JsonRpc2_0RxTest {
     }
 
     @Test
-    public void testReplayBlocksDescendingFlowable() throws Exception {
+    void testReplayBlocksDescendingFlowable() throws Exception {
 
         List<EthBlock> ethBlocks = Arrays.asList(createBlock(2), createBlock(1), createBlock(0));
 
@@ -147,7 +147,7 @@ public class JsonRpc2_0RxTest {
     }
 
     @Test
-    public void testReplayPastBlocksFlowable() throws Exception {
+    void testReplayPastBlocksFlowable() throws Exception {
         List<EthBlock> expected =
                 Arrays.asList(
                         createBlock(0),
@@ -302,7 +302,7 @@ public class JsonRpc2_0RxTest {
     }
 
     @Test
-    public void testReplayTransactionsFlowable() throws Exception {
+    void testReplayTransactionsFlowable() throws Exception {
 
         List<EthBlock> ethBlocks =
                 Arrays.asList(

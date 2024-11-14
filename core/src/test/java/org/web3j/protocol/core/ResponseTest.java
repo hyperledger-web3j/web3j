@@ -95,10 +95,10 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /** Core Protocol Response tests. */
-public class ResponseTest extends ResponseTester {
+class ResponseTest extends ResponseTester {
 
     @Test
-    public void testErrorResponse() {
+    void testErrorResponse() {
         buildResponse(
                 "{"
                         + "  \"jsonrpc\":\"2.0\","
@@ -118,7 +118,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testErrorResponseComplexData() {
+    void testErrorResponseComplexData() {
         buildResponse(
                 "{"
                         + "  \"jsonrpc\":\"2.0\","
@@ -136,7 +136,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testWeb3ClientVersion() {
+    void testWeb3ClientVersion() {
         buildResponse(
                 "{\n"
                         + "  \"id\":67,\n"
@@ -149,7 +149,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testWeb3Sha3() throws IOException {
+    void testWeb3Sha3() throws IOException {
         buildResponse(
                 "{\n"
                         + "  \"id\":64,\n"
@@ -165,7 +165,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testNetVersion() throws IOException {
+    void testNetVersion() throws IOException {
         buildResponse(
                 "{\n"
                         + "  \"id\":67,\n"
@@ -178,7 +178,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testNetListening() throws IOException {
+    void testNetListening() throws IOException {
         buildResponse(
                 "{\n"
                         + "  \"id\":67,\n"
@@ -191,7 +191,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testNetPeerCount() throws IOException {
+    void testNetPeerCount() throws IOException {
         buildResponse(
                 "{\n"
                         + "  \"id\":74,\n"
@@ -204,7 +204,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testAdminNodeInfo() throws Exception {
+    void testAdminNodeInfo() throws Exception {
         buildResponse(
                 "{\n"
                         + "    \"jsonrpc\": \"2.0\",\n"
@@ -256,7 +256,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testEthProtocolVersion() throws IOException {
+    void testEthProtocolVersion() throws IOException {
         buildResponse(
                 "{\n"
                         + "  \"id\":67,\n"
@@ -269,7 +269,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testEthSyncingInProgress() {
+    void testEthSyncingInProgress() {
         buildResponse(
                 "{\n"
                         + "  \"id\":1,\n"
@@ -294,7 +294,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testEthSyncing() {
+    void testEthSyncing() {
         buildResponse(
                 "{\n"
                         + "  \"id\":1,\n"
@@ -307,7 +307,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testEthMining() {
+    void testEthMining() {
         buildResponse(
                 "{\n"
                         + "  \"id\":71,\n"
@@ -320,7 +320,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testEthHashrate() {
+    void testEthHashrate() {
         buildResponse(
                 "{\n"
                         + "  \"id\":71,\n"
@@ -333,7 +333,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testEthGasPrice() {
+    void testEthGasPrice() {
         buildResponse(
                 "{\n"
                         + "  \"id\":73,\n"
@@ -346,7 +346,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testEthAccounts() {
+    void testEthAccounts() {
         buildResponse(
                 "{\n"
                         + "  \"id\":1,\n"
@@ -361,7 +361,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testEthBlockNumber() {
+    void testEthBlockNumber() {
         buildResponse(
                 "{\n"
                         + "  \"id\":83,\n"
@@ -374,7 +374,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testEthGetBalance() {
+    void testEthGetBalance() {
         buildResponse(
                 "{\n"
                         + "  \"id\":1,\n"
@@ -387,7 +387,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testEthStorageAt() {
+    void testEthStorageAt() {
         buildResponse(
                 "{\n"
                         + "    \"jsonrpc\":\"2.0\","
@@ -403,7 +403,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testEthGetTransactionCount() {
+    void testEthGetTransactionCount() {
         buildResponse(
                 "{\n"
                         + "  \"id\":1,\n"
@@ -417,7 +417,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testEthGetBlockTransactionCountByHash() {
+    void testEthGetBlockTransactionCountByHash() {
         buildResponse(
                 "{\n"
                         + "  \"id\":1,\n"
@@ -432,7 +432,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testEthGetBlockTransactionCountByNumber() {
+    void testEthGetBlockTransactionCountByNumber() {
         buildResponse(
                 "{\n"
                         + "  \"id\":1,\n"
@@ -448,7 +448,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testEthGetUncleCountByBlockHash() {
+    void testEthGetUncleCountByBlockHash() {
         buildResponse(
                 "{\n"
                         + "  \"id\":1,\n"
@@ -462,7 +462,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testEthGetUncleCountByBlockNumber() {
+    void testEthGetUncleCountByBlockNumber() {
         buildResponse(
                 "{\n"
                         + "  \"id\":1,\n"
@@ -476,7 +476,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testGetCode() {
+    void testGetCode() {
         buildResponse(
                 "{\n"
                         + "  \"id\":1,\n"
@@ -493,7 +493,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testEthSign() {
+    void testEthSign() {
         buildResponse(
                 "{\n"
                         + "  \"id\":1,\n"
@@ -511,7 +511,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testEthSendTransaction() {
+    void testEthSendTransaction() {
         buildResponse(
                 "{\n"
                         + "  \"id\":1,\n"
@@ -527,7 +527,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testEthSendRawTransaction() {
+    void testEthSendRawTransaction() {
         buildResponse(
                 "{\n"
                         + "  \"id\":1,\n"
@@ -544,7 +544,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testEthCall() {
+    void testEthCall() {
         buildResponse(
                 "{\n"
                         + "  \"id\":1,\n"
@@ -559,7 +559,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testEthCallReverted() {
+    void testEthCallReverted() {
         buildResponse(
                 "{\n"
                         + "  \"id\":1,\n"
@@ -590,7 +590,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testEthEstimateGas() {
+    void testEthEstimateGas() {
         buildResponse(
                 "{\n"
                         + "  \"id\":1,\n"
@@ -603,7 +603,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testEthBaseFee() {
+    void testEthBaseFee() {
         buildResponse(
                 "{\n"
                         + "  \"id\":1,\n"
@@ -616,7 +616,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testEthBlockTransactionHashes() {
+    void testEthBlockTransactionHashes() {
 
         buildResponse(
                 "{\n"
@@ -719,7 +719,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testEthBlockFullTransactionsWithoutBlob() {
+    void testEthBlockFullTransactionsWithoutBlob() {
 
         buildResponse(
                 "{\n"
@@ -864,7 +864,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testEthBlockFullTransactionsWithBlob() {
+    void testEthBlockFullTransactionsWithBlob() {
 
         buildResponse(
                 "{\n"
@@ -1025,7 +1025,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testEthBlockNull() {
+    void testEthBlockNull() {
         buildResponse("{\n" + "  \"result\": null\n" + "}");
 
         EthBlock ethBlock = deserialiseResponse(EthBlock.class);
@@ -1034,7 +1034,7 @@ public class ResponseTest extends ResponseTester {
 
     //
     @Test
-    public void testEthTransaction() {
+    void testEthTransaction() {
 
         buildResponse(
                 "{\n"
@@ -1104,7 +1104,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testEthTransactionResponseWithYParity() {
+    void testEthTransactionResponseWithYParity() {
         buildResponse(
                 "{\n"
                         + "    \"id\":1,\n"
@@ -1177,21 +1177,21 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testTransactionChainId() {
+    void testTransactionChainId() {
         Transaction transaction = new Transaction();
         transaction.setV(0x25);
         assertEquals(transaction.getChainId(), (1L));
     }
 
     @Test
-    public void testTransactionLongChainId() {
+    void testTransactionLongChainId() {
         Transaction transaction = new Transaction();
         transaction.setV(0x4A817C823L);
         assertEquals(transaction.getChainId(), (10000000000L));
     }
 
     @Test
-    public void testEthTransactionNull() {
+    void testEthTransactionNull() {
         buildResponse("{\n" + "  \"result\": null\n" + "}");
 
         EthTransaction ethTransaction = deserialiseResponse(EthTransaction.class);
@@ -1199,7 +1199,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testeEthGetTransactionReceiptBeforeByzantium() {
+    void testeEthGetTransactionReceiptBeforeByzantium() {
 
         buildResponse(
                 "{\n"
@@ -1271,7 +1271,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testEthGetBlockReceipts() {
+    void testEthGetBlockReceipts() {
         buildResponse(
                 "{\n"
                         + "    \"jsonrpc\": \"2.0\",\n"
@@ -1379,7 +1379,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testeEthGetTransactionReceiptAfterByzantium() {
+    void testeEthGetTransactionReceiptAfterByzantium() {
 
         buildResponse(
                 "{\n"
@@ -1451,7 +1451,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testeEthGetTransactionReceiptAfterEIP4844() {
+    void testeEthGetTransactionReceiptAfterEIP4844() {
 
         buildResponse(
                 "{\n"
@@ -1527,7 +1527,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testTransactionReceiptIsStatusOK() {
+    void testTransactionReceiptIsStatusOK() {
         TransactionReceipt transactionReceipt = new TransactionReceipt();
         transactionReceipt.setStatus("0x1");
         assertEquals(transactionReceipt.isStatusOK(), (true));
@@ -1541,7 +1541,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testEthGetCompilers() {
+    void testEthGetCompilers() {
         buildResponse(
                 "{\n"
                         + "  \"id\":1,\n"
@@ -1554,7 +1554,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testEthCompileSolidity() {
+    void testEthCompileSolidity() {
 
         buildResponse(
                 "{\n"
@@ -1634,7 +1634,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testEthCompileLLL() {
+    void testEthCompileLLL() {
         buildResponse(
                 "{\n"
                         + "  \"id\":1,\n"
@@ -1652,7 +1652,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testEthCompileSerpent() {
+    void testEthCompileSerpent() {
         buildResponse(
                 "{\n"
                         + "  \"id\":1,\n"
@@ -1670,7 +1670,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testEthFilter() {
+    void testEthFilter() {
         buildResponse(
                 "{\n"
                         + "  \"id\":1,\n"
@@ -1683,7 +1683,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testEthUninstallFilter() {
+    void testEthUninstallFilter() {
         buildResponse(
                 "{\n"
                         + "  \"id\":1,\n"
@@ -1696,7 +1696,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testEthLog() {
+    void testEthLog() {
 
         buildResponse(
                 "{\n"
@@ -1736,7 +1736,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testEthGetProof() {
+    void testEthGetProof() {
         buildResponse(
                 "{\n"
                         + "  \"jsonrpc\": \"2.0\",\n"
@@ -1792,7 +1792,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testEthGetWork() {
+    void testEthGetWork() {
 
         buildResponse(
                 "{\n"
@@ -1818,7 +1818,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testEthSubmitWork() {
+    void testEthSubmitWork() {
         buildResponse(
                 "{\n"
                         + "  \"id\":1,\n"
@@ -1831,7 +1831,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testEthSubmitHashrate() {
+    void testEthSubmitHashrate() {
         buildResponse(
                 "{\n"
                         + "  \"id\":1,\n"
@@ -1844,7 +1844,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testDbPutString() {
+    void testDbPutString() {
         buildResponse(
                 "{\n"
                         + "  \"id\":1,\n"
@@ -1857,7 +1857,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testDbGetString() {
+    void testDbGetString() {
         buildResponse(
                 "{\n"
                         + "  \"id\":1,\n"
@@ -1870,7 +1870,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testDbPutHex() {
+    void testDbPutHex() {
         buildResponse(
                 "{\n"
                         + "  \"id\":1,\n"
@@ -1883,7 +1883,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testDbGetHex() {
+    void testDbGetHex() {
         buildResponse(
                 "{\n"
                         + "  \"id\":1,\n"
@@ -1896,7 +1896,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testSshVersion() {
+    void testSshVersion() {
         buildResponse(
                 "{\n"
                         + "  \"id\":67,\n"
@@ -1909,7 +1909,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testSshPost() {
+    void testSshPost() {
         buildResponse(
                 "{\n"
                         + "  \"id\":1,\n"
@@ -1922,7 +1922,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testSshNewIdentity() {
+    void testSshNewIdentity() {
         buildResponse(
                 "{\n"
                         + "  \"id\":1,\n"
@@ -1940,7 +1940,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testSshHasIdentity() {
+    void testSshHasIdentity() {
         buildResponse(
                 "{\n"
                         + "  \"id\":1,\n"
@@ -1953,7 +1953,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testSshNewGroup() {
+    void testSshNewGroup() {
         buildResponse(
                 "{\n"
                         + "  \"id\":1,\n"
@@ -1971,7 +1971,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testSshAddToGroup() {
+    void testSshAddToGroup() {
         buildResponse(
                 "{\n"
                         + "  \"id\":1,\n"
@@ -1984,7 +1984,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testSshNewFilter() {
+    void testSshNewFilter() {
         buildResponse(
                 "{\n"
                         + "  \"id\":1,\n"
@@ -1997,7 +1997,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testSshUninstallFilter() {
+    void testSshUninstallFilter() {
         buildResponse(
                 "{\n"
                         + "  \"id\":1,\n"
@@ -2010,7 +2010,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testSshMessages() {
+    void testSshMessages() {
         buildResponse(
                 "{\n"
                         + "  \"id\":1,\n"
@@ -2047,7 +2047,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testBooleanResponse() {
+    void testBooleanResponse() {
         buildResponse(
                 "{\n"
                         + "    \"jsonrpc\":\"2.0\",\n"
@@ -2060,7 +2060,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testAdminDataDir() {
+    void testAdminDataDir() {
         buildResponse(
                 "{\n"
                         + "    \"jsonrpc\":\"2.0\",\n"
@@ -2073,7 +2073,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testTxPoolStatus() {
+    void testTxPoolStatus() {
         buildResponse(
                 "{\n"
                         + "    \"jsonrpc\":\"2.0\",\n"
@@ -2083,7 +2083,7 @@ public class ResponseTest extends ResponseTester {
                         + "}");
 
         TxPoolStatus status = deserialiseResponse(TxPoolStatus.class);
-        assertEquals(status.getPending(), 10);
-        assertEquals(status.getQueued(), 7);
+        assertEquals(10, status.getPending());
+        assertEquals(7, status.getQueued());
     }
 }
