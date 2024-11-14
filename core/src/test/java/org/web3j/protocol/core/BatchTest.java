@@ -24,7 +24,7 @@ import org.web3j.protocol.http.HttpService;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class BatchTest extends BatchTester {
+class BatchTest extends BatchTester {
 
     private Web3j web3j;
 
@@ -34,7 +34,7 @@ public class BatchTest extends BatchTester {
     }
 
     @Test
-    public void testBatchRequest() throws Exception {
+    void testBatchRequest() throws Exception {
         web3j.newBatch()
                 .add(web3j.web3ClientVersion())
                 .add(web3j.web3Sha3("0x68656c6c6f20776f726c64"))
@@ -51,7 +51,7 @@ public class BatchTest extends BatchTester {
     }
 
     @Test
-    public void testBatchResponse() throws Exception {
+    void testBatchResponse() throws Exception {
         buildResponse(
                 "["
                         + "{\n"
@@ -81,16 +81,16 @@ public class BatchTest extends BatchTester {
 
         assertTrue(response.getResponses().get(0) instanceof Web3ClientVersion);
         Web3ClientVersion web3ClientVersion = (Web3ClientVersion) response.getResponses().get(0);
-        assertEquals(web3ClientVersion.getWeb3ClientVersion(), "Mist/v0.9.3/darwin/go1.4.1");
+        assertEquals("Mist/v0.9.3/darwin/go1.4.1", web3ClientVersion.getWeb3ClientVersion());
 
         assertTrue(response.getResponses().get(1) instanceof Web3Sha3);
         Web3Sha3 web3Sha3 = (Web3Sha3) response.getResponses().get(1);
         assertEquals(
-                web3Sha3.getResult(),
-                "0x47173285a8d7341e5e972fc677286384f802f8ef42a5ec5f03bbfa254cb01fad");
+			"0x47173285a8d7341e5e972fc677286384f802f8ef42a5ec5f03bbfa254cb01fad",
+			web3Sha3.getResult());
 
         assertTrue(response.getResponses().get(2) instanceof NetVersion);
         NetVersion netVersion = (NetVersion) response.getResponses().get(2);
-        assertEquals(netVersion.getNetVersion(), "59");
+        assertEquals("59", netVersion.getNetVersion());
     }
 }

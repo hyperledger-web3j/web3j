@@ -21,15 +21,15 @@ import static org.web3j.utils.Version.DEFAULT;
 import static org.web3j.utils.Version.getTimestamp;
 import static org.web3j.utils.Version.getVersion;
 
-public class VersionTest {
+class VersionTest {
 
     @Test
-    public void testGetVersion() throws IOException {
+    void testGetVersion() throws IOException {
         assertEquals(getVersion(), (DEFAULT));
     }
 
     @Test
-    public void testGetTimestamp() throws IOException {
+    void testGetTimestamp() throws IOException {
         assertEquals(getTimestamp(), ("2017-01-31 01:21:09.843 UTC"));
     }
 }

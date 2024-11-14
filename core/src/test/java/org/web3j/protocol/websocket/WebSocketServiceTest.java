@@ -54,7 +54,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-public class WebSocketServiceTest {
+class WebSocketServiceTest {
 
     private static final int REQUEST_ID = 1;
 
@@ -74,27 +74,27 @@ public class WebSocketServiceTest {
     private Request<Object, EthSubscribe> subscribeRequest;
 
     @BeforeEach
-    public void before() throws InterruptedException {
+    void before() throws InterruptedException {
         when(webSocketClient.connectBlocking()).thenReturn(true);
         when(webSocketClient.reconnectBlocking()).thenReturn(true);
         request.setId(1);
     }
 
     @Test
-    public void testThrowExceptionIfServerUrlIsInvalid() {
+    void testThrowExceptionIfServerUrlIsInvalid() {
 
         assertThrows(RuntimeException.class, () -> new WebSocketService("invalid\\url", true));
     }
 
     @Test
-    public void testConnectViaWebSocketClient() throws Exception {
+    void testConnectViaWebSocketClient() throws Exception {
         service.connect();
 
         verify(webSocketClient).connectBlocking();
     }
 
     @Test
-    public void testReConnectAfterConnected() throws Exception {
+    void testReConnectAfterConnected() throws Exception {
         service.connect();
         service.close();
         service.connect();
@@ -104,7 +104,7 @@ public class WebSocketServiceTest {
     }
 
     @Test
-    public void testInterruptCurrentThreadIfConnectionIsInterrupted() throws Exception {
+    void testInterruptCurrentThreadIfConnectionIsInterrupted() throws Exception {
         when(webSocketClient.connectBlocking()).thenThrow(new InterruptedException());
         service.connect();
 
@@ -112,7 +112,7 @@ public class WebSocketServiceTest {
     }
 
     @Test
-    public void testThrowExceptionIfConnectionFailed() throws Exception {
+    void testThrowExceptionIfConnectionFailed() throws Exception {
         when(webSocketClient.connectBlocking()).thenReturn(false);
         assertThrows(
                 ConnectException.class,
@@ -122,7 +122,7 @@ public class WebSocketServiceTest {
     }
 
     @Test
-    public void testReconnectIfFirstConnectionFailed() throws Exception {
+    void testReconnectIfFirstConnectionFailed() throws Exception {
         when(webSocketClient.connectBlocking()).thenReturn(false);
         assertThrows(
                 ConnectException.class,
@@ -137,7 +137,7 @@ public class WebSocketServiceTest {
     }
 
     @Test
-    public void testAddedWebSocketListener() throws Exception {
+    void testAddedWebSocketListener() throws Exception {
         doAnswer(
                         invocation -> {
                             listener = invocation.getArgument(0, WebSocketListener.class);
@@ -168,19 +168,19 @@ public class WebSocketServiceTest {
     }
 
     @Test
-    public void testNotWaitingForReplyWithUnknownId() {
+    void testNotWaitingForReplyWithUnknownId() {
         assertFalse(service.isWaitingForReply(123));
     }
 
     @Test
-    public void testWaitingForReplyToSentRequest() throws Exception {
+    void testWaitingForReplyToSentRequest() throws Exception {
         service.sendAsync(request, Web3ClientVersion.class);
 
         assertTrue(service.isWaitingForReply(request.getId()));
     }
 
     @Test
-    public void testNoLongerWaitingForResponseAfterReply() throws Exception {
+    void testNoLongerWaitingForResponseAfterReply() throws Exception {
         service.sendAsync(request, Web3ClientVersion.class);
         sendGethVersionReply();
 
@@ -188,7 +188,7 @@ public class WebSocketServiceTest {
     }
 
     @Test
-    public void testSendWebSocketRequest() throws Exception {
+    void testSendWebSocketRequest() throws Exception {
         service.sendAsync(request, Web3ClientVersion.class);
 
         verify(webSocketClient)
@@ -197,7 +197,7 @@ public class WebSocketServiceTest {
     }
 
     @Test
-    public void testBatchRequestReply() throws Exception {
+    void testBatchRequestReply() throws Exception {
         BatchRequest request = new BatchRequest(service);
         request.add(
                         new Request<>(
@@ -239,25 +239,25 @@ public class WebSocketServiceTest {
     }
 
     @Test
-    public void testIgnoreInvalidReplies() {
+    void testIgnoreInvalidReplies() {
         service.sendAsync(request, Web3ClientVersion.class);
         assertThrows(IOException.class, () -> service.onWebSocketMessage("{"));
     }
 
     @Test
-    public void testThrowExceptionIfIdHasInvalidType() {
+    void testThrowExceptionIfIdHasInvalidType() {
         service.sendAsync(request, Web3ClientVersion.class);
         assertThrows(IOException.class, () -> service.onWebSocketMessage("{\"id\":true}"));
     }
 
     @Test
-    public void testThrowExceptionIfIdIsMissing() {
+    void testThrowExceptionIfIdIsMissing() {
         service.sendAsync(request, Web3ClientVersion.class);
         assertThrows(IOException.class, () -> service.onWebSocketMessage("{}"));
     }
 
     @Test
-    public void testThrowExceptionIfUnexpectedIdIsReceived() {
+    void testThrowExceptionIfUnexpectedIdIsReceived() {
         service.sendAsync(request, Web3ClientVersion.class);
         assertThrows(
                 IOException.class,
@@ -267,7 +267,7 @@ public class WebSocketServiceTest {
     }
 
     @Test
-    public void testReceiveReply() throws Exception {
+    void testReceiveReply() throws Exception {
         CompletableFuture<Web3ClientVersion> reply =
                 service.sendAsync(request, Web3ClientVersion.class);
         sendGethVersionReply();
@@ -277,7 +277,7 @@ public class WebSocketServiceTest {
     }
 
     @Test
-    public void testReceiveError() throws Exception {
+    void testReceiveError() throws Exception {
         CompletableFuture<Web3ClientVersion> reply =
                 service.sendAsync(request, Web3ClientVersion.class);
         sendErrorReply();
@@ -289,7 +289,7 @@ public class WebSocketServiceTest {
     }
 
     @Test
-    public void testCloseRequestWhenConnectionIsClosed() {
+    void testCloseRequestWhenConnectionIsClosed() {
         CompletableFuture<Web3ClientVersion> reply =
                 service.sendAsync(request, Web3ClientVersion.class);
         service.onWebSocketClose();
@@ -299,7 +299,7 @@ public class WebSocketServiceTest {
     }
 
     @Test
-    public void testCancelRequestAfterTimeout() {
+    void testCancelRequestAfterTimeout() {
         when(executorService.schedule(
                         any(Runnable.class),
                         eq(WebSocketService.REQUEST_TIMEOUT),
@@ -319,7 +319,7 @@ public class WebSocketServiceTest {
     }
 
     @Test
-    public void testSyncRequest() throws Exception {
+    void testSyncRequest() throws Exception {
         CountDownLatch requestSent = new CountDownLatch(1);
 
         // Wait for a request to be sent
@@ -348,7 +348,7 @@ public class WebSocketServiceTest {
     }
 
     @Test
-    public void testCloseWebSocketOnClose() throws Exception {
+    void testCloseWebSocketOnClose() throws Exception {
         service.close();
 
         verify(webSocketClient).close();
@@ -356,7 +356,7 @@ public class WebSocketServiceTest {
     }
 
     @Test
-    public void testSendSubscriptionReply() throws Exception {
+    void testSendSubscriptionReply() throws Exception {
         runAsync(() -> subscribeToEvents());
         sendSubscriptionConfirmation();
 
@@ -364,7 +364,7 @@ public class WebSocketServiceTest {
     }
 
     @Test
-    public void testPropagateSubscriptionEvent() throws Exception {
+    void testPropagateSubscriptionEvent() throws Exception {
         CountDownLatch eventReceived = new CountDownLatch(1);
         CountDownLatch disposed = new CountDownLatch(1);
         AtomicReference<NewHeadsNotification> actualNotificationRef = new AtomicReference<>();
@@ -400,7 +400,7 @@ public class WebSocketServiceTest {
     }
 
     @Test
-    public void testSendUnsubscribeRequest() throws Exception {
+    void testSendUnsubscribeRequest() throws Exception {
         CountDownLatch unsubscribed = new CountDownLatch(1);
 
         runAsync(
@@ -417,7 +417,7 @@ public class WebSocketServiceTest {
     }
 
     @Test
-    public void testStopWaitingForSubscriptionReplyAfterTimeout() throws Exception {
+    void testStopWaitingForSubscriptionReplyAfterTimeout() throws Exception {
         CountDownLatch errorReceived = new CountDownLatch(1);
         AtomicReference<Throwable> actualThrowable = new AtomicReference<>();
 
@@ -452,7 +452,7 @@ public class WebSocketServiceTest {
     }
 
     @Test
-    public void testOnErrorCalledIfConnectionClosed() throws Exception {
+    void testOnErrorCalledIfConnectionClosed() throws Exception {
         CountDownLatch errorReceived = new CountDownLatch(1);
         AtomicReference<Throwable> actualThrowable = new AtomicReference<>();
 
@@ -488,7 +488,7 @@ public class WebSocketServiceTest {
     }
 
     @Test
-    public void testIfCloseObserverIfSubscriptionRequestFailed() throws Exception {
+    void testIfCloseObserverIfSubscriptionRequestFailed() throws Exception {
         CountDownLatch errorReceived = new CountDownLatch(1);
         AtomicReference<Throwable> actualThrowable = new AtomicReference<>();
 

@@ -22,15 +22,15 @@ import org.web3j.utils.Numeric;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class WalletTest {
+class WalletTest {
 
     @Test
-    public void testCreateStandard() throws Exception {
+    void testCreateStandard() throws Exception {
         testCreate(Wallet.createStandard(SampleKeys.PASSWORD, SampleKeys.KEY_PAIR));
     }
 
     @Test
-    public void testCreateLight() throws Exception {
+    void testCreateLight() throws Exception {
         testCreate(Wallet.createLight(SampleKeys.PASSWORD, SampleKeys.KEY_PAIR));
     }
 
@@ -39,12 +39,12 @@ public class WalletTest {
     }
 
     @Test
-    public void testEncryptDecryptStandard() throws Exception {
+    void testEncryptDecryptStandard() throws Exception {
         testEncryptDecrypt(Wallet.createStandard(SampleKeys.PASSWORD, SampleKeys.KEY_PAIR));
     }
 
     @Test
-    public void testEncryptDecryptLight() throws Exception {
+    void testEncryptDecryptLight() throws Exception {
         testEncryptDecrypt(Wallet.createLight(SampleKeys.PASSWORD, SampleKeys.KEY_PAIR));
     }
 
@@ -53,21 +53,21 @@ public class WalletTest {
     }
 
     @Test
-    public void testDecryptAes128Ctr() throws Exception {
+    void testDecryptAes128Ctr() throws Exception {
         WalletFile walletFile = load(AES_128_CTR);
         ECKeyPair ecKeyPair = Wallet.decrypt(PASSWORD, walletFile);
         assertEquals(Numeric.toHexStringNoPrefix(ecKeyPair.getPrivateKey()), (SECRET));
     }
 
     @Test
-    public void testDecryptScrypt() throws Exception {
+    void testDecryptScrypt() throws Exception {
         WalletFile walletFile = load(SCRYPT);
         ECKeyPair ecKeyPair = Wallet.decrypt(PASSWORD, walletFile);
         assertEquals(Numeric.toHexStringNoPrefix(ecKeyPair.getPrivateKey()), (SECRET));
     }
 
     @Test
-    public void testGenerateRandomBytes() {
+    void testGenerateRandomBytes() {
         assertArrayEquals(Wallet.generateRandomBytes(0), (new byte[] {}));
         assertEquals(Wallet.generateRandomBytes(10).length, (10));
     }

@@ -74,16 +74,13 @@ public abstract class ResponseTester {
                 throw new UnsupportedOperationException("Response has not been configured");
             }
 
-            okhttp3.Response response =
-                    new okhttp3.Response.Builder()
+            return new okhttp3.Response.Builder()
                             .body(ResponseBody.create(jsonResponse, JSON_MEDIA_TYPE))
                             .request(chain.request())
                             .protocol(Protocol.HTTP_2)
                             .code(200)
                             .message("")
                             .build();
-
-            return response;
         }
     }
 }

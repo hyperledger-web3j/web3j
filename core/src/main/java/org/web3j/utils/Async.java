@@ -22,6 +22,8 @@ import java.util.concurrent.TimeUnit;
 /** Async task facilitation. */
 public class Async {
 
+    private Async() {}
+
     private static final ExecutorService executor = Executors.newCachedThreadPool();
 
     static {

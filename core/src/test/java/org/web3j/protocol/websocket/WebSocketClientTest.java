@@ -22,27 +22,27 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
-public class WebSocketClientTest {
+class WebSocketClientTest {
 
     private WebSocketListener listener = mock(WebSocketListener.class);
 
     private WebSocketClient client;
 
     @BeforeEach
-    public void before() throws Exception {
+    void before() throws Exception {
         client = new WebSocketClient(new URI("ws://localhost/"));
         client.setListener(listener);
     }
 
     @Test
-    public void testNotifyListenerOnMessage() throws Exception {
+    void testNotifyListenerOnMessage() throws Exception {
         client.onMessage("message");
 
         verify(listener).onMessage("message");
     }
 
     @Test
-    public void testNotifyListenerOnError() throws Exception {
+    void testNotifyListenerOnError() {
         IOException e = new IOException("123");
         client.onError(e);
 
@@ -50,7 +50,7 @@ public class WebSocketClientTest {
     }
 
     @Test
-    public void testErrorBeforeListenerSet() throws Exception {
+    void testErrorBeforeListenerSet() {
         final IOException e = new IOException("123");
         client.setListener(null);
         client.onError(e);
@@ -59,7 +59,7 @@ public class WebSocketClientTest {
     }
 
     @Test
-    public void testNotifyListenerOnClose() throws Exception {
+    void testNotifyListenerOnClose() {
         client.onClose(1, "reason", true);
 
         verify(listener).onClose();

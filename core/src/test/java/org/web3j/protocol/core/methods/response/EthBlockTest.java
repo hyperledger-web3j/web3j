@@ -18,27 +18,27 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class EthBlockTest {
+class EthBlockTest {
 
     @Test
-    public void testEthBlockNullSize() {
+    void testEthBlockNullSize() {
         EthBlock.Block ethBlock =
                 new EthBlock.Block(
                         null, null, null, null, null, null, null, null, null, null, null, null,
                         null, null, null, null, null, null, null, null, null, null, null, null,
                         null, null, null, null);
 
-        assertEquals(ethBlock.getSize(), BigInteger.ZERO);
+        assertEquals(BigInteger.ZERO, ethBlock.getSize());
     }
 
     @Test
-    public void testEthBlockNotNullSize() {
+    void testEthBlockNotNullSize() {
         EthBlock.Block ethBlock =
                 new EthBlock.Block(
                         null, null, null, null, null, null, null, null, null, null, null, null,
                         null, null, null, null, "0x3e8", null, null, null, null, null, null, null,
                         null, null, null, null);
 
-        assertEquals(ethBlock.getSize(), BigInteger.valueOf(1000));
+        assertEquals(BigInteger.valueOf(1000), ethBlock.getSize());
     }
 }

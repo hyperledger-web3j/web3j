@@ -21,10 +21,10 @@ import static org.junit.jupiter.api.Assertions.fail;
 import static org.web3j.ens.NameHash.nameHash;
 import static org.web3j.ens.NameHash.normalise;
 
-public class NameHashTest {
+class NameHashTest {
 
     @Test
-    public void testNameHash() {
+    void testNameHash() {
         assertEquals(
                 nameHash(""),
                 ("0x0000000000000000000000000000000000000000000000000000000000000000"));
@@ -43,7 +43,7 @@ public class NameHashTest {
     }
 
     @Test
-    public void testNormalise() {
+    void testNormalise() {
         assertEquals(normalise("foo"), ("foo"));
         assertEquals(normalise("foo.bar.baz.eth"), ("foo.bar.baz.eth"));
         assertEquals(normalise("fOo.eth"), ("foo.eth"));
@@ -56,7 +56,7 @@ public class NameHashTest {
     }
 
     @Test
-    public void testNormaliseInvalid() {
+    void testNormaliseInvalid() {
         testInvalidName("foo..bar");
         testInvalidName("ba\\u007Fr.eth");
         testInvalidName("foo_bar.eth");

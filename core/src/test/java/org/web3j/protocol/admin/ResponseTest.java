@@ -28,10 +28,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /** Parity/Geth Shared Protocol Response tests. */
-public class ResponseTest extends ResponseTester {
+class ResponseTest extends ResponseTester {
 
     @Test
-    public void testBooleanResponse() {
+    void testBooleanResponse() {
         buildResponse(
                 "{\n"
                         + "    \"jsonrpc\":\"2.0\",\n"
@@ -44,7 +44,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testNewAccountIdentifier() {
+    void testNewAccountIdentifier() {
         buildResponse(
                 "{\n"
                         + "    \"jsonrpc\": \"2.0\",\n"
@@ -59,7 +59,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testPersonalListAccounts() {
+    void testPersonalListAccounts() {
         buildResponse(
                 "{\n"
                         + "    \"jsonrpc\": \"2.0\",\n"
@@ -79,7 +79,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testPersonalSign() {
+    void testPersonalSign() {
 
         buildResponse(
                 "{\n"
@@ -96,7 +96,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testPersonalUnlockAccount() {
+    void testPersonalUnlockAccount() {
         buildResponse(
                 "{\n"
                         + "    \"jsonrpc\":\"2.0\",\n"
@@ -110,7 +110,7 @@ public class ResponseTest extends ResponseTester {
     }
 
     @Test
-    public void testTxPoolContent() {
+    void testTxPoolContent() {
         buildResponse(
                 "{\n"
                         + "  \"jsonrpc\": \"2.0\",\n"

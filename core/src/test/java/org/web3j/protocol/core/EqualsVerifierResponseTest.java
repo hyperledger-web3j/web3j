@@ -26,10 +26,10 @@ import org.web3j.protocol.core.methods.response.ShhMessages;
 import org.web3j.protocol.core.methods.response.Transaction;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 
-public class EqualsVerifierResponseTest {
+class EqualsVerifierResponseTest {
 
     @Test
-    public void testBlock() {
+    void testBlock() {
         EqualsVerifier.forClass(EthBlock.Block.class)
                 .suppress(Warning.NONFINAL_FIELDS)
                 .suppress(Warning.STRICT_INHERITANCE)
@@ -37,7 +37,7 @@ public class EqualsVerifierResponseTest {
     }
 
     @Test
-    public void testTransaction() {
+    void testTransaction() {
         EqualsVerifier.forClass(Transaction.class)
                 .suppress(Warning.NONFINAL_FIELDS)
                 .suppress(Warning.STRICT_INHERITANCE)
@@ -45,7 +45,7 @@ public class EqualsVerifierResponseTest {
     }
 
     @Test
-    public void testTransactionReceipt() {
+    void testTransactionReceipt() {
         EqualsVerifier.forClass(TransactionReceipt.class)
                 .suppress(Warning.NONFINAL_FIELDS)
                 .suppress(Warning.STRICT_INHERITANCE)
@@ -53,7 +53,7 @@ public class EqualsVerifierResponseTest {
     }
 
     @Test
-    public void testLog() {
+    void testLog() {
         EqualsVerifier.forClass(Log.class)
                 .suppress(Warning.NONFINAL_FIELDS)
                 .suppress(Warning.STRICT_INHERITANCE)
@@ -61,7 +61,7 @@ public class EqualsVerifierResponseTest {
     }
 
     @Test
-    public void testSshMessage() {
+    void testSshMessage() {
         EqualsVerifier.forClass(ShhMessages.SshMessage.class)
                 .suppress(Warning.NONFINAL_FIELDS)
                 .suppress(Warning.STRICT_INHERITANCE)
@@ -69,7 +69,7 @@ public class EqualsVerifierResponseTest {
     }
 
     @Test
-    public void testSolidityInfo() {
+    void testSolidityInfo() {
         EqualsVerifier.forClass(EthCompileSolidity.SolidityInfo.class)
                 .withPrefabValues(
                         AbiDefinition.NamedType.class,
@@ -81,7 +81,7 @@ public class EqualsVerifierResponseTest {
     }
 
     @Test
-    public void testSyncing() {
+    void testSyncing() {
         EqualsVerifier.forClass(EthSyncing.Syncing.class)
                 .suppress(Warning.NONFINAL_FIELDS)
                 .suppress(Warning.STRICT_INHERITANCE)
@@ -89,7 +89,7 @@ public class EqualsVerifierResponseTest {
     }
 
     @Test
-    public void testAbiDefinition() {
+    void testAbiDefinition() {
         EqualsVerifier.forClass(AbiDefinition.class)
                 .withPrefabValues(
                         AbiDefinition.NamedType.class,
@@ -101,7 +101,7 @@ public class EqualsVerifierResponseTest {
     }
 
     @Test
-    public void testAbiDefinitionNamedType() {
+    void testAbiDefinitionNamedType() {
         EqualsVerifier.forClass(AbiDefinition.NamedType.class)
                 .withPrefabValues(
                         AbiDefinition.NamedType.class,
@@ -113,7 +113,7 @@ public class EqualsVerifierResponseTest {
     }
 
     @Test
-    public void testHash() {
+    void testHash() {
         EqualsVerifier.forClass(EthLog.Hash.class)
                 .suppress(Warning.NONFINAL_FIELDS)
                 .suppress(Warning.STRICT_INHERITANCE)
@@ -121,7 +121,7 @@ public class EqualsVerifierResponseTest {
     }
 
     @Test
-    public void testCode() {
+    void testCode() {
         EqualsVerifier.forClass(EthCompileSolidity.Code.class)
                 .withPrefabValues(
                         AbiDefinition.NamedType.class,
@@ -133,7 +133,7 @@ public class EqualsVerifierResponseTest {
     }
 
     @Test
-    public void testTransactionHash() {
+    void testTransactionHash() {
         EqualsVerifier.forClass(EthBlock.TransactionHash.class)
                 .suppress(Warning.NONFINAL_FIELDS)
                 .suppress(Warning.STRICT_INHERITANCE)
@@ -141,7 +141,7 @@ public class EqualsVerifierResponseTest {
     }
 
     @Test
-    public void testCompiledSolidityCode() {
+    void testCompiledSolidityCode() {
         EqualsVerifier.forClass(EthCompileSolidity.Code.class)
                 .withPrefabValues(
                         AbiDefinition.NamedType.class,
@@ -153,7 +153,7 @@ public class EqualsVerifierResponseTest {
     }
 
     @Test
-    public void testDocumentation() {
+    void testDocumentation() {
         EqualsVerifier.forClass(EthCompileSolidity.Documentation.class)
                 .suppress(Warning.NONFINAL_FIELDS)
                 .suppress(Warning.STRICT_INHERITANCE)
@@ -161,7 +161,7 @@ public class EqualsVerifierResponseTest {
     }
 
     @Test
-    public void testError() {
+    void testError() {
         EqualsVerifier.forClass(Response.Error.class)
                 .suppress(Warning.NONFINAL_FIELDS)
                 .suppress(Warning.STRICT_INHERITANCE)
