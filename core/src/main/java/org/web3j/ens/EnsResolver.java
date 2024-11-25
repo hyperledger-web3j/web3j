@@ -46,12 +46,14 @@ import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.EthBlock;
 import org.web3j.protocol.core.methods.response.EthSyncing;
 import org.web3j.protocol.core.methods.response.NetVersion;
+import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.tx.ClientTransactionManager;
 import org.web3j.tx.TransactionManager;
 import org.web3j.tx.gas.DefaultGasProvider;
 import org.web3j.utils.EnsUtils;
 import org.web3j.utils.Numeric;
 import org.web3j.utils.Strings;
+import software.amazon.awssdk.services.kms.endpoints.internal.Value;
 
 import static org.web3j.service.HSMHTTPRequestProcessor.JSON;
 
@@ -440,6 +442,18 @@ public class EnsResolver {
             String responseBody = response.body().string();
             return new ObjectMapper().readValue(responseBody, EnsMetadataResponse.class);
         }
+    }
+
+    public String getEnsText(String name, String key) throws Exception {
+        PublicResolver publicResolver = lookupResolver(name);
+        byte[] nameHash = NameHash.nameHashAsBytes(name);
+        return publicResolver.text(nameHash, key).send();
+    }
+
+    public TransactionReceipt setEnsText(String name, String key, String value) throws Exception {
+        PublicResolver publicResolver = lookupResolver(name);
+        byte[] nameHash = NameHash.nameHashAsBytes(name);
+        return publicResolver.setText(nameHash, key, value).send();
     }
 
     boolean isSynced() throws Exception {
