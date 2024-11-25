@@ -25,6 +25,7 @@ import static com.squareup.kotlinpoet.TypeNames.SHORT;
 import static com.squareup.kotlinpoet.TypeNames.STRING;
 import static com.squareup.kotlinpoet.TypeNames.U_INT;
 
+
 import java.io.IOException;
 import java.lang.reflect.Modifier;
 import java.math.BigInteger;
@@ -1246,36 +1247,35 @@ public class SolidityFunctionWrapper extends Generator {
 
         String simpleName = ((ClassName) typeName).getSimpleName();
 
-        if (simpleName.equals(Address.class.getSimpleName())) {
-            return STRING;
+        if (simpleName.equals("Address")) {
+            return new ClassName("kotlin", "String");
         } else if (simpleName.startsWith("Uint")) {
-            return U_INT;
-        } else if (simpleName.equals(Utf8String.class.getSimpleName())) {
-            return STRING;
+            return new ClassName("java.math", "BigInteger");
+        } else if (simpleName.equals("Utf8String")) {
+            return new ClassName("kotlin", "String");
         } else if (simpleName.startsWith("Bytes") || simpleName.equals("DynamicBytes")) {
             return BYTE_ARRAY;
         } else if (simpleName.startsWith("Bool")) {
-            return BOOLEAN;
-            // boolean cannot be a parameterized type
-        } else if (simpleName.equals(Byte.class.getSimpleName())) {
-            return BYTE;
-        } else if (simpleName.equals(Char.class.getSimpleName())) {
-            return CHAR;
-        } else if (simpleName.equals(Double.class.getSimpleName())) {
-            return DOUBLE;
-        } else if (simpleName.equals(Float.class.getSimpleName())) {
-            return FLOAT;
-        } else if (simpleName.equals(Int.class.getSimpleName())) {
-            return INT;
-        } else if (simpleName.equals(Long.class.getSimpleName())) {
-            return LONG;
-        } else if (simpleName.equals(Short.class.getSimpleName())) {
-            return SHORT;
+            return new ClassName("kotlin", "Boolean");
+        } else if (simpleName.equals("Byte")) {
+            return new ClassName("kotlin", "Byte");
+        } else if (simpleName.equals("Char")) {
+            return new ClassName("kotlin", "Char");
+        } else if (simpleName.equals("Double")) {
+            return new ClassName("kotlin", "Double");
+        } else if (simpleName.equals("Float")) {
+            return new ClassName("kotlin", "Float");
+        } else if (simpleName.equals("Int")) {
+            return new ClassName("kotlin", "Int");
+        } else if (simpleName.equals("Long")) {
+            return new ClassName("kotlin", "Long");
+        } else if (simpleName.equals("Short")) {
+            return new ClassName("kotlin", "Short");
         } else if (simpleName.startsWith("Int")) {
-            return INT;
+            return new ClassName("java.math", "BigInteger");
         } else {
             throw new UnsupportedOperationException(
-                    "Unsupported type: " + typeName + ", no native type mapping exists.");
+                    "Unsupported type: " + simpleName + ", no native type mapping exists.");
         }
     }
 
@@ -1404,11 +1404,9 @@ public class SolidityFunctionWrapper extends Generator {
         if (!arrayLength.isEmpty() && Integer.parseInt(arrayLength) > 0) {
             return ParameterizedTypeName.get(
                     new ClassName("org.web3j.abi.datatypes.generated", "StaticArray" + arrayLength),
-                    new ClassName("", structName));
-        } else {
+                    new ClassName(String.valueOf(DynamicArray.class)), new ClassName("org.web3j.abi.datatypes.generated", structName));        } else {
             return ParameterizedTypeName.get(
-                    new ClassName(String.valueOf(DynamicArray.class)), new ClassName("", structName));
-        }
+                    new ClassName(String.valueOf(DynamicArray.class)), new ClassName("org.web3j.abi.datatypes.generated", structName));        }
     }
 
     private String resolveStructName(NamedType namedType) {

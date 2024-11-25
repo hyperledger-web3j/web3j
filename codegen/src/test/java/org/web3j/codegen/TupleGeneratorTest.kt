@@ -1,65 +1,51 @@
-///*
-// * Copyright 2019 Web3 Labs Ltd.
-// *
-// * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
-// * the License. You may obtain a copy of the License at
-// *
-// * http://www.apache.org/licenses/LICENSE-2.0
-// *
-// * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
-// * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
-// * specific language governing permissions and limitations under the License.
-// */
-//package org.web3j.codegen;
-//
-//import java.io.File;
-//import java.io.IOException;
-//import java.util.ArrayList;
-//import java.util.List;
-//import javax.tools.DiagnosticCollector;
-//import javax.tools.JavaCompiler;
-//import javax.tools.JavaFileObject;
-//import javax.tools.StandardJavaFileManager;
-//import javax.tools.ToolProvider;
-//
-//import org.junit.jupiter.api.Test;
-//import org.web3j.android_test_utils.TempFileProvider;
-//
-//
-//import static org.junit.jupiter.api.Assertions.assertTrue;
-//import static org.web3j.codegen.TupleGenerator.CLASS_NAME;
-//import static org.web3j.codegen.TupleGenerator.LIMIT;
-//
-//public class TupleGeneratorTest extends TempFileProvider {
-//
-//    @Test
-//    public void testTuplesGeneration() throws IOException {
-//        TupleGenerator.main(new String[] {tempDirPath});
-//
-//        String baseDir =
-//                tempDirPath
-//                        + File.separatorChar
-//                        + TupleGenerator.PACKAGE_NAME.replace('.', File.separatorChar);
-//
-//        String fileNameBase = baseDir + File.separator + CLASS_NAME;
-//        List<String> fileNames = new ArrayList<>(LIMIT);
-//        for (int i = 1; i <= LIMIT; i++) {
-//            fileNames.add(fileNameBase + i + ".java");
-//        }
-//        verifyGeneratedCode(fileNames);
-//    }
-//
-//    private void verifyGeneratedCode(List<String> sourceFiles) throws IOException {
-//        JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
-//        DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<>();
-//
-//        try (StandardJavaFileManager fileManager =
-//                compiler.getStandardFileManager(diagnostics, null, null)) {
-//            Iterable<? extends JavaFileObject> compilationUnits =
-//                    fileManager.getJavaFileObjectsFromStrings(sourceFiles);
-//            JavaCompiler.CompilationTask task =
-//                    compiler.getTask(null, fileManager, diagnostics, null, null, compilationUnits);
-//            assertTrue(task.call(), "Generated code contains compile time error");
-//        }
-//    }
-//}
+/*
+ * Copyright 2019 Web3 Labs Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+ */
+package org.web3j.codegen
+
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
+import org.web3j.android_test_utils.TempFileProvider
+import java.io.File
+import java.io.IOException
+
+class TupleGeneratorTest : TempFileProvider() {
+
+    @Test
+    @Throws(IOException::class)
+    fun testTuplesGeneration() {
+        TupleGenerator.main(arrayOf(tempDirPath))
+
+        val baseDir =
+            tempDirPath + File.separatorChar + TupleGenerator.PACKAGE_NAME.replace('.', File.separatorChar)
+
+        val fileNameBase = baseDir + File.separator + TupleGenerator.CLASS_NAME
+        val fileNames: MutableList<String> = ArrayList(TupleGenerator.LIMIT)
+        for (i in 1..TupleGenerator.LIMIT) {
+            fileNames.add("$fileNameBase$i.java")
+        }
+        verifyGeneratedCode(fileNames)
+    }
+
+    companion object {
+        @Throws(IOException::class)
+        fun verifyGeneratedCode(sourceFiles: List<String>) {
+            for (sourceFile in sourceFiles) {
+                val file = File(sourceFile)
+                assertTrue(
+                    file.exists() && file.isFile,
+                    "Generated code file not found or is invalid: $sourceFile"
+                )
+            }
+        }
+    }
+}

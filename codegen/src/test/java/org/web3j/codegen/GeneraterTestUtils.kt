@@ -10,28 +10,45 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package org.web3j.codegen;
+package org.web3j.codegen
 
-import java.io.IOException;
-import java.util.Collections;
+import org.eclipse.jdt.internal.compiler.batch.Main
+import org.junit.jupiter.api.Assertions.assertTrue
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.IOException
+import java.io.PrintWriter
 
+class GeneraterTestUtils private constructor() {
+    companion object {
+        @JvmStatic
+        @Throws(IOException::class)
+        fun verifyGeneratedCode(sourceFile: String?) {
+            requireNotNull(sourceFile) { "Source file cannot be null" }
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+            val outputStream = ByteArrayOutputStream()
+            val printWriter = PrintWriter(outputStream)
+            val compiler = Main(
+                printWriter,
+                printWriter,
+                false,
+                null,
+                null
+            )
 
-public class GeneraterTestUtils {
+            val result = compiler.compile(
+                arrayOf(
+                    sourceFile,
+                    "-d",
+                    "out", // Specify the output directory for compiled classes
+                    "-classpath",
+                    System.getProperty("java.class.path") // Include necessary classpath
+                )
+            )
 
-//    public static void verifyGeneratedCode(String sourceFile) throws IOException {
-//        JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
-//        DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<>();
-//
-//        try (StandardJavaFileManager fileManager =
-//                compiler.getStandardFileManager(diagnostics, null, null)) {
-//            Iterable<? extends JavaFileObject> compilationUnits =
-//                    fileManager.getJavaFileObjectsFromStrings(
-//                            Collections.singletonList(sourceFile));
-//            JavaCompiler.CompilationTask task =
-//                    compiler.getTask(null, fileManager, diagnostics, null, null, compilationUnits);
-//            assertTrue(task.call(), "Generated contract contains compile time error");
-//        }
-//    }
+            val compilerOutput = outputStream.toString()
+            println(compilerOutput)
+            assertTrue(result, "Generated contract contains compile-time errors:\n$compilerOutput")
+        }
+    }
 }
