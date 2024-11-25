@@ -25,6 +25,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
+import okhttp3.Response;
 import okhttp3.ResponseBody;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +39,7 @@ import org.web3j.dto.EnsGatewayResponseDTO;
 import org.web3j.ens.contracts.generated.ENS;
 import org.web3j.ens.contracts.generated.OffchainResolverContract;
 import org.web3j.ens.contracts.generated.PublicResolver;
+import org.web3j.ens.contracts.generated.ReverseRegistrar;
 import org.web3j.protocol.ObjectMapperFactory;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameterName;
@@ -336,6 +338,16 @@ public class EnsResolver {
         }
     }
 
+    public void setReverseName(String name) throws Exception {
+        ReverseRegistrar reverseRegistrar = getReverseRegistrarContract();
+        reverseRegistrar.setName(name).send();
+    }
+
+    public void setReverseName(String addr, String owner, String resolver, String name ) throws Exception {
+        ReverseRegistrar reverseRegistrar = getReverseRegistrarContract();
+        reverseRegistrar.setNameForAddr(addr, owner, resolver, name).send();
+    }
+
     /**
      * Reverse name resolution as documented in the <a
      * href="https://docs.ens.domains/contract-api-reference/reverseregistrar">specification</a>.
@@ -376,13 +388,8 @@ public class EnsResolver {
                 getResolverAddress(ensName), web3j, transactionManager, new DefaultGasProvider());
     }
 
-    private String getResolverAddress(String ensName) throws Exception {
-        NetVersion netVersion = web3j.netVersion().send();
-        String registryContract = Contracts.resolveRegistryContract(netVersion.getNetVersion());
-
-        ENS ensRegistry =
-                ENS.load(registryContract, web3j, transactionManager, new DefaultGasProvider());
-
+    public String getResolverAddress(String ensName) throws Exception {
+        ENS ensRegistry = getRegistryContract();
         byte[] nameHash = NameHash.nameHashAsBytes(ensName);
         String address = ensRegistry.resolver(nameHash).send();
 
@@ -391,6 +398,48 @@ public class EnsResolver {
         }
 
         return address;
+    }
+
+    public String getOwnerAddress(String ensName) throws Exception {
+        ENS ensRegistry = getRegistryContract();
+        byte[] nameHash = NameHash.nameHashAsBytes(ensName);
+        return ensRegistry.owner(nameHash).send();
+    }
+
+    private ENS getRegistryContract() throws IOException {
+        NetVersion netVersion = web3j.netVersion().send();
+        String registryContract = Contracts.resolveRegistryContract(netVersion.getNetVersion());
+
+        return ENS.load(registryContract, web3j, transactionManager, new DefaultGasProvider());
+    }
+
+    private ReverseRegistrar getReverseRegistrarContract() throws IOException {
+        NetVersion netVersion = web3j.netVersion().send();
+        String reverseRegistrarContract = ReverseRegistrarContracts.resolveReverseRegistrarContract(netVersion.getNetVersion());
+
+        return ReverseRegistrar.load(reverseRegistrarContract, web3j, transactionManager, new DefaultGasProvider());
+    }
+
+    public EnsMetadataResponse getEnsMetadata(String name) throws IOException {
+        NetVersion netVersion = web3j.netVersion().send();
+        byte[] nameHash = NameHash.nameHashAsBytes(name);
+        String apiUrl = NameWrapperApi.getEnsMetadataApi(netVersion.getNetVersion()) + Numeric.toHexString(nameHash);
+
+        Request request = new Request.Builder()
+                .url(apiUrl)
+                .get()
+                .build();
+
+        try (Response response = client.newCall(request).execute()) {
+            if (!response.isSuccessful()) {
+                throw new IOException("Failed to fetch ENS metadata. HTTP error code: " + response.code());
+            }
+
+            // Parse the JSON response
+            assert response.body() != null;
+            String responseBody = response.body().string();
+            return new ObjectMapper().readValue(responseBody, EnsMetadataResponse.class);
+        }
     }
 
     boolean isSynced() throws Exception {
