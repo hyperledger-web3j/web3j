@@ -1,5 +1,21 @@
 plugins {
     id 'com.android.library'
+    id 'maven-publish'
+}
+
+publishing {
+    publications {
+        release(MavenPublication) {
+            groupId = 'org.web3j'
+            artifactId = 'integration-tests'
+            version = '4.12.4'
+
+            artifact("$buildDir/outputs/aar/${project.name}-release.aar")
+        }
+    }
+    repositories {
+        mavenLocal()
+    }
 }
 
 description 'web3j integration tests'

@@ -3,7 +3,23 @@ import java.text.SimpleDateFormat
 plugins {
     id 'com.android.library'
     id 'org.ajoberstar.git-publish'
+    id 'maven-publish'
 }
+publishing {
+    publications {
+        release(MavenPublication) {
+            groupId = 'org.web3j'
+            artifactId = 'core'
+            version = '4.12.4'
+
+            artifact("$buildDir/outputs/aar/${project.name}-release.aar")
+        }
+    }
+    repositories {
+        mavenLocal()
+    }
+}
+
 
 android {
     namespace 'org.web3j'

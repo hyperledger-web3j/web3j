@@ -1,5 +1,21 @@
 plugins {
     id 'com.android.library'
+    id 'maven-publish'
+}
+
+publishing {
+    publications {
+        release(MavenPublication) {
+            groupId = 'org.web3j'
+            artifactId = 'abi'
+            version = '4.12.4'
+
+            artifact("$buildDir/outputs/aar/${project.name}-release.aar")
+        }
+    }
+    repositories {
+        mavenLocal()
+    }
 }
 
 android {
@@ -9,8 +25,6 @@ android {
     defaultConfig {
         minSdkVersion 24
         targetSdkVersion 33
-
-
     }
 
     lint {

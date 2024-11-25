@@ -1,6 +1,22 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'maven-publish'
+}
+
+publishing {
+    publications {
+        release(MavenPublication) {
+            groupId = 'org.web3j'
+            artifactId = 'codegen'
+            version = '4.12.4'
+
+            artifact("$buildDir/outputs/aar/${project.name}-release.aar")
+        }
+    }
+    repositories {
+        mavenLocal()
+    }
 }
 
 android {
@@ -29,6 +45,7 @@ android {
         test {
             java.srcDirs = ['src/test/java']
         }
+
     }
     kotlinOptions {
         jvmTarget = "17"
