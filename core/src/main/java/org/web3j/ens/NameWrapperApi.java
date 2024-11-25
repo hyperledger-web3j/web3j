@@ -5,9 +5,9 @@ import org.web3j.tx.ChainIdLong;
 public class NameWrapperApi {
 
     public static final String BASE_URL = "https://ens-metadata-service.appspot.com/";
-    public static final String MAINNET = "0xa58E81fe9b61B5c3fE2AFD33CF304c454AbFc7Cb";
-    public static final String SEPOLIA = "0xA0a1AbcDAe1a2a4A2EF8e9113Ff0e02DD81DC0C6";
-    public static final String HOLESKY = "0x132AC0B116a73add4225029D1951A9A707Ef673f";
+    public static final String MAINNET = "0xD4416b13d2b3a9aBae7AcD5D6C2BbDBE25686401";
+    public static final String SEPOLIA = "0x0635513f179D50A207757E05759CbD106d7dFcE8";
+    public static final String HOLESKY = "0xab50971078225D365994dc1Edcb9b7FD72Bb4862";
 
     private NameWrapperApi() {}
 
