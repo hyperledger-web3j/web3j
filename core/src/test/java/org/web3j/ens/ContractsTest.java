@@ -26,6 +26,8 @@ import static org.web3j.ens.Contracts.RINKEBY;
 import static org.web3j.ens.Contracts.ROPSTEN;
 import static org.web3j.ens.Contracts.SEPOLIA;
 import static org.web3j.ens.Contracts.resolveRegistryContract;
+import static org.web3j.ens.NameWrapperApi.getEnsMetadataApi;
+import static org.web3j.ens.ReverseRegistrarContracts.resolveReverseRegistrarContract;
 
 @SuppressWarnings("deprecation")
 class ContractsTest {
@@ -42,8 +44,41 @@ class ContractsTest {
     }
 
     @Test
+    void testReverseRegistrarContract() {
+        assertEquals(
+                resolveReverseRegistrarContract(ChainIdLong.MAINNET + ""),
+                (ReverseRegistrarContracts.MAINNET));
+        assertEquals(
+                resolveReverseRegistrarContract(ChainIdLong.SEPOLIA + ""),
+                (ReverseRegistrarContracts.SEPOLIA));
+        assertEquals(
+                resolveReverseRegistrarContract(ChainIdLong.HOLESKY + ""),
+                (ReverseRegistrarContracts.HOLESKY));
+        assertEquals(
+                resolveReverseRegistrarContract(ChainIdLong.LINEA + ""),
+                (ReverseRegistrarContracts.LINEA));
+        assertEquals(
+                resolveReverseRegistrarContract(ChainIdLong.LINEA_SEPOLIA + ""),
+                (ReverseRegistrarContracts.LINEA_SEPOLIA));
+    }
+
+    @Test
+    void testNameWrapperApiLinks() {
+        assertEquals(getEnsMetadataApi(ChainIdLong.MAINNET + ""), (NameWrapperApi.MAINNET_URL));
+        assertEquals(getEnsMetadataApi(ChainIdLong.SEPOLIA + ""), (NameWrapperApi.SEPOLIA_URL));
+        assertEquals(getEnsMetadataApi(ChainIdLong.HOLESKY + ""), (NameWrapperApi.HOLESKY_URL));
+    }
+
+    @Test
     void testResolveRegistryContractInvalid() {
         assertThrows(
                 EnsResolutionException.class, () -> resolveRegistryContract(ChainIdLong.NONE + ""));
+    }
+
+    @Test
+    void testReverseRegistrarContractInvalid() {
+        assertThrows(
+                EnsResolutionException.class,
+                () -> resolveReverseRegistrarContract(ChainIdLong.NONE + ""));
     }
 }

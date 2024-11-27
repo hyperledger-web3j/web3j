@@ -32,6 +32,7 @@ import org.slf4j.LoggerFactory;
 
 import org.web3j.abi.DefaultFunctionReturnDecoder;
 import org.web3j.abi.datatypes.ens.OffchainLookup;
+import org.web3j.crypto.Credentials;
 import org.web3j.crypto.Keys;
 import org.web3j.crypto.WalletUtils;
 import org.web3j.dto.EnsGatewayRequestDTO;
@@ -53,7 +54,6 @@ import org.web3j.tx.gas.DefaultGasProvider;
 import org.web3j.utils.EnsUtils;
 import org.web3j.utils.Numeric;
 import org.web3j.utils.Strings;
-import software.amazon.awssdk.services.kms.endpoints.internal.Value;
 
 import static org.web3j.service.HSMHTTPRequestProcessor.JSON;
 
@@ -146,6 +146,31 @@ public class EnsResolver {
 
             try {
                 return lookupOffchainResolver(ensName);
+            } catch (Exception e) {
+                throw new EnsResolutionException("Unable to get resolver", e);
+            }
+        } else {
+            throw new EnsResolutionException("EnsName is invalid: " + ensName);
+        }
+    }
+
+    protected OffchainResolverContract obtainOffchainResolver(
+            String ensName, Credentials credentials) {
+        if (isValidEnsName(ensName, addressLength)) {
+            boolean isSynced;
+
+            try {
+                isSynced = isSynced();
+            } catch (Exception e) {
+                throw new EnsResolutionException("Unable to determine sync status of node", e);
+            }
+
+            if (!isSynced) {
+                throw new EnsResolutionException("Node is not currently synced");
+            }
+
+            try {
+                return lookupOffchainResolver(ensName, credentials);
             } catch (Exception e) {
                 throw new EnsResolutionException("Unable to get resolver", e);
             }
@@ -340,14 +365,17 @@ public class EnsResolver {
         }
     }
 
-    public void setReverseName(String name) throws Exception {
-        ReverseRegistrar reverseRegistrar = getReverseRegistrarContract();
-        reverseRegistrar.setName(name).send();
+    public TransactionReceipt setReverseName(String name, Credentials credentials)
+            throws Exception {
+        ReverseRegistrar reverseRegistrar = getReverseRegistrarContract(credentials);
+        return reverseRegistrar.setName(name).send();
     }
 
-    public void setReverseName(String addr, String owner, String resolver, String name ) throws Exception {
-        ReverseRegistrar reverseRegistrar = getReverseRegistrarContract();
-        reverseRegistrar.setNameForAddr(addr, owner, resolver, name).send();
+    public TransactionReceipt setReverseName(
+            String addr, String owner, String resolver, String name, Credentials credentials)
+            throws Exception {
+        ReverseRegistrar reverseRegistrar = getReverseRegistrarContract(credentials);
+        return reverseRegistrar.setNameForAddr(addr, owner, resolver, name).send();
     }
 
     /**
@@ -390,6 +418,12 @@ public class EnsResolver {
                 getResolverAddress(ensName), web3j, transactionManager, new DefaultGasProvider());
     }
 
+    private OffchainResolverContract lookupOffchainResolver(String ensName, Credentials credentials)
+            throws Exception {
+        return OffchainResolverContract.load(
+                getResolverAddress(ensName), web3j, credentials, new DefaultGasProvider());
+    }
+
     public String getResolverAddress(String ensName) throws Exception {
         ENS ensRegistry = getRegistryContract();
         byte[] nameHash = NameHash.nameHashAsBytes(ensName);
@@ -415,26 +449,30 @@ public class EnsResolver {
         return ENS.load(registryContract, web3j, transactionManager, new DefaultGasProvider());
     }
 
-    private ReverseRegistrar getReverseRegistrarContract() throws IOException {
+    protected ReverseRegistrar getReverseRegistrarContract(Credentials credentials)
+            throws IOException {
         NetVersion netVersion = web3j.netVersion().send();
-        String reverseRegistrarContract = ReverseRegistrarContracts.resolveReverseRegistrarContract(netVersion.getNetVersion());
+        String reverseRegistrarContract =
+                ReverseRegistrarContracts.resolveReverseRegistrarContract(
+                        netVersion.getNetVersion());
 
-        return ReverseRegistrar.load(reverseRegistrarContract, web3j, transactionManager, new DefaultGasProvider());
+        return ReverseRegistrar.load(
+                reverseRegistrarContract, web3j, credentials, new DefaultGasProvider());
     }
 
     public EnsMetadataResponse getEnsMetadata(String name) throws IOException {
         NetVersion netVersion = web3j.netVersion().send();
         byte[] nameHash = NameHash.nameHashAsBytes(name);
-        String apiUrl = NameWrapperApi.getEnsMetadataApi(netVersion.getNetVersion()) + Numeric.toHexString(nameHash);
+        String apiUrl =
+                NameWrapperApi.getEnsMetadataApi(netVersion.getNetVersion())
+                        + Numeric.toHexString(nameHash);
 
-        Request request = new Request.Builder()
-                .url(apiUrl)
-                .get()
-                .build();
+        Request request = new Request.Builder().url(apiUrl).get().build();
 
         try (Response response = client.newCall(request).execute()) {
             if (!response.isSuccessful()) {
-                throw new IOException("Failed to fetch ENS metadata. HTTP error code: " + response.code());
+                throw new IOException(
+                        "Failed to fetch ENS metadata. HTTP error code: " + response.code());
             }
 
             // Parse the JSON response
@@ -445,15 +483,17 @@ public class EnsResolver {
     }
 
     public String getEnsText(String name, String key) throws Exception {
-        PublicResolver publicResolver = lookupResolver(name);
+        OffchainResolverContract offchainResolverContract = obtainOffchainResolver(name);
         byte[] nameHash = NameHash.nameHashAsBytes(name);
-        return publicResolver.text(nameHash, key).send();
+        return offchainResolverContract.text(nameHash, key).send();
     }
 
-    public TransactionReceipt setEnsText(String name, String key, String value) throws Exception {
-        PublicResolver publicResolver = lookupResolver(name);
+    public TransactionReceipt setEnsText(
+            String name, String key, String value, Credentials credentials) throws Exception {
+        OffchainResolverContract offchainResolverContract =
+                obtainOffchainResolver(name, credentials);
         byte[] nameHash = NameHash.nameHashAsBytes(name);
-        return publicResolver.setText(nameHash, key, value).send();
+        return offchainResolverContract.setText(nameHash, key, value).send();
     }
 
     boolean isSynced() throws Exception {
