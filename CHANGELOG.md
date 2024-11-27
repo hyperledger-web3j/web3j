@@ -7,13 +7,15 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-*
+* fixed several code issues found by sonar [#2113](https://github.com/hyperledger/web3j/pull/2113)
+* update GitHub actions versions [#2114](https://github.com/hyperledger/web3j/pull/2114)
 
 ### Features
 
 * bump snapshot version to 4.12.3 [#2101](https://github.com/hyperledger/web3j/pull/2101)
 * Add HSM kms implementation [#2105](https://github.com/hyperledger/web3j/pull/2105)
 * Added support for Holesky [#2111](https://github.com/hyperledger/web3j/pull/2111)
+* Advance ENS features and metadata retrieval [#2116](https://github.com/hyperledger/web3j/pull/2116)
 
 ### BREAKING CHANGES
 
