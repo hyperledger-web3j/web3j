@@ -132,7 +132,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* **Integration Tests:** Fixed all the failing and skipped Intergration tests specially Besu privacy tests [#1958](https://github.com/web3j/web3j/pull/1958)
+* **Integration Tests:** Fixed all the failing and skipped Integration tests specially Besu privacy tests [#1958](https://github.com/web3j/web3j/pull/1958)
 * Fixed Dynamic Arrays encoder [#1961](https://github.com/web3j/web3j/pull/1961)
 * Fixed dynamic arrays decoder [#1974](https://github.com/web3j/web3j/pull/1974)
 * Fixed generateJavaFiles ArrayInStruct [#1962](https://github.com/web3j/web3j/pull/1962)
