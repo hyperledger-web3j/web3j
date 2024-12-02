@@ -26,7 +26,7 @@ import static org.web3j.ens.Contracts.RINKEBY;
 import static org.web3j.ens.Contracts.ROPSTEN;
 import static org.web3j.ens.Contracts.SEPOLIA;
 import static org.web3j.ens.Contracts.resolveRegistryContract;
-import static org.web3j.ens.NameWrapperApi.getEnsMetadataApi;
+import static org.web3j.ens.NameWrapperUrl.getEnsMetadataApi;
 import static org.web3j.ens.ReverseRegistrarContracts.resolveReverseRegistrarContract;
 
 @SuppressWarnings("deprecation")
@@ -64,9 +64,9 @@ class ContractsTest {
 
     @Test
     void testNameWrapperApiLinks() {
-        assertEquals(getEnsMetadataApi(ChainIdLong.MAINNET + ""), (NameWrapperApi.MAINNET_URL));
-        assertEquals(getEnsMetadataApi(ChainIdLong.SEPOLIA + ""), (NameWrapperApi.SEPOLIA_URL));
-        assertEquals(getEnsMetadataApi(ChainIdLong.HOLESKY + ""), (NameWrapperApi.HOLESKY_URL));
+        assertEquals(getEnsMetadataApi(ChainIdLong.MAINNET + ""), (NameWrapperUrl.MAINNET_URL));
+        assertEquals(getEnsMetadataApi(ChainIdLong.SEPOLIA + ""), (NameWrapperUrl.SEPOLIA_URL));
+        assertEquals(getEnsMetadataApi(ChainIdLong.HOLESKY + ""), (NameWrapperUrl.HOLESKY_URL));
     }
 
     @Test

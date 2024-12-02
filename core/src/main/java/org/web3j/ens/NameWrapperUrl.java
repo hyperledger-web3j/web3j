@@ -14,7 +14,7 @@ package org.web3j.ens;
 
 import org.web3j.tx.ChainIdLong;
 
-public class NameWrapperApi {
+public class NameWrapperUrl {
 
     public static final String BASE_URL = "https://ens-metadata-service.appspot.com/";
     public static final String MAINNET_URL =
@@ -24,7 +24,7 @@ public class NameWrapperApi {
     public static final String HOLESKY_URL =
             BASE_URL + "holesky/" + "0xab50971078225D365994dc1Edcb9b7FD72Bb4862/";
 
-    private NameWrapperApi() {}
+    private NameWrapperUrl() {}
 
     public static String getEnsMetadataApi(String chainId) {
         final Long chainIdLong = Long.parseLong(chainId);

@@ -464,7 +464,7 @@ public class EnsResolver {
         NetVersion netVersion = web3j.netVersion().send();
         byte[] nameHash = NameHash.nameHashAsBytes(name);
         String apiUrl =
-                NameWrapperApi.getEnsMetadataApi(netVersion.getNetVersion())
+                NameWrapperUrl.getEnsMetadataApi(netVersion.getNetVersion())
                         + Numeric.toHexString(nameHash);
 
         Request request = new Request.Builder().url(apiUrl).get().build();
