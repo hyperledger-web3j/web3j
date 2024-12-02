@@ -13,6 +13,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 * bump snapshot version to 4.12.3 [#2101](https://github.com/hyperledger/web3j/pull/2101)
 * Add HSM kms implementation [#2105](https://github.com/hyperledger/web3j/pull/2105)
+* Added support for Holesky [#2111](https://github.com/hyperledger/web3j/pull/2111)
 
 ### BREAKING CHANGES
 

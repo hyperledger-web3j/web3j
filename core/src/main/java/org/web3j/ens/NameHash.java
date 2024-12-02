@@ -32,6 +32,8 @@ public class NameHash {
         return Numeric.hexStringToByteArray(nameHash(ensName));
     }
 
+    private NameHash() {}
+
     public static String nameHash(String ensName) {
         String normalisedEnsName = normalise(ensName);
         return Numeric.toHexString(nameHash(normalisedEnsName.split("\\.")));

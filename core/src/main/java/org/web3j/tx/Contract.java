@@ -791,7 +791,7 @@ public abstract class Contract extends ManagedTransaction {
     public static EventValues staticExtractEventParameters(Event event, Log log) {
         final List<String> topics = log.getTopics();
         String encodedEventSignature = EventEncoder.encode(event);
-        if (topics == null || topics.size() == 0 || !topics.get(0).equals(encodedEventSignature)) {
+        if (topics == null || topics.isEmpty() || !topics.get(0).equals(encodedEventSignature)) {
             return null;
         }
 
@@ -839,7 +839,7 @@ public abstract class Contract extends ManagedTransaction {
         return transactionReceipt.getLogs().stream()
                 .map(log -> extractEventParametersWithLog(event, log))
                 .filter(Objects::nonNull)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     protected static List<EventValuesWithLog> staticExtractEventParametersWithLog(
@@ -847,7 +847,7 @@ public abstract class Contract extends ManagedTransaction {
         return transactionReceipt.getLogs().stream()
                 .map(log -> staticExtractEventParametersWithLog(event, log))
                 .filter(Objects::nonNull)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     /**

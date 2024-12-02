@@ -39,7 +39,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class RawTransactionManagerTest extends ManagedTransactionTester {
+class RawTransactionManagerTest extends ManagedTransactionTester {
 
     // Get From org.web3j.crypto.TransactionDecoderTest.testDecodingSigned
     private static final String TX_SIGN_FORMAT_DER_HEX =
@@ -48,7 +48,7 @@ public class RawTransactionManagerTest extends ManagedTransactionTester {
             "0xf85580010a840add5355887fffffffffffffff801ca046360b50498ddf5566551ce1ce69c46c565f1f478bb0ee680caf31fbc08ab727a01b2f1432de16d110407d544f519fc91b84c8e16d3b6ec899592d486a94974cd0";
 
     @Test
-    public void testTxHashMismatch() throws IOException {
+    void testTxHashMismatch() throws IOException {
         TransactionReceipt transactionReceipt = prepareTransfer();
         prepareTransaction(transactionReceipt);
 
@@ -61,7 +61,7 @@ public class RawTransactionManagerTest extends ManagedTransactionTester {
     }
 
     @Test
-    public void testSignRawTxWithHSM() throws IOException {
+    void testSignRawTxWithHSM() throws IOException {
         TransactionReceipt transactionReceipt = prepareTransfer();
         prepareTransaction(transactionReceipt);
 

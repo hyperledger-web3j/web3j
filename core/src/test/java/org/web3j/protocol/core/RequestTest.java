@@ -35,7 +35,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class RequestTest extends RequestTester {
+class RequestTest extends RequestTester {
 
     private Web3j web3j;
 
@@ -45,7 +45,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testWeb3ClientVersion() throws Exception {
+    void testWeb3ClientVersion() throws Exception {
         web3j.web3ClientVersion().send();
 
         verifyResult(
@@ -53,7 +53,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testWeb3Sha3() throws Exception {
+    void testWeb3Sha3() throws Exception {
         web3j.web3Sha3("0x68656c6c6f20776f726c64").send();
 
         verifyResult(
@@ -62,35 +62,35 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testNetVersion() throws Exception {
+    void testNetVersion() throws Exception {
         web3j.netVersion().send();
 
         verifyResult("{\"jsonrpc\":\"2.0\",\"method\":\"net_version\",\"params\":[],\"id\":1}");
     }
 
     @Test
-    public void testNetListening() throws Exception {
+    void testNetListening() throws Exception {
         web3j.netListening().send();
 
         verifyResult("{\"jsonrpc\":\"2.0\",\"method\":\"net_listening\",\"params\":[],\"id\":1}");
     }
 
     @Test
-    public void testNetPeerCount() throws Exception {
+    void testNetPeerCount() throws Exception {
         web3j.netPeerCount().send();
 
         verifyResult("{\"jsonrpc\":\"2.0\",\"method\":\"net_peerCount\",\"params\":[],\"id\":1}");
     }
 
     @Test
-    public void testAdminNodeInfo() throws Exception {
+    void testAdminNodeInfo() throws Exception {
         web3j.adminNodeInfo().send();
 
         verifyResult("{\"jsonrpc\":\"2.0\",\"method\":\"admin_nodeInfo\",\"params\":[],\"id\":1}");
     }
 
     @Test
-    public void testAdminAddPeer() throws Exception {
+    void testAdminAddPeer() throws Exception {
         web3j.adminAddPeer("url").send();
 
         verifyResult(
@@ -98,14 +98,14 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testAdminDataDir() throws Exception {
+    void testAdminDataDir() throws Exception {
         web3j.adminDataDir().send();
 
         verifyResult("{\"jsonrpc\":\"2.0\",\"method\":\"admin_datadir\",\"params\":[],\"id\":1}");
     }
 
     @Test
-    public void testAdminRemovePeer() throws Exception {
+    void testAdminRemovePeer() throws Exception {
         web3j.adminRemovePeer("url").send();
 
         verifyResult(
@@ -113,7 +113,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testEthProtocolVersion() throws Exception {
+    void testEthProtocolVersion() throws Exception {
         web3j.ethProtocolVersion().send();
 
         verifyResult(
@@ -121,42 +121,42 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testEthSyncing() throws Exception {
+    void testEthSyncing() throws Exception {
         web3j.ethSyncing().send();
 
         verifyResult("{\"jsonrpc\":\"2.0\",\"method\":\"eth_syncing\",\"params\":[],\"id\":1}");
     }
 
     @Test
-    public void testEthCoinbase() throws Exception {
+    void testEthCoinbase() throws Exception {
         web3j.ethCoinbase().send();
 
         verifyResult("{\"jsonrpc\":\"2.0\",\"method\":\"eth_coinbase\",\"params\":[],\"id\":1}");
     }
 
     @Test
-    public void testEthMining() throws Exception {
+    void testEthMining() throws Exception {
         web3j.ethMining().send();
 
         verifyResult("{\"jsonrpc\":\"2.0\",\"method\":\"eth_mining\",\"params\":[],\"id\":1}");
     }
 
     @Test
-    public void testEthHashrate() throws Exception {
+    void testEthHashrate() throws Exception {
         web3j.ethHashrate().send();
 
         verifyResult("{\"jsonrpc\":\"2.0\",\"method\":\"eth_hashrate\",\"params\":[],\"id\":1}");
     }
 
     @Test
-    public void testEthGasPrice() throws Exception {
+    void testEthGasPrice() throws Exception {
         web3j.ethGasPrice().send();
 
         verifyResult("{\"jsonrpc\":\"2.0\",\"method\":\"eth_gasPrice\",\"params\":[],\"id\":1}");
     }
 
     @Test
-    public void testEthMaxPriorityFeePerGas() throws Exception {
+    void testEthMaxPriorityFeePerGas() throws Exception {
         web3j.ethMaxPriorityFeePerGas().send();
 
         verifyResult(
@@ -164,14 +164,14 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testEthBaseFee() throws Exception {
+    void testEthBaseFee() throws Exception {
         web3j.ethBaseFee().send();
 
         verifyResult("{\"jsonrpc\":\"2.0\",\"method\":\"eth_baseFee\",\"params\":[],\"id\":1}");
     }
 
     @Test
-    public void testEthFeeHistory() throws Exception {
+    void testEthFeeHistory() throws Exception {
         web3j.ethFeeHistory(1, DefaultBlockParameterName.LATEST, null).send();
 
         verifyResult(
@@ -179,21 +179,21 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testEthAccounts() throws Exception {
+    void testEthAccounts() throws Exception {
         web3j.ethAccounts().send();
 
         verifyResult("{\"jsonrpc\":\"2.0\",\"method\":\"eth_accounts\",\"params\":[],\"id\":1}");
     }
 
     @Test
-    public void testEthBlockNumber() throws Exception {
+    void testEthBlockNumber() throws Exception {
         web3j.ethBlockNumber().send();
 
         verifyResult("{\"jsonrpc\":\"2.0\",\"method\":\"eth_blockNumber\",\"params\":[],\"id\":1}");
     }
 
     @Test
-    public void testEthGetBalance() throws Exception {
+    void testEthGetBalance() throws Exception {
         web3j.ethGetBalance(
                         "0x407d73d8a49eeb85d32cf465507dd71d507100c1",
                         DefaultBlockParameterName.LATEST)
@@ -206,7 +206,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testEthGetStorageAt() throws Exception {
+    void testEthGetStorageAt() throws Exception {
         web3j.ethGetStorageAt(
                         "0x295a70b2de5e3953354a6a8344e616ed314d7251",
                         BigInteger.ZERO,
@@ -220,7 +220,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testEthGetTransactionCount() throws Exception {
+    void testEthGetTransactionCount() throws Exception {
         web3j.ethGetTransactionCount(
                         "0x407d73d8a49eeb85d32cf465507dd71d507100c1",
                         DefaultBlockParameterName.LATEST)
@@ -233,7 +233,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testEthGetBlockTransactionCountByHash() throws Exception {
+    void testEthGetBlockTransactionCountByHash() throws Exception {
         web3j.ethGetBlockTransactionCountByHash(
                         "0xb903239f8543d04b5dc1ba6579132b143087c68db1b2168786408fcbce568238")
                 .send();
@@ -243,7 +243,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testEthGetBlockTransactionCountByNumber() throws Exception {
+    void testEthGetBlockTransactionCountByNumber() throws Exception {
         web3j.ethGetBlockTransactionCountByNumber(
                         DefaultBlockParameter.valueOf(Numeric.toBigInt("0xe8")))
                 .send();
@@ -254,7 +254,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testEthGetUncleCountByBlockHash() throws Exception {
+    void testEthGetUncleCountByBlockHash() throws Exception {
         web3j.ethGetUncleCountByBlockHash(
                         "0xb903239f8543d04b5dc1ba6579132b143087c68db1b2168786408fcbce568238")
                 .send();
@@ -264,7 +264,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testEthGetUncleCountByBlockNumber() throws Exception {
+    void testEthGetUncleCountByBlockNumber() throws Exception {
         web3j.ethGetUncleCountByBlockNumber(DefaultBlockParameter.valueOf(Numeric.toBigInt("0xe8")))
                 .send();
 
@@ -274,7 +274,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testEthGetCode() throws Exception {
+    void testEthGetCode() throws Exception {
         web3j.ethGetCode(
                         "0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b",
                         DefaultBlockParameter.valueOf(Numeric.toBigInt("0x2")))
@@ -286,7 +286,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testEthSign() throws Exception {
+    void testEthSign() throws Exception {
         web3j.ethSign(
                         "0x8a3106a3e50576d4b6794a0e74d3bb5f8c9acaab",
                         "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470")
@@ -300,7 +300,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testEthSendTransaction() throws Exception {
+    void testEthSendTransaction() throws Exception {
         web3j.ethSendTransaction(
                         new Transaction(
                                 "0xb60e8dd61c5d32be8058bb8eb970870f07233155",
@@ -318,7 +318,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testEthSendRawTransaction() throws Exception {
+    void testEthSendRawTransaction() throws Exception {
         web3j.ethSendRawTransaction(
                         "0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f"
                                 + "072445675058bb8eb970870f072445675")
@@ -329,7 +329,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testEthCall() throws Exception {
+    void testEthCall() throws Exception {
         web3j.ethCall(
                         Transaction.createEthCallTransaction(
                                 "0xa70e8dd61c5d32be8058bb8eb970870f07233155",
@@ -346,7 +346,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testEthEstimateGas() throws Exception {
+    void testEthEstimateGas() throws Exception {
         web3j.ethEstimateGas(
                         Transaction.createEthCallTransaction(
                                 "0xa70e8dd61c5d32be8058bb8eb970870f07233155",
@@ -362,7 +362,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testEthEstimateGasContractCreation() throws Exception {
+    void testEthEstimateGasContractCreation() throws Exception {
         web3j.ethEstimateGas(
                         Transaction.createContractTransaction(
                                 "0x52b93c80364dc2dd4444c146d73b9836bbbb2b3f",
@@ -378,7 +378,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testEthGetBlockByHash() throws Exception {
+    void testEthGetBlockByHash() throws Exception {
         web3j.ethGetBlockByHash(
                         "0xe670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331", true)
                 .send();
@@ -390,7 +390,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testEthGetBlockByNumber() throws Exception {
+    void testEthGetBlockByNumber() throws Exception {
         web3j.ethGetBlockByNumber(DefaultBlockParameter.valueOf(Numeric.toBigInt("0x1b4")), true)
                 .send();
 
@@ -400,7 +400,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testEthGetTransactionByHash() throws Exception {
+    void testEthGetTransactionByHash() throws Exception {
         web3j.ethGetTransactionByHash(
                         "0xb903239f8543d04b5dc1ba6579132b143087c68db1b2168786408fcbce568238")
                 .send();
@@ -412,7 +412,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testEthGetTransactionByBlockHashAndIndex() throws Exception {
+    void testEthGetTransactionByBlockHashAndIndex() throws Exception {
         web3j.ethGetTransactionByBlockHashAndIndex(
                         "0xe670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331",
                         BigInteger.ZERO)
@@ -423,7 +423,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testEthGetTransactionByBlockNumberAndIndex() throws Exception {
+    void testEthGetTransactionByBlockNumberAndIndex() throws Exception {
         web3j.ethGetTransactionByBlockNumberAndIndex(
                         DefaultBlockParameter.valueOf(Numeric.toBigInt("0x29c")), BigInteger.ZERO)
                 .send();
@@ -434,7 +434,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testEthGetTransactionReceipt() throws Exception {
+    void testEthGetTransactionReceipt() throws Exception {
         web3j.ethGetTransactionReceipt(
                         "0xb903239f8543d04b5dc1ba6579132b143087c68db1b2168786408fcbce568238")
                 .send();
@@ -446,7 +446,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testEthGetBlockReceipts() throws Exception {
+    void testEthGetBlockReceipts() throws Exception {
         web3j.ethGetBlockReceipts(DefaultBlockParameter.valueOf(BigInteger.valueOf(15455945)))
                 .send();
 
@@ -457,7 +457,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testEthGetUncleByBlockHashAndIndex() throws Exception {
+    void testEthGetUncleByBlockHashAndIndex() throws Exception {
         web3j.ethGetUncleByBlockHashAndIndex(
                         "0xc6ef2fc5426d6ad6fd9e2a26abeab0aa2411b7ab17f30a99d3cb96aed1d1055b",
                         BigInteger.ZERO)
@@ -471,7 +471,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testEthGetUncleByBlockNumberAndIndex() throws Exception {
+    void testEthGetUncleByBlockNumberAndIndex() throws Exception {
         web3j.ethGetUncleByBlockNumberAndIndex(
                         DefaultBlockParameter.valueOf(Numeric.toBigInt("0x29c")), BigInteger.ZERO)
                 .send();
@@ -482,7 +482,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testEthGetCompilers() throws Exception {
+    void testEthGetCompilers() throws Exception {
         web3j.ethGetCompilers().send();
 
         verifyResult(
@@ -491,7 +491,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testEthCompileSolidity() throws Exception {
+    void testEthCompileSolidity() throws Exception {
         web3j.ethCompileSolidity(
                         "contract test { function multiply(uint a) returns(uint d) {   return a * 7;   } }")
                 .send();
@@ -503,7 +503,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testEthCompileLLL() throws Exception {
+    void testEthCompileLLL() throws Exception {
         web3j.ethCompileLLL("(returnlll (suicide (caller)))").send();
 
         verifyResult(
@@ -512,7 +512,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testEthCompileSerpent() throws Exception {
+    void testEthCompileSerpent() throws Exception {
         web3j.ethCompileSerpent("/* some serpent */").send();
 
         verifyResult(
@@ -521,7 +521,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testEthNewFilter() throws Exception {
+    void testEthNewFilter() throws Exception {
         EthFilter ethFilter = new EthFilter().addSingleTopic("0x12341234");
 
         web3j.ethNewFilter(ethFilter).send();
@@ -532,7 +532,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testEthNewBlockFilter() throws Exception {
+    void testEthNewBlockFilter() throws Exception {
         web3j.ethNewBlockFilter().send();
 
         verifyResult(
@@ -541,7 +541,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testEthNewPendingTransactionFilter() throws Exception {
+    void testEthNewPendingTransactionFilter() throws Exception {
         web3j.ethNewPendingTransactionFilter().send();
 
         verifyResult(
@@ -550,7 +550,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testEthUninstallFilter() throws Exception {
+    void testEthUninstallFilter() throws Exception {
         web3j.ethUninstallFilter(Numeric.toBigInt("0xb")).send();
 
         verifyResult(
@@ -559,7 +559,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testEthGetFilterChanges() throws Exception {
+    void testEthGetFilterChanges() throws Exception {
         web3j.ethGetFilterChanges(Numeric.toBigInt("0x16")).send();
 
         verifyResult(
@@ -568,7 +568,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testEthGetFilterLogs() throws Exception {
+    void testEthGetFilterLogs() throws Exception {
         web3j.ethGetFilterLogs(Numeric.toBigInt("0x16")).send();
 
         verifyResult(
@@ -577,7 +577,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testEthGetLogs() throws Exception {
+    void testEthGetLogs() throws Exception {
         web3j.ethGetLogs(
                         new EthFilter()
                                 .addSingleTopic(
@@ -592,7 +592,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testEthGetLogsWithNumericBlockRange() throws Exception {
+    void testEthGetLogsWithNumericBlockRange() throws Exception {
         web3j.ethGetLogs(
                         new EthFilter(
                                 DefaultBlockParameter.valueOf(Numeric.toBigInt("0xe8")),
@@ -607,7 +607,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testEthGetLogsWithBlockHash() throws Exception {
+    void testEthGetLogsWithBlockHash() throws Exception {
         web3j.ethGetLogs(
                         new EthFilter(
                                 "0xe670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331",
@@ -622,7 +622,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testEthGetProof() throws Exception {
+    void testEthGetProof() throws Exception {
         web3j.ethGetProof(
                         "0x7F0d15C7FAae65896648C8273B6d7E43f58Fa842",
                         Arrays.asList(
@@ -638,14 +638,14 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testEthGetWork() throws Exception {
+    void testEthGetWork() throws Exception {
         web3j.ethGetWork().send();
 
         verifyResult("{\"jsonrpc\":\"2.0\",\"method\":\"eth_getWork\",\"params\":[],\"id\":1}");
     }
 
     @Test
-    public void testEthSubmitWork() throws Exception {
+    void testEthSubmitWork() throws Exception {
         web3j.ethSubmitWork(
                         "0x0000000000000001",
                         "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
@@ -661,7 +661,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testEthSubmitHashRate() throws Exception {
+    void testEthSubmitHashRate() throws Exception {
         web3j.ethSubmitHashrate(
                         "0x0000000000000000000000000000000000000000000000000000000000500000",
                         "0x59daa26581d0acd1fce254fb7e85952f4c09d0915afd33d3886cd914bc7d283c")
@@ -676,7 +676,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testDbPutString() throws Exception {
+    void testDbPutString() throws Exception {
         web3j.dbPutString("testDB", "myKey", "myString").send();
 
         verifyResult(
@@ -685,7 +685,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testDbGetString() throws Exception {
+    void testDbGetString() throws Exception {
         web3j.dbGetString("testDB", "myKey").send();
 
         verifyResult(
@@ -694,7 +694,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testDbPutHex() throws Exception {
+    void testDbPutHex() throws Exception {
         web3j.dbPutHex("testDB", "myKey", "0x68656c6c6f20776f726c64").send();
 
         verifyResult(
@@ -703,7 +703,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testDbGetHex() throws Exception {
+    void testDbGetHex() throws Exception {
         web3j.dbGetHex("testDB", "myKey").send();
 
         verifyResult(
@@ -712,7 +712,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testShhVersion() throws Exception {
+    void testShhVersion() throws Exception {
         web3j.shhVersion().send();
 
         verifyResult(
@@ -720,7 +720,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testShhPost() throws Exception {
+    void testShhPost() throws Exception {
 
         web3j.shhPost(
                         new ShhPost(
@@ -739,14 +739,14 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testShhNewIdentity() throws Exception {
+    void testShhNewIdentity() throws Exception {
         web3j.shhNewIdentity().send();
 
         verifyResult("{\"jsonrpc\":\"2.0\",\"method\":\"shh_newIdentity\",\"params\":[],\"id\":1}");
     }
 
     @Test
-    public void testShhHasIdentity() throws Exception {
+    void testShhHasIdentity() throws Exception {
 
         web3j.shhHasIdentity(
                         "0x04f96a5e25610293e42a73908e93ccc8c4d4dc0edcfa9fa872f50cb214e08ebf61a03e245533f97284d442460f2998cd41858798ddfd4d661997d3940272b717b1")
@@ -757,14 +757,14 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testShhNewGroup() throws Exception {
+    void testShhNewGroup() throws Exception {
         web3j.shhNewGroup().send();
 
         verifyResult("{\"jsonrpc\":\"2.0\",\"method\":\"shh_newGroup\",\"params\":[],\"id\":1}");
     }
 
     @Test
-    public void testShhAddToGroup() throws Exception {
+    void testShhAddToGroup() throws Exception {
 
         web3j.shhAddToGroup(
                         "0x04f96a5e25610293e42a73908e93ccc8c4d4dc0edcfa9fa872f50cb214e08ebf61a03e245533f97284d442460f2998cd41858798ddfd4d661997d3940272b717b1")
@@ -775,7 +775,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testShhNewFilter() throws Exception {
+    void testShhNewFilter() throws Exception {
 
         web3j.shhNewFilter(
                         new ShhFilter(
@@ -788,7 +788,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testShhUninstallFilter() throws Exception {
+    void testShhUninstallFilter() throws Exception {
         web3j.shhUninstallFilter(Numeric.toBigInt("0x7")).send();
 
         verifyResult(
@@ -797,7 +797,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testShhGetFilterChanges() throws Exception {
+    void testShhGetFilterChanges() throws Exception {
         web3j.shhGetFilterChanges(Numeric.toBigInt("0x7")).send();
 
         verifyResult(
@@ -806,7 +806,7 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testShhGetMessages() throws Exception {
+    void testShhGetMessages() throws Exception {
         web3j.shhGetMessages(Numeric.toBigInt("0x7")).send();
 
         verifyResult(
@@ -815,14 +815,14 @@ public class RequestTest extends RequestTester {
     }
 
     @Test
-    public void testTxPoolStatus() throws Exception {
+    void testTxPoolStatus() throws Exception {
         web3j.txPoolStatus().send();
 
         verifyResult("{\"jsonrpc\":\"2.0\",\"method\":\"txpool_status\",\"params\":[],\"id\":1}");
     }
 
     @Test
-    public void testEthGetBaseFeePerBlobGas() throws Exception {
+    void testEthGetBaseFeePerBlobGas() throws Exception {
         // mock Web3jService
         Web3jService web3jService = mock(Web3jService.class);
         EthBlock ethBlock = mock(EthBlock.class);

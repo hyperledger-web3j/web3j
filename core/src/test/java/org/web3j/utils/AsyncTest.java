@@ -19,15 +19,15 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class AsyncTest {
+class AsyncTest {
 
     @Test
-    public void testRun() throws Exception {
+    void testRun() throws Exception {
         assertEquals("", Async.run(() -> "").get());
     }
 
     @Test
-    public void testRunException() {
+    void testRunException() {
 
         assertThrows(
                 ExecutionException.class,

@@ -78,8 +78,8 @@ public class EthFeeHistory extends Response<EthFeeHistory.FeeHistory> {
                             rewardPercentile ->
                                     rewardPercentile.stream()
                                             .map(Numeric::decodeQuantity)
-                                            .collect(Collectors.toList()))
-                    .collect(Collectors.toList());
+                                            .toList())
+                    .toList();
         }
 
         public void setReward(List<List<String>> reward) {
@@ -91,7 +91,7 @@ public class EthFeeHistory extends Response<EthFeeHistory.FeeHistory> {
         }
 
         public List<BigInteger> getBaseFeePerGas() {
-            return baseFeePerGas.stream().map(Numeric::decodeQuantity).collect(Collectors.toList());
+            return baseFeePerGas.stream().map(Numeric::decodeQuantity).toList();
         }
 
         public void setBaseFeePerGas(List<String> baseFeePerGas) {

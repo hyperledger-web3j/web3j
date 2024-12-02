@@ -19,10 +19,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class WalletFileTest {
+class WalletFileTest {
 
     @Test
-    public void equalsAndHashCodeTest() throws IOException {
+    void equalsAndHashCodeTest() throws IOException {
 
         final String AES_128_CTR =
                 "{\n"

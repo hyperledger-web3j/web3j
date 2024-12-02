@@ -118,6 +118,6 @@ public abstract class FilterTester {
             fail("Results cannot be empty");
         }
 
-        return ethLog.getLogs().stream().map(t -> t.get()).collect(Collectors.toList());
+        return ethLog.getLogs().stream().map(EthLog.LogResult::get).toList();
     }
 }

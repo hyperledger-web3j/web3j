@@ -24,24 +24,24 @@ import static org.web3j.utils.Collection.create;
 import static org.web3j.utils.Collection.join;
 import static org.web3j.utils.Collection.tail;
 
-public class CollectionTest {
+class CollectionTest {
 
     @Test
-    public void testTail() {
+    void testTail() {
         assertArrayEquals(tail(EMPTY_STRING_ARRAY), (EMPTY_STRING_ARRAY));
         assertArrayEquals(tail(create("a", "b", "c")), (create("b", "c")));
         assertArrayEquals(tail(create("a")), (EMPTY_STRING_ARRAY));
     }
 
     @Test
-    public void testCreate() {
+    void testCreate() {
         assertArrayEquals(create("a"), (new String[] {"a"}));
         assertArrayEquals(create(""), (new String[] {""}));
         assertArrayEquals(create("a", "b"), (new String[] {"a", "b"}));
     }
 
     @Test
-    public void testJoinWithFunction() {
+    void testJoinWithFunction() {
         final List<FakeSpec> specs1 =
                 Arrays.asList(new FakeSpec("a"), new FakeSpec("b"), new FakeSpec("c"));
         assertEquals(join(specs1, ",", FakeSpec::getName), ("a,b,c"));

@@ -18,13 +18,13 @@ import java.math.BigInteger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import org.web3j.android_test_utils.SampleKeys;
+import org.web3j.crypto.SampleKeys;
 import org.web3j.protocol.Web3j;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 
-public class FastRawTransactionManagerTest {
+class FastRawTransactionManagerTest {
     private Web3j web3j;
     private FastRawTransactionManager fastRawTransactionManager;
 
@@ -35,7 +35,7 @@ public class FastRawTransactionManagerTest {
     }
 
     @Test
-    void clearNonce() throws IOException {
+    void clearNonce() {
         fastRawTransactionManager.setNonce(BigInteger.valueOf(42));
 
         fastRawTransactionManager.clearNonce();

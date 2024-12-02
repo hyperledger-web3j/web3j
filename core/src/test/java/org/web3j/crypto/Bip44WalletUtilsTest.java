@@ -26,17 +26,17 @@ import static org.web3j.android_test_utils.Bip32Test.serializePublic;
 import static org.web3j.android_test_utils.SampleKeys.PASSWORD;
 import static org.web3j.crypto.WalletUtilsTest.createTempDir;
 
-public class Bip44WalletUtilsTest {
+class Bip44WalletUtilsTest {
 
     private File tempDir;
 
     @BeforeEach
-    public void setUp() throws Exception {
+    void setUp() throws Exception {
         tempDir = createTempDir();
     }
 
     @AfterEach
-    public void tearDown() throws Exception {
+    void tearDown() {
         for (File file : tempDir.listFiles()) {
             file.delete();
         }
@@ -44,7 +44,7 @@ public class Bip44WalletUtilsTest {
     }
 
     @Test
-    public void generateBip44KeyPair() {
+    void generateBip44KeyPair() {
         String mnemonic =
                 "spider elbow fossil truck deal circle divert sleep safe report laundry above";
         byte[] seed = MnemonicUtils.generateSeed(mnemonic, null);
@@ -76,7 +76,7 @@ public class Bip44WalletUtilsTest {
     }
 
     @Test
-    public void generateBip44KeyPairTestNet() {
+    void generateBip44KeyPairTestNet() {
         String mnemonic =
                 "spider elbow fossil truck deal circle divert sleep safe report laundry above";
         byte[] seed = MnemonicUtils.generateSeed(mnemonic, null);
@@ -101,7 +101,7 @@ public class Bip44WalletUtilsTest {
     }
 
     @Test
-    public void testGenerateBip44Wallets() throws Exception {
+    void testGenerateBip44Wallets() throws Exception {
         Bip39Wallet wallet = Bip44WalletUtils.generateBip44Wallet(PASSWORD, tempDir);
         byte[] seed = MnemonicUtils.generateSeed(wallet.getMnemonic(), PASSWORD);
         Bip32ECKeyPair masterKeypair = Bip32ECKeyPair.generateKeyPair(seed);

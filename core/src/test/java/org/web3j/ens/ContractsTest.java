@@ -18,6 +18,7 @@ import org.web3j.tx.ChainIdLong;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.web3j.ens.Contracts.HOLESKY;
 import static org.web3j.ens.Contracts.LINEA;
 import static org.web3j.ens.Contracts.LINEA_SEPOLIA;
 import static org.web3j.ens.Contracts.MAINNET;
@@ -27,20 +28,21 @@ import static org.web3j.ens.Contracts.SEPOLIA;
 import static org.web3j.ens.Contracts.resolveRegistryContract;
 
 @SuppressWarnings("deprecation")
-public class ContractsTest {
+class ContractsTest {
 
     @Test
-    public void testResolveRegistryContract() {
+    void testResolveRegistryContract() {
         assertEquals(resolveRegistryContract(ChainIdLong.MAINNET + ""), (MAINNET));
         assertEquals(resolveRegistryContract(ChainIdLong.ROPSTEN + ""), (ROPSTEN));
         assertEquals(resolveRegistryContract(ChainIdLong.RINKEBY + ""), (RINKEBY));
         assertEquals(resolveRegistryContract(ChainIdLong.SEPOLIA + ""), (SEPOLIA));
+        assertEquals(resolveRegistryContract(ChainIdLong.HOLESKY + ""), (HOLESKY));
         assertEquals(resolveRegistryContract(ChainIdLong.LINEA + ""), (LINEA));
         assertEquals(resolveRegistryContract(ChainIdLong.LINEA_SEPOLIA + ""), (LINEA_SEPOLIA));
     }
 
     @Test
-    public void testResolveRegistryContractInvalid() {
+    void testResolveRegistryContractInvalid() {
         assertThrows(
                 EnsResolutionException.class, () -> resolveRegistryContract(ChainIdLong.NONE + ""));
     }

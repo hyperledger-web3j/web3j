@@ -66,23 +66,18 @@ public class ENS extends Contract {
 
     public static final Event APPROVALFORALL_EVENT = new Event("ApprovalForAll", 
             Arrays.<TypeReference<?>>asList(new TypeReference<Address>(true) {}, new TypeReference<Address>(true) {}, new TypeReference<Bool>() {}));
-    ;
 
     public static final Event NEWOWNER_EVENT = new Event("NewOwner", 
             Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>(true) {}, new TypeReference<Bytes32>(true) {}, new TypeReference<Address>() {}));
-    ;
 
     public static final Event NEWRESOLVER_EVENT = new Event("NewResolver", 
             Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>(true) {}, new TypeReference<Address>() {}));
-    ;
 
     public static final Event NEWTTL_EVENT = new Event("NewTTL", 
             Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>(true) {}, new TypeReference<Uint64>() {}));
-    ;
 
     public static final Event TRANSFER_EVENT = new Event("Transfer", 
             Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>(true) {}, new TypeReference<Address>() {}));
-    ;
 
     @Deprecated
     protected ENS(String contractAddress, Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit) {
@@ -139,7 +134,7 @@ public class ENS extends Contract {
 
     public List<NewOwnerEventResponse> getNewOwnerEvents(TransactionReceipt transactionReceipt) {
         List<Contract.EventValuesWithLog> valueList = extractEventParametersWithLog(NEWOWNER_EVENT, transactionReceipt);
-        ArrayList<NewOwnerEventResponse> responses = new ArrayList<NewOwnerEventResponse>(valueList.size());
+        ArrayList<NewOwnerEventResponse> responses = new ArrayList<>(valueList.size());
         for (Contract.EventValuesWithLog eventValues : valueList) {
             NewOwnerEventResponse typedResponse = new NewOwnerEventResponse();
             typedResponse.log = eventValues.getLog();
@@ -174,7 +169,7 @@ public class ENS extends Contract {
 
     public List<NewResolverEventResponse> getNewResolverEvents(TransactionReceipt transactionReceipt) {
         List<Contract.EventValuesWithLog> valueList = extractEventParametersWithLog(NEWRESOLVER_EVENT, transactionReceipt);
-        ArrayList<NewResolverEventResponse> responses = new ArrayList<NewResolverEventResponse>(valueList.size());
+        ArrayList<NewResolverEventResponse> responses = new ArrayList<>(valueList.size());
         for (Contract.EventValuesWithLog eventValues : valueList) {
             NewResolverEventResponse typedResponse = new NewResolverEventResponse();
             typedResponse.log = eventValues.getLog();
@@ -207,7 +202,7 @@ public class ENS extends Contract {
 
     public List<NewTTLEventResponse> getNewTTLEvents(TransactionReceipt transactionReceipt) {
         List<Contract.EventValuesWithLog> valueList = extractEventParametersWithLog(NEWTTL_EVENT, transactionReceipt);
-        ArrayList<NewTTLEventResponse> responses = new ArrayList<NewTTLEventResponse>(valueList.size());
+        ArrayList<NewTTLEventResponse> responses = new ArrayList<>(valueList.size());
         for (Contract.EventValuesWithLog eventValues : valueList) {
             NewTTLEventResponse typedResponse = new NewTTLEventResponse();
             typedResponse.log = eventValues.getLog();
