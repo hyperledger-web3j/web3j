@@ -72,6 +72,8 @@ public class Wallet {
     static final String AES_128_CTR = "pbkdf2";
     static final String SCRYPT = "scrypt";
 
+    private Wallet() {}
+
     public static WalletFile create(String password, ECKeyPair ecKeyPair, int n, int p)
             throws CipherException {
 

@@ -74,7 +74,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @SuppressWarnings("deprecation")
-public class ContractTest extends ManagedTransactionTester {
+class ContractTest extends ManagedTransactionTester {
 
     private static final String TEST_CONTRACT_BINARY = "12345";
 
@@ -98,6 +98,7 @@ public class ContractTest extends ManagedTransactionTester {
 
     private TestContract contract;
 
+    @Override
     @BeforeEach
     public void setUp() throws Exception {
         super.setUp();
@@ -111,17 +112,17 @@ public class ContractTest extends ManagedTransactionTester {
     }
 
     @Test
-    public void testGetContractAddress() {
+    void testGetContractAddress() {
         assertEquals(ADDRESS, contract.getContractAddress());
     }
 
     @Test
-    public void testGetContractTransactionReceipt() {
+    void testGetContractTransactionReceipt() {
         assertFalse(contract.getTransactionReceipt().isPresent());
     }
 
     @Test
-    public void testDeploy() throws Exception {
+    void testDeploy() throws Exception {
         TransactionReceipt transactionReceipt = createTransactionReceipt();
         Contract deployedContract = deployContract(transactionReceipt);
 
@@ -131,14 +132,14 @@ public class ContractTest extends ManagedTransactionTester {
     }
 
     @Test
-    public void testContractDeployFails() throws IOException {
+    void testContractDeployFails() throws IOException {
         TransactionReceipt transactionReceipt = createFailedTransactionReceipt();
         prepareCall(null);
         assertThrows(TransactionException.class, () -> deployContract(transactionReceipt));
     }
 
     @Test
-    public void testContractDeployWithNullStatusSucceeds() throws Exception {
+    void testContractDeployWithNullStatusSucceeds() throws Exception {
         TransactionReceipt transactionReceipt = createTransactionReceiptWithStatus(null);
         Contract deployedContract = deployContract(transactionReceipt);
 
@@ -148,7 +149,7 @@ public class ContractTest extends ManagedTransactionTester {
     }
 
     @Test
-    public void testIsValid() throws Exception {
+    void testIsValid() throws Exception {
         prepareEthGetCode(TEST_CONTRACT_BINARY);
 
         Contract contract = deployContract(createTransactionReceipt());
@@ -156,7 +157,7 @@ public class ContractTest extends ManagedTransactionTester {
     }
 
     @Test
-    public void testIsValidSkipMetadataBzzr0() throws Exception {
+    void testIsValidSkipMetadataBzzr0() throws Exception {
         prepareEthGetCode(
                 TEST_CONTRACT_BINARY
                         + "a165627a7a72305820"
@@ -167,7 +168,7 @@ public class ContractTest extends ManagedTransactionTester {
     }
 
     @Test
-    public void testIsValidSkipMetadataBzzr1() throws Exception {
+    void testIsValidSkipMetadataBzzr1() throws Exception {
         prepareEthGetCode(
                 TEST_CONTRACT_BINARY
                         + "a265627a7a72315820"
@@ -178,7 +179,7 @@ public class ContractTest extends ManagedTransactionTester {
     }
 
     @Test
-    public void testIsValidSkipMetadataIpfs() throws Exception {
+    void testIsValidSkipMetadataIpfs() throws Exception {
         prepareEthGetCode(
                 TEST_CONTRACT_BINARY
                         + "a2646970667358221220"
@@ -189,7 +190,7 @@ public class ContractTest extends ManagedTransactionTester {
     }
 
     @Test
-    public void testIsValidSkipMetadataNone() throws Exception {
+    void testIsValidSkipMetadataNone() throws Exception {
         prepareEthGetCode(
                 TEST_CONTRACT_BINARY
                         + "a164736f6c634300080a000a"
@@ -200,7 +201,7 @@ public class ContractTest extends ManagedTransactionTester {
     }
 
     @Test
-    public void testIsValidDifferentCode() throws Exception {
+    void testIsValidDifferentCode() throws Exception {
         prepareEthGetCode(TEST_CONTRACT_BINARY + "0");
 
         Contract contract = deployContract(createTransactionReceipt());
@@ -208,7 +209,7 @@ public class ContractTest extends ManagedTransactionTester {
     }
 
     @Test
-    public void testIsValidEmptyCode() throws Exception {
+    void testIsValidEmptyCode() throws Exception {
         prepareEthGetCode("");
 
         Contract contract = deployContract(createTransactionReceipt());
@@ -216,7 +217,7 @@ public class ContractTest extends ManagedTransactionTester {
     }
 
     @Test
-    public void testIsValidNoBinThrows() {
+    void testIsValidNoBinThrows() {
         TransactionManager txManager = mock(TransactionManager.class);
         TestContract contract =
                 new TestContract(
@@ -229,7 +230,7 @@ public class ContractTest extends ManagedTransactionTester {
     }
 
     @Test
-    public void testDeployInvalidContractAddress() throws Throwable {
+    void testDeployInvalidContractAddress() throws Throwable {
         TransactionReceipt transactionReceipt = new TransactionReceipt();
         transactionReceipt.setTransactionHash(TRANSACTION_HASH);
 
@@ -253,7 +254,7 @@ public class ContractTest extends ManagedTransactionTester {
     }
 
     @Test
-    public void testCallSingleValue() throws Exception {
+    void testCallSingleValue() throws Exception {
         // Example taken from FunctionReturnDecoderTest
 
         prepareCall(
@@ -264,7 +265,7 @@ public class ContractTest extends ManagedTransactionTester {
     }
 
     @Test
-    public void testCallSingleValueEmpty() throws Exception {
+    void testCallSingleValueEmpty() throws Exception {
         // Example taken from FunctionReturnDecoderTest
 
         prepareCall("0x");
@@ -273,7 +274,7 @@ public class ContractTest extends ManagedTransactionTester {
     }
 
     @Test
-    public void testCallSingleValueReverted() throws Exception {
+    void testCallSingleValueReverted() throws Exception {
         prepareCall(OWNER_REVERT_MSG_HASH);
         ContractCallException thrown =
                 assertThrows(ContractCallException.class, () -> contract.callSingleValue().send());
@@ -284,7 +285,7 @@ public class ContractTest extends ManagedTransactionTester {
     }
 
     @Test
-    public void testCallMultipleValue() throws Exception {
+    void testCallMultipleValue() throws Exception {
         prepareCall(
                 "0x0000000000000000000000000000000000000000000000000000000000000037"
                         + "0000000000000000000000000000000000000000000000000000000000000007");
@@ -296,7 +297,7 @@ public class ContractTest extends ManagedTransactionTester {
     }
 
     @Test
-    public void testCallMultipleValueEmpty() throws Exception {
+    void testCallMultipleValueEmpty() throws Exception {
         prepareCall("0x");
 
         assertEquals(emptyList(), contract.callMultipleValue().send());
@@ -315,7 +316,7 @@ public class ContractTest extends ManagedTransactionTester {
     }
 
     @Test
-    public void testTransaction() throws Exception {
+    void testTransaction() throws Exception {
         TransactionReceipt transactionReceipt = new TransactionReceipt();
         transactionReceipt.setTransactionHash(TRANSACTION_HASH);
         transactionReceipt.setStatus(TXN_SUCCESS_STATUS);
@@ -330,7 +331,7 @@ public class ContractTest extends ManagedTransactionTester {
     }
 
     @Test
-    public void testTransactionFailed() throws IOException {
+    void testTransactionFailed() throws IOException {
         TransactionReceipt transactionReceipt = createFailedTransactionReceipt();
         prepareCall(null);
 
@@ -346,7 +347,7 @@ public class ContractTest extends ManagedTransactionTester {
     }
 
     @Test
-    public void testTransactionFailedWithRevertReason() throws Exception {
+    void testTransactionFailedWithRevertReason() throws Exception {
         TransactionReceipt transactionReceipt = createFailedTransactionReceipt();
         prepareCall(OWNER_REVERT_MSG_HASH);
 
@@ -371,7 +372,7 @@ public class ContractTest extends ManagedTransactionTester {
     }
 
     @Test
-    public void testProcessEvent() {
+    void testProcessEvent() {
         TransactionReceipt transactionReceipt = new TransactionReceipt();
         Log log = new Log();
         log.setTopics(
@@ -394,7 +395,7 @@ public class ContractTest extends ManagedTransactionTester {
     }
 
     @Test
-    public void testProcessEventForLogWithoutTopics() {
+    void testProcessEventForLogWithoutTopics() {
         TransactionReceipt transactionReceipt = new TransactionReceipt();
         final Log log = new Log();
         log.setTopics(Collections.emptyList());
@@ -407,7 +408,7 @@ public class ContractTest extends ManagedTransactionTester {
     }
 
     @Test
-    public void testTimeout() throws IOException {
+    void testTimeout() throws IOException {
         prepareTransaction(null);
 
         TransactionManager transactionManager =
@@ -419,7 +420,7 @@ public class ContractTest extends ManagedTransactionTester {
 
     @Test
     @SuppressWarnings("unchecked")
-    public void testInvalidTransactionResponse() throws IOException {
+    void testInvalidTransactionResponse() throws IOException {
         prepareNonceRequest();
 
         EthSendTransaction ethSendTransaction = new EthSendTransaction();
@@ -433,7 +434,7 @@ public class ContractTest extends ManagedTransactionTester {
     }
 
     @Test
-    public void testJsonRpcError() throws IOException {
+    void testJsonRpcError() throws IOException {
         EthSendTransaction ethSendTransaction = new EthSendTransaction();
         Response.Error error = new Response.Error(1, "Invalid Transaction");
         error.setData("Additional data");
@@ -469,7 +470,7 @@ public class ContractTest extends ManagedTransactionTester {
     }
 
     @Test
-    public void testSetGetAddresses() {
+    void testSetGetAddresses() {
         assertNull(contract.getDeployedAddress("1"));
         contract.setDeployedAddress("1", "0x000000000000add0e00000000000");
         assertNotNull(contract.getDeployedAddress("1"));
@@ -478,7 +479,7 @@ public class ContractTest extends ManagedTransactionTester {
     }
 
     @Test
-    public void testSetGetGasPrice() {
+    void testSetGetGasPrice() {
         assertEquals(DefaultGasProvider.GAS_PRICE, contract.getGasPrice());
         BigInteger newPrice = ManagedTransaction.GAS_PRICE.multiply(BigInteger.valueOf(2));
         contract.setGasPrice(newPrice);
@@ -486,7 +487,7 @@ public class ContractTest extends ManagedTransactionTester {
     }
 
     @Test
-    public void testStaticGasProvider() throws IOException, TransactionException {
+    void testStaticGasProvider() throws IOException, TransactionException {
         StaticGasProvider gasProvider = new StaticGasProvider(BigInteger.TEN, BigInteger.ONE);
         TransactionManager txManager = mock(TransactionManager.class);
 
@@ -519,7 +520,7 @@ public class ContractTest extends ManagedTransactionTester {
     }
 
     @Test
-    public void testStaticEIP1559GasProvider() throws IOException, TransactionException {
+    void testStaticEIP1559GasProvider() throws IOException, TransactionException {
         StaticEIP1559GasProvider gasProvider =
                 new StaticEIP1559GasProvider(1L, BigInteger.TEN, BigInteger.ZERO, BigInteger.ONE);
         TransactionManager txManager = mock(TransactionManager.class);
@@ -556,7 +557,7 @@ public class ContractTest extends ManagedTransactionTester {
 
     @Test
     @SuppressWarnings("unchecked")
-    public void testInvalidTransactionReceipt() throws Throwable {
+    void testInvalidTransactionReceipt() throws Throwable {
         prepareNonceRequest();
         prepareTransactionRequest();
 
@@ -572,7 +573,7 @@ public class ContractTest extends ManagedTransactionTester {
     }
 
     @Test
-    public void testExtractEventParametersWithLogGivenATransactionReceipt() {
+    void testExtractEventParametersWithLogGivenATransactionReceipt() {
 
         final java.util.function.Function<String, Event> eventFactory =
                 name -> new Event(name, emptyList());
@@ -614,7 +615,7 @@ public class ContractTest extends ManagedTransactionTester {
     }
 
     @Test
-    public void testEmptyTransactionReceipt() throws Exception {
+    void testEmptyTransactionReceipt() throws Exception {
         TransactionReceipt transactionReceipt = new EmptyTransactionReceipt(TRANSACTION_HASH);
 
         prepareTransaction(transactionReceipt);

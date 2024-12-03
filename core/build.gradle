@@ -49,6 +49,34 @@ android {
     }
 }
 
+android {
+    namespace 'org.web3j'
+
+    defaultConfig {
+        compileSdk 34
+        minSdkVersion 24
+        targetSdkVersion 34
+    }
+
+    lint {
+        baseline = file("lint-baseline.xml")
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java']
+        }
+        test {
+            test.java.srcDirs += ["${project(':core').projectDir}/src/test/java"]
+        }
+    }
+}
+
 description 'web3j is a lightweight Java library for integration with Ethereum clients'
 
 dependencies {

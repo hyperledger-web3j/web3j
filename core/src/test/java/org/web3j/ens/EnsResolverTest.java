@@ -58,7 +58,7 @@ import static org.web3j.ens.EnsResolver.DEFAULT_SYNC_THRESHOLD;
 import static org.web3j.ens.EnsResolver.isValidEnsName;
 import static org.web3j.protocol.http.HttpService.JSON_MEDIA_TYPE;
 
-public class EnsResolverTest {
+class EnsResolverTest {
 
     private Web3j web3j;
     private Web3jService web3jService;
@@ -68,9 +68,9 @@ public class EnsResolverTest {
 
     private static List<String> urls = new ArrayList<>();
 
-    private String sender = "0x226159d592E2b063810a10Ebf6dcbADA94Ed68b8";
+    private String sender;
 
-    private String data = "0x00112233";
+    private String data;
 
     public static String LOOKUP_HEX =
             "0x556f1830000000000000000000000000c1735677a60884abbcf72295e88d47764beda28200000000000000000000000000000000000000000000000000000000000000a00000000000000000000000000000000000000000000000000000000000000160f4d4d2f800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000028000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000004768747470733a2f2f6f6666636861696e2d7265736f6c7665722d6578616d706c652e75632e722e61707073706f742e636f6d2f7b73656e6465727d2f7b646174617d2e6a736f6e0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000e49061b92300000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000001701310f6f6666636861696e6578616d706c65036574680000000000000000000000000000000000000000000000000000000000000000000000000000000000243b3b57de1c9fb8c1fe76f464ccec6d2c003169598fdfcbcb6bbddf6af9c097a39fa0048c000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000e49061b92300000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000001701310f6f6666636861696e6578616d706c65036574680000000000000000000000000000000000000000000000000000000000000000000000000000000000243b3b57de1c9fb8c1fe76f464ccec6d2c003169598fdfcbcb6bbddf6af9c097a39fa0048c0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
@@ -89,10 +89,12 @@ public class EnsResolverTest {
         web3jService = mock(Web3jService.class);
         web3j = Web3j.build(web3jService);
         ensResolver = new EnsResolver(web3j);
+        data = "0x00112233";
+        sender = "0x226159d592E2b063810a10Ebf6dcbADA94Ed68b8";
     }
 
     @Test
-    public void testResolve() throws Exception {
+    void testResolve() throws Exception {
         configureSyncing(false);
         configureLatestBlock(System.currentTimeMillis() / 1000); // block timestamp is in seconds
 
@@ -121,7 +123,7 @@ public class EnsResolverTest {
     }
 
     @Test
-    public void testResolveEnsNameEmptyOrDot() throws Exception {
+    void testResolveEnsNameEmptyOrDot() {
         assertNull(ensResolver.resolve(" "));
         assertNull(ensResolver.resolve(""));
         assertNull(ensResolver.resolve("."));
@@ -129,7 +131,7 @@ public class EnsResolverTest {
     }
 
     @Test
-    public void testReverseResolve() throws Exception {
+    void testReverseResolve() throws Exception {
         configureSyncing(false);
         configureLatestBlock(System.currentTimeMillis() / 1000); // block timestamp is in seconds
 
@@ -160,14 +162,14 @@ public class EnsResolverTest {
     }
 
     @Test
-    public void testIsSyncedSyncing() throws Exception {
+    void testIsSyncedSyncing() throws Exception {
         configureSyncing(true);
 
         assertFalse(ensResolver.isSynced());
     }
 
     @Test
-    public void testIsSyncedFullySynced() throws Exception {
+    void testIsSyncedFullySynced() throws Exception {
         configureSyncing(false);
         configureLatestBlock(System.currentTimeMillis() / 1000); // block timestamp is in seconds
 
@@ -175,7 +177,7 @@ public class EnsResolverTest {
     }
 
     @Test
-    public void testIsSyncedBelowThreshold() throws Exception {
+    void testIsSyncedBelowThreshold() throws Exception {
         configureSyncing(false);
         configureLatestBlock((System.currentTimeMillis() / 1000) - DEFAULT_SYNC_THRESHOLD);
 
@@ -201,7 +203,7 @@ public class EnsResolverTest {
     }
 
     @Test
-    public void testIsEnsName() {
+    void testIsEnsName() {
         assertTrue(isValidEnsName("eth"));
         assertTrue(isValidEnsName("web3.eth"));
         assertTrue(isValidEnsName("0x19e03255f667bdfd50a32722df860b1eeaf4d635.eth"));
@@ -232,8 +234,8 @@ public class EnsResolverTest {
     @Test
     void buildRequestWhenPostSuccessTest() throws IOException {
         String url = "https://example.com/gateway/{sender}.json";
-        String sender = "0x226159d592E2b063810a10Ebf6dcbADA94Ed68b8";
-        String data = "0xd5fa2b00";
+        sender = "0x226159d592E2b063810a10Ebf6dcbADA94Ed68b8";
+        data = "0xd5fa2b00";
 
         okhttp3.Request request = ensResolver.buildRequest(url, sender, data);
 
@@ -247,26 +249,26 @@ public class EnsResolverTest {
     }
 
     @Test
-    void buildRequestWhenWithoutDataTest() throws IOException {
+    void buildRequestWhenWithoutDataTest() {
         String url = "https://example.com/gateway/{sender}.json";
-        String sender = "0x226159d592E2b063810a10Ebf6dcbADA94Ed68b8";
+        sender = "0x226159d592E2b063810a10Ebf6dcbADA94Ed68b8";
 
         assertThrows(
                 EnsResolutionException.class, () -> ensResolver.buildRequest(url, sender, null));
     }
 
     @Test
-    void buildRequestWhenWithoutSenderTest() throws IOException {
+    void buildRequestWhenWithoutSenderTest() {
         String url = "https://example.com/gateway/{sender}.json";
-        String data = "0xd5fa2b00";
+        data = "0xd5fa2b00";
 
         assertThrows(EnsResolutionException.class, () -> ensResolver.buildRequest(url, null, data));
     }
 
     @Test
-    void buildRequestWhenNotValidSenderTest() throws IOException {
+    void buildRequestWhenNotValidSenderTest() {
         String url = "https://example.com/gateway/{sender}.json";
-        String data = "0xd5fa2b00";
+        data = "0xd5fa2b00";
 
         assertThrows(
                 EnsResolutionException.class,
@@ -274,10 +276,10 @@ public class EnsResolverTest {
     }
 
     @Test
-    void buildRequestWhenNotValidUrl() throws IOException {
+    void buildRequestWhenNotValidUrl() {
         String url = "https://example.com/gateway/{data}.json";
-        String sender = "0x226159d592E2b063810a10Ebf6dcbADA94Ed68b8";
-        String data = "0xd5fa2b00";
+        sender = "0x226159d592E2b063810a10Ebf6dcbADA94Ed68b8";
+        data = "0xd5fa2b00";
 
         assertThrows(
                 EnsResolutionException.class, () -> ensResolver.buildRequest(url, sender, data));

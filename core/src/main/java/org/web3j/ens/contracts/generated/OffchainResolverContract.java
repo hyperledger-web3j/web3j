@@ -60,7 +60,6 @@ public class OffchainResolverContract extends PublicResolver {
 
     public static final Event NEWSIGNERS_EVENT = new Event("NewSigners",
             Arrays.<TypeReference<?>>asList(new TypeReference<DynamicArray<Address>>() {}));
-    ;
 
     public OffchainResolverContract(String contractAddress, Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit) {
         super(contractAddress, web3j, credentials, gasPrice, gasLimit);
@@ -80,7 +79,7 @@ public class OffchainResolverContract extends PublicResolver {
 
     public List<NewSignersEventResponse> getNewSignersEvents(TransactionReceipt transactionReceipt) {
         List<Contract.EventValuesWithLog> valueList = extractEventParametersWithLog(NEWSIGNERS_EVENT, transactionReceipt);
-        ArrayList<NewSignersEventResponse> responses = new ArrayList<NewSignersEventResponse>(valueList.size());
+        ArrayList<NewSignersEventResponse> responses = new ArrayList<>(valueList.size());
         for (Contract.EventValuesWithLog eventValues : valueList) {
             NewSignersEventResponse typedResponse = new NewSignersEventResponse();
             typedResponse.log = eventValues.getLog();

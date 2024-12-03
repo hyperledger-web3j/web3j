@@ -52,14 +52,14 @@ public final class TxPoolContent extends Response<TxPoolContent.TxPoolContentRes
             return pending.values().stream()
                     .map(Map::values)
                     .flatMap(Collection::stream)
-                    .collect(Collectors.toList());
+                    .toList();
         }
 
         public List<Transaction> getQueuedTransactions() {
             return queued.values().stream()
                     .map(Map::values)
                     .flatMap(Collection::stream)
-                    .collect(Collectors.toList());
+                    .toList();
         }
 
         private static <K, V> Map<K, V> immutableCopy(Map<K, V> map, Function<V, V> valueMapper) {

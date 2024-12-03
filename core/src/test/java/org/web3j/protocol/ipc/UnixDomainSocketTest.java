@@ -29,7 +29,7 @@ import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-public class UnixDomainSocketTest {
+class UnixDomainSocketTest {
 
     private static final String RESPONSE =
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor "
@@ -41,13 +41,13 @@ public class UnixDomainSocketTest {
     private UnixDomainSocket unixDomainSocket;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         writer = mock(PrintWriter.class);
         reader = mock(InputStreamReader.class);
     }
 
     @Test
-    public void testIpcService() throws IOException {
+    void testIpcService() throws IOException {
         unixDomainSocket = new UnixDomainSocket(reader, writer, RESPONSE.length());
 
         doAnswer(
@@ -63,7 +63,7 @@ public class UnixDomainSocketTest {
     }
 
     @Test
-    public void testReadExceedsBuffer() throws IOException {
+    void testReadExceedsBuffer() throws IOException {
         int bufferSize = RESPONSE.length() / 3;
 
         unixDomainSocket = new UnixDomainSocket(reader, writer, RESPONSE.length() / 3);
@@ -110,7 +110,7 @@ public class UnixDomainSocketTest {
     }
 
     @Test
-    public void testSlowResponse() throws Exception {
+    void testSlowResponse() throws Exception {
         String response =
                 "{\"jsonrpc\":\"2.0\",\"id\":1,"
                         + "\"result\":\"Geth/v1.5.4-stable-b70acf3c/darwin/go1.7.3\"}\n";

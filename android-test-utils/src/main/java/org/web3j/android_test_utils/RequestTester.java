@@ -71,8 +71,7 @@ public abstract class RequestTester {
 
             Request request = chain.request();
             this.requestBody = request.body();
-            okhttp3.Response response =
-                    new okhttp3.Response.Builder()
+            return new okhttp3.Response.Builder()
                             .request(chain.request())
                             .protocol(Protocol.HTTP_2)
                             .code(200)
@@ -83,8 +82,6 @@ public abstract class RequestTester {
                                             JSON_MEDIA_TYPE))
                             .message("")
                             .build();
-
-            return response;
         }
 
         public RequestBody getRequestBody() {

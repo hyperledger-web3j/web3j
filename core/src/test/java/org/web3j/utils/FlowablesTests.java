@@ -27,10 +27,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class FlowablesTests {
+class FlowablesTests {
 
     @Test
-    public void testRangeFlowable() throws InterruptedException {
+    void testRangeFlowable() throws InterruptedException {
         int count = 10;
 
         Flowable<BigInteger> flowable =
@@ -45,7 +45,7 @@ public class FlowablesTests {
     }
 
     @Test
-    public void testRangeDescendingFlowable() throws InterruptedException {
+    void testRangeDescendingFlowable() throws InterruptedException {
         int count = 10;
 
         Flowable<BigInteger> flowable =
@@ -86,7 +86,7 @@ public class FlowablesTests {
     }
 
     @Test
-    public void testRangeFlowableIllegalLowerBound() {
+    void testRangeFlowableIllegalLowerBound() {
 
         assertThrows(
                 IllegalArgumentException.class,
@@ -94,7 +94,7 @@ public class FlowablesTests {
     }
 
     @Test
-    public void testRangeFlowableIllegalBounds() {
+    void testRangeFlowableIllegalBounds() {
 
         assertThrows(
                 IllegalArgumentException.class,

@@ -35,7 +35,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-public class WebSocketEventTest {
+class WebSocketEventTest {
 
     private WebSocketClient webSocketClient = mock(WebSocketClient.class);
 
@@ -48,7 +48,7 @@ public class WebSocketEventTest {
     private WebSocketListener listener;
 
     @BeforeEach
-    public void before() throws Exception {
+    void before() throws Exception {
         when(webSocketClient.connectBlocking()).thenReturn(true);
 
         doAnswer(
@@ -74,7 +74,7 @@ public class WebSocketEventTest {
     }
 
     @Test
-    public void testNewHeadsNotifications() {
+    void testNewHeadsNotifications() {
         web3j.newHeadsNotifications();
 
         verify(webSocketClient)
@@ -85,7 +85,7 @@ public class WebSocketEventTest {
     }
 
     @Test
-    public void testLogsNotificationsWithoutArguments() {
+    void testLogsNotificationsWithoutArguments() {
         web3j.logsNotifications(new ArrayList<>(), new ArrayList<>());
 
         verify(webSocketClient)
@@ -96,7 +96,7 @@ public class WebSocketEventTest {
     }
 
     @Test
-    public void testLogsNotificationsWithArguments() {
+    void testLogsNotificationsWithArguments() {
         web3j.logsNotifications(Collections.singletonList("0x1"), Collections.singletonList("0x2"));
 
         verify(webSocketClient)

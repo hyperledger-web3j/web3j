@@ -24,7 +24,7 @@ public class KeepAsJsonDeserialzier extends JsonDeserializer<String> {
 
     @Override
     public String deserialize(JsonParser jp, DeserializationContext ctxt)
-            throws IOException, JsonProcessingException {
+            throws IOException {
 
         TreeNode tree = jp.getCodec().readTree(jp);
         return tree.toString();
