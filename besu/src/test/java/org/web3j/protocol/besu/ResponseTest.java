@@ -19,7 +19,8 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
-import org.web3j.protocol.ResponseTester;
+
+import org.web3j.android_test_utils.ResponseTester;
 import org.web3j.protocol.admin.methods.response.BooleanResponse;
 import org.web3j.protocol.besu.response.BesuEthAccountsMapResponse;
 import org.web3j.protocol.besu.response.BesuFullDebugTraceResponse;

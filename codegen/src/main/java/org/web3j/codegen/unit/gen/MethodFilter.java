@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.kotlinpoet.FunSpec;
 
-import org.web3j.codegen.unit.gen.java.MethodParser;
+
 import org.web3j.codegen.unit.gen.kotlin.FunParser;
 import org.web3j.protocol.Web3j;
 import org.web3j.tx.TransactionManager;
@@ -55,22 +55,22 @@ public class MethodFilter {
         return true;
     }
 
-    public static List<MethodSpec> generateMethodSpecsForEachTest(Class theContract) {
-        List<MethodSpec> listOfMethodSpecs = new ArrayList<>();
-        Map<String, Integer> methodNameCountMap = new HashMap<>();
-        extractValidMethods(theContract)
-                .forEach(
-                        method -> {
-                            String uniqueName = getUniqueName(method, methodNameCountMap);
-                            if (!Modifier.isPrivate(method.getModifiers())) {
-                                listOfMethodSpecs.add(
-                                        new MethodParser(method, theContract, uniqueName)
-                                                .getMethodSpec());
-                            }
-                        });
-
-        return listOfMethodSpecs;
-    }
+//    public static List<MethodSpec> generateMethodSpecsForEachTest(Class theContract) {
+//        List<MethodSpec> listOfMethodSpecs = new ArrayList<>();
+//        Map<String, Integer> methodNameCountMap = new HashMap<>();
+//        extractValidMethods(theContract)
+//                .forEach(
+//                        method -> {
+//                            String uniqueName = getUniqueName(method, methodNameCountMap);
+//                            if (!Modifier.isPrivate(method.getModifiers())) {
+//                                listOfMethodSpecs.add(
+//                                        new MethodParser(method, theContract, uniqueName)
+//                                                .getMethodSpec());
+//                            }
+//                        });
+//
+//        return listOfMethodSpecs;
+//    }
 
     public static List<FunSpec> generateFunctionSpecsForEachTest(Class theContract) {
         List<FunSpec> listOfFunSpecs = new ArrayList<>();

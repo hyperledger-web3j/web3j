@@ -1,28 +1,52 @@
 plugins {
-    id 'java-library'
+    id 'com.android.library'
+}
+
+android {
+    namespace 'com.org.web3j'
+    compileSdkVersion 33
+
+    defaultConfig {
+        minSdkVersion 24
+        targetSdkVersion 34
+    }
+
+    lint {
+        baseline = file("lint-baseline.xml")
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+//    sourceSets {
+//        main {
+//            java.srcDirs = ['src/main/java']
+//        }
+//        test {
+//            java.srcDirs = ['src/test/java']
+//        }
+//    }
 }
 
 description 'web3j Ethereum crypto library'
 
 dependencies {
-    api project(':abi'),
-            project(':rlp'),
-            project(':utils'),
-            "org.slf4j:slf4j-api:$slf4jVersion",
-            "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion",
-            "io.consensys.protocols:jc-kzg-4844:$kzg4844Version"
+    api project(':abi')
+    api project(':rlp')
+    api project(':utils')
+    api "org.slf4j:slf4j-api:$slf4jVersion"
+    api "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
+    api "io.consensys.protocols:jc-kzg-4844:$kzg4844Version"
     implementation("io.tmio:tuweni-bytes:$tuweniVersion")
     implementation("io.tmio:tuweni-units:$tuweniVersion")
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.9.3'
 }
 
 configurations { testArtifacts.extendsFrom testRuntime }
 
-artifacts { testArtifacts testsJar }
 
-tasks.named("spotlessJava").configure {
-    dependsOn("spotlessGroovyGradle", "compileJava", "compileTestJava", "javadoc", "test", "jacocoTestReport")
-}
-
-tasks.named("spotlessKotlin").configure {
-    dependsOn("compileJava", "spotlessJava", "spotlessGroovyGradle", "compileTestJava", "processTestResources", "javadoc", "test", "jacocoTestReport")
-}

@@ -1,16 +1,60 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    namespace 'com.org.web3j'
+    compileSdkVersion 34
+
+    defaultConfig {
+        minSdkVersion 24
+        targetSdkVersion 34
+
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    lint {
+        baseline = file("lint-baseline.xml")
+    }
+
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java']
+        }
+        test {
+            java.srcDirs = ['src/test/java']
+        }
+    }
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+}
+
 description 'web3j project code generators'
 
 dependencies {
-    implementation project(':core'),
-            "com.squareup:kotlinpoet:$kotlinPoetVersion",
-            "com.squareup:javapoet:$javaPoetVersion",
-            "info.picocli:picocli:$picocliVersion"
-    testImplementation project(':core').sourceSets.test.output,
-            "ch.qos.logback:logback-core:$logbackVersion",
-            "ch.qos.logback:logback-classic:$logbackVersion"
-    implementation("org.junit.platform:junit-platform-launcher:$junitPlatformLauncherVersion")
-    implementation("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
-    implementation("org.junit.vintage:junit-vintage-engine:$junitVersion")
+    implementation project(':core')
+    implementation "com.squareup:kotlinpoet:$kotlinPoetVersion"
+    implementation "com.squareup:javapoet:$javaPoetVersion"
+    implementation "info.picocli:picocli:$picocliVersion"
+    implementation 'javax.annotation:javax.annotation-api:1.3.2'
+    annotationProcessor "com.google.auto.service:auto-service:1.0-rc7"
+    implementation 'androidx.core:core-ktx:1.13.1'
+
+    //testImplementation project(':core').sourceSets.test.output
+    testImplementation "ch.qos.logback:logback-core:$logbackVersion"
+    testImplementation "ch.qos.logback:logback-classic:$logbackVersion"
+    testImplementation 'junit:junit:4.13.2'
+
+    implementation "org.junit.platform:junit-platform-launcher:$junitPlatformLauncherVersion"
+    implementation "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+    implementation "org.junit.vintage:junit-vintage-engine:$junitVersion"
+    testImplementation project(':android-test-utils')
 }
 
 file("src/test/resources/solidity").listFiles().each { File file ->
@@ -20,28 +64,24 @@ file("src/test/resources/solidity").listFiles().each { File file ->
     if (contractFile != null) {
         def contractName = contractFile.name.substring(0, contractFile.name.length() - 4)
         def generateTask = tasks.register("generate${contractName}Wrapper", JavaExec) {
-            classpath = sourceSets.test.runtimeClasspath
+            classpath = files(fileTree(dir: 'src/test/java', include: '**/*.class'))
             main = 'org.web3j.codegen.SolidityFunctionWrapperGenerator'
             args = [
-                'generate',
-                '--abiFile',
-                "${contractFile.parent}/build/${contractName}.abi",
-                '--binFile',
-                "${contractFile.parent}/build/${contractName}.bin",
-                '--outputDir',
-                'build/resources/test/java',
-                '--package',
-                'org.web3j.test.contract'
+                    'generate',
+                    '--abiFile', "${contractFile.parent}/build/${contractName}.abi",
+                    '--binFile', "${contractFile.parent}/build/${contractName}.bin",
+                    '--outputDir', 'build/resources/test/java',
+                    '--package', 'org.web3j.test.contract'
             ]
         }
-        test.dependsOn generateTask
+        // test.dependsOn generateTask
     }
 }
-
-tasks.named("spotlessJava").configure {
-    dependsOn("spotlessGroovyGradle", "compileJava", "compileTestJava", "javadoc", "test", "jacocoTestReport")
-}
-
-tasks.named("spotlessKotlin").configure {
-    dependsOn("compileJava", "spotlessJava", "spotlessGroovyGradle", "compileTestJava", "processTestResources", "javadoc", "test", "jacocoTestReport")
-}
+//
+//tasks.named("spotlessJava").configure {
+//    dependsOn("spotlessGroovyGradle", "compileTestJava", "javadoc", "test", "jacocoTestReport")
+//}
+//
+//tasks.named("spotlessKotlin").configure {
+//    dependsOn("spotlessJava", "spotlessGroovyGradle", "compileTestJava", "processTestResources", "javadoc", "test", "jacocoTestReport")
+//}

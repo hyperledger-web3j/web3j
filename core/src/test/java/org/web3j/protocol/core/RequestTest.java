@@ -17,7 +17,8 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
-import org.web3j.protocol.RequestTester;
+
+import org.web3j.android_test_utils.RequestTester;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.Web3jService;
 import org.web3j.protocol.core.methods.request.EthFilter;

@@ -1,17 +1,47 @@
 plugins {
-    id 'java-library'
+    id 'com.android.library'
 }
-description 'Besu JSON-RPC API'
+
+android {
+    namespace 'org.web3j'
+    compileSdkVersion 34
+
+    defaultConfig {
+        minSdkVersion 24
+        targetSdkVersion 34
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    lint {
+        baseline = file("lint-baseline.xml")
+    }
+
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java']
+        }
+        test {
+            java.srcDirs = ['src/test/java']
+        }
+    }
+}
 
 dependencies {
     api project(':eea')
-    testImplementation project(path: ':core', configuration: 'testArtifacts')
-}
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.9.3'
+    testImplementation 'org.mockito:mockito-core:5.5.0'
+    //testImplementation(project(path: ':core', configuration: 'testArtifacts'))
+    testImplementation project(':core')
+    testImplementation project(':android-test-utils')
 
-tasks.named("spotlessJava").configure {
-    dependsOn("spotlessGroovyGradle", "compileJava", "compileTestJava", "javadoc", "test", "jacocoTestReport")
-}
 
-tasks.named("spotlessKotlin").configure {
-    dependsOn("compileJava", "spotlessJava", "spotlessGroovyGradle", "compileTestJava", "processTestResources", "javadoc", "test", "jacocoTestReport")
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }

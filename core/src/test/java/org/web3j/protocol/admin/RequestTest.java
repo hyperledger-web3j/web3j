@@ -16,7 +16,8 @@ import java.math.BigInteger;
 
 import org.junit.jupiter.api.Test;
 
-import org.web3j.protocol.RequestTester;
+
+import org.web3j.android_test_utils.RequestTester;
 import org.web3j.protocol.core.methods.request.Transaction;
 import org.web3j.protocol.http.HttpService;
 

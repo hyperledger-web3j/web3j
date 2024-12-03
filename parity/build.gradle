@@ -1,16 +1,46 @@
-
+plugins {
+    id 'com.android.library'
+}
 description 'Parity JSON-RPC API'
+
+android {
+    namespace 'com.org.web3j'
+    compileSdkVersion 33
+
+    defaultConfig {
+        minSdkVersion 24
+        targetSdkVersion 33
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java']
+        }
+        test {
+            java.srcDirs = ['src/test/java']
+        }
+    }
+}
 
 dependencies {
     implementation project(':core')
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testImplementation project(':android-test-utils')
+    testImplementation project(':android-test-utils')
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
     testImplementation project(path: ':core', configuration: 'testArtifacts'),
-    "nl.jqno.equalsverifier:equalsverifier:$equalsverifierVersion"
+            "nl.jqno.equalsverifier:equalsverifier:$equalsverifierVersion"
 }
 
-tasks.named("spotlessJava").configure {
-    dependsOn("spotlessGroovyGradle", "compileJava", "compileTestJava", "javadoc", "test", "jacocoTestReport")
-}
-
-tasks.named("spotlessKotlin").configure {
-    dependsOn("compileJava", "spotlessJava", "spotlessGroovyGradle", "compileTestJava", "processTestResources", "javadoc", "test", "jacocoTestReport")
-}
+//tasks.named("spotlessJava").configure {
+//    dependsOn("spotlessGroovyGradle", "compileJava", "compileTestJava", "javadoc", "test", "jacocoTestReport")
+//}
+//
+//tasks.named("spotlessKotlin").configure {
+//    dependsOn("compileJava", "spotlessJava", "spotlessGroovyGradle", "compileTestJava", "processTestResources", "javadoc", "test", "jacocoTestReport")
+//}
