@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="6" by="lint 8.5.1" type="baseline" client="gradle" dependencies="false" name="AGP (8.5.1)" variant="all" version="8.5.1">
+
+    <issue
+        id="DefaultLocale"
+        message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`."
+        errorLine1="        String lowercaseAddress = Numeric.cleanHexPrefix(address).toLowerCase();"
+        errorLine2="                                                                  ~~~~~~~~~~~">
+        <location
+            file="src/main/java/org/web3j/crypto/Keys.java"
+            line="124"
+            column="67"/>
+    </issue>
+
+    <issue
+        id="DefaultLocale"
+        message="Implicitly using the default locale is a common source of bugs: Use `toUpperCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`."
+        errorLine1="                result.append(String.valueOf(lowercaseAddress.charAt(i)).toUpperCase());"
+        errorLine2="                                                                         ~~~~~~~~~~~">
+        <location
+            file="src/main/java/org/web3j/crypto/Keys.java"
+            line="133"
+            column="74"/>
+    </issue>
+
+    <issue
+        id="DefaultLocale"
+        message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`."
+        errorLine1="            if (baseType.toLowerCase().startsWith(&quot;uint&quot;)"
+        errorLine2="                         ~~~~~~~~~~~">
+        <location
+            file="src/main/java/org/web3j/crypto/StructuredDataEncoder.java"
+            line="240"
+            column="26"/>
+    </issue>
+
+    <issue
+        id="DefaultLocale"
+        message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`."
+        errorLine1="                    || baseType.toLowerCase().startsWith(&quot;int&quot;)) {"
+        errorLine2="                                ~~~~~~~~~~~">
+        <location
+            file="src/main/java/org/web3j/crypto/StructuredDataEncoder.java"
+            line="241"
+            column="33"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 26, or core library desugaring (current min is 24): `java.util.Base64#getEncoder`"
+        errorLine1="            String paddedEncoding = Base64.getEncoder().encodeToString(bytes);"
+        errorLine2="                                           ~~~~~~~~~~">
+        <location
+            file="src/main/java/org/web3j/crypto/Secp256k1JWK.java"
+            line="147"
+            column="44"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 26, or core library desugaring (current min is 24): `java.util.Base64.Encoder#encodeToString`"
+        errorLine1="            String paddedEncoding = Base64.getEncoder().encodeToString(bytes);"
+        errorLine2="                                                        ~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/org/web3j/crypto/Secp256k1JWK.java"
+            line="147"
+            column="57"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of `compileSdkVersion` than 33 is available: 34"
+        errorLine1="    compileSdkVersion 33"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="35"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of org.slf4j:slf4j-api than 2.0.13 is available: 2.0.16"
+        errorLine1="    api &quot;org.slf4j:slf4j-api:$slf4jVersion&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="67"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of org.junit.jupiter:junit-jupiter-api than 5.10.0 is available: 5.11.0"
+        errorLine1="    testImplementation &apos;org.junit.jupiter:junit-jupiter-api:5.10.0&apos;"
+        errorLine2="                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="72"
+            column="24"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of org.junit.jupiter:junit-jupiter-engine than 5.10.0 is available: 5.11.0"
+        errorLine1="    testRuntimeOnly &apos;org.junit.jupiter:junit-jupiter-engine:5.10.0&apos;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="73"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of org.junit.jupiter:junit-jupiter than 5.9.3 is available: 5.11.0"
+        errorLine1="    testImplementation &apos;org.junit.jupiter:junit-jupiter:5.9.3&apos;"
+        errorLine2="                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="74"
+            column="24"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of org.junit.jupiter:junit-jupiter-params than 5.9.3 is available: 5.11.0"
+        errorLine1="    testImplementation &apos;org.junit.jupiter:junit-jupiter-params:5.9.3&apos;"
+        errorLine2="                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="75"
+            column="24"/>
+    </issue>
+
+</issues>
