@@ -1,19 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'maven-publish'
-//    id("org.web3j") version "4.12.1"
 }
-//web3j {
-//    generatedPackageName = "org.web3j.integration-tests"
-//}
-
-//solidity {
-//    evmVersion = EVMVersion.ISTANBUL
-//}
-
-//node {
-//    nodeProjectDir.set(file("$projectDir"))
-//}
 
 
 publishing {

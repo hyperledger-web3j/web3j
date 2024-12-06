@@ -6,11 +6,23 @@ plugins {
 publishing {
     publications {
         release(MavenPublication) {
-            groupId = 'org.web3j'
-            artifactId = 'crypto'
-            version = '4.12.4'
+            groupId = group
+            artifactId = project.name
+            version = version
 
             artifact("$buildDir/outputs/aar/${project.name}-release.aar")
+
+            pom {
+                withXml {
+                    def dependenciesNode = asNode().appendNode('dependencies')
+                    configurations.api.allDependencies.each { dependency ->
+                        def dependencyNode = dependenciesNode.appendNode('dependency')
+                        dependencyNode.appendNode('groupId', dependency.group)
+                        dependencyNode.appendNode('artifactId', dependency.name)
+                        dependencyNode.appendNode('version', dependency.version)
+                    }
+                }
+            }
         }
     }
     repositories {
