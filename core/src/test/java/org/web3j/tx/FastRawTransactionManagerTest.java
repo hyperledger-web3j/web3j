@@ -18,7 +18,7 @@ import java.math.BigInteger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import org.web3j.crypto.SampleKeys;
+import org.web3j.android_test_utils.SampleKeys;
 import org.web3j.protocol.Web3j;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

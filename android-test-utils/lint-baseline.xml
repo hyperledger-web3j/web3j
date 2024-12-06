@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="6" by="lint 8.5.1" type="baseline" client="gradle" dependencies="false" name="AGP (8.5.1)" variant="all" version="8.5.1">
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 26, or core library desugaring (current min is 24): `java.nio.file.Files#createTempDirectory`"
+        errorLine1="        tempDir = Files.createTempDirectory(TempFileProvider.class.getSimpleName()).toFile();"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/org/web3j/android_test_utils/TempFileProvider.java"
+            line="28"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 26, or core library desugaring (current min is 24): `java.nio.file.Path#toFile`"
+        errorLine1="        tempDir = Files.createTempDirectory(TempFileProvider.class.getSimpleName()).toFile();"
+        errorLine2="                                                                                    ~~~~~~">
+        <location
+            file="src/main/java/org/web3j/android_test_utils/TempFileProvider.java"
+            line="28"
+            column="85"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of org.java-websocket:Java-WebSocket than 1.5.6 is available: 1.5.7"
+        errorLine1="    api &quot;org.java-websocket:Java-WebSocket:$javaWebSocketVersion&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="46"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of org.slf4j:slf4j-api than 2.0.13 is available: 2.0.16"
+        errorLine1="    api &quot;org.slf4j:slf4j-api:$slf4jVersion&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="49"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of org.junit.jupiter:junit-jupiter than 5.8.1 is available: 5.11.0"
+        errorLine1="    implementation &apos;org.junit.jupiter:junit-jupiter:5.8.1&apos;"
+        errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="55"
+            column="20"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of org.junit.jupiter:junit-jupiter-api than 5.10.0 is available: 5.11.0"
+        errorLine1="    testImplementation &apos;org.junit.jupiter:junit-jupiter-api:5.10.0&apos;"
+        errorLine2="                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="57"
+            column="24"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of org.junit.jupiter:junit-jupiter-engine than 5.10.0 is available: 5.11.0"
+        errorLine1="    testRuntimeOnly &apos;org.junit.jupiter:junit-jupiter-engine:5.10.0&apos;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="58"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of org.mockito:mockito-core than 5.5.0 is available: 5.13.0"
+        errorLine1="    testImplementation &apos;org.mockito:mockito-core:5.5.0&apos;"
+        errorLine2="                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="59"
+            column="24"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of org.mockito:mockito-junit-jupiter than 5.5.0 is available: 5.13.0"
+        errorLine1="    testImplementation &apos;org.mockito:mockito-junit-jupiter:5.5.0&apos;"
+        errorLine2="                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="60"
+            column="24"/>
+    </issue>
+
+</issues>

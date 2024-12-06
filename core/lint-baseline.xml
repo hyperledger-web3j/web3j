@@ -36,6 +36,94 @@
 
     <issue
         id="NewApi"
+        message="Call requires API level 34 (current min is 24): `java.util.stream.Stream#toList`"
+        errorLine1="        return from.stream().map(NamedType::new).toList();"
+        errorLine2="                                                 ~~~~~~">
+        <location
+            file="src/main/java/org/web3j/protocol/core/methods/response/AbiDefinition.java"
+            line="351"
+            column="50"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 34 (current min is 24): `java.util.stream.Stream#toList`"
+        errorLine1="                .toList();"
+        errorLine2="                 ~~~~~~">
+        <location
+            file="src/main/java/org/web3j/tx/Contract.java"
+            line="842"
+            column="18"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 34 (current min is 24): `java.util.stream.Stream#toList`"
+        errorLine1="                .toList();"
+        errorLine2="                 ~~~~~~">
+        <location
+            file="src/main/java/org/web3j/tx/Contract.java"
+            line="850"
+            column="18"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 34 (current min is 24): `java.util.stream.Stream#toList`"
+        errorLine1="                                            .toList())"
+        errorLine2="                                             ~~~~~~">
+        <location
+            file="src/main/java/org/web3j/protocol/core/methods/response/EthFeeHistory.java"
+            line="81"
+            column="46"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 34 (current min is 24): `java.util.stream.Stream#toList`"
+        errorLine1="                    .toList();"
+        errorLine2="                     ~~~~~~">
+        <location
+            file="src/main/java/org/web3j/protocol/core/methods/response/EthFeeHistory.java"
+            line="82"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 34 (current min is 24): `java.util.stream.Stream#toList`"
+        errorLine1="            return baseFeePerGas.stream().map(Numeric::decodeQuantity).toList();"
+        errorLine2="                                                                       ~~~~~~">
+        <location
+            file="src/main/java/org/web3j/protocol/core/methods/response/EthFeeHistory.java"
+            line="94"
+            column="72"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 34 (current min is 24): `java.util.stream.Stream#toList`"
+        errorLine1="                    .toList();"
+        errorLine2="                     ~~~~~~">
+        <location
+            file="src/main/java/org/web3j/protocol/admin/methods/response/TxPoolContent.java"
+            line="55"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="NewApi"
+        message="Call requires API level 34 (current min is 24): `java.util.stream.Stream#toList`"
+        errorLine1="                    .toList();"
+        errorLine2="                     ~~~~~~">
+        <location
+            file="src/main/java/org/web3j/protocol/admin/methods/response/TxPoolContent.java"
+            line="62"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="NewApi"
         message="Call requires API level 26, or core library desugaring (current min is 24): `java.time.format.DateTimeFormatter#ofPattern`"
         errorLine1="                DateTimeFormatter.ofPattern(&quot;&apos;UTC--&apos;yyyy-MM-dd&apos;T&apos;HH-mm-ss.nVV&apos;--&apos;&quot;);"
         errorLine2="                                  ~~~~~~~~~">
@@ -96,7 +184,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="build.gradle"
-            line="48"
+            line="104"
             column="9"/>
     </issue>
 
@@ -107,7 +195,18 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="build.gradle"
-            line="51"
+            line="107"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of software.amazon.awssdk:kms than 2.20.50 is available: 2.27.24"
+        errorLine1="    api &apos;software.amazon.awssdk:kms:2.20.50&apos;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="111"
             column="9"/>
     </issue>
 
@@ -118,7 +217,7 @@
         errorLine2="                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="build.gradle"
-            line="57"
+            line="113"
             column="24"/>
     </issue>
 
@@ -129,7 +228,7 @@
         errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="build.gradle"
-            line="58"
+            line="114"
             column="21"/>
     </issue>
 
@@ -140,7 +239,7 @@
         errorLine2="                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="build.gradle"
-            line="59"
+            line="115"
             column="24"/>
     </issue>
 
@@ -151,7 +250,7 @@
         errorLine2="                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="build.gradle"
-            line="60"
+            line="116"
             column="24"/>
     </issue>
 

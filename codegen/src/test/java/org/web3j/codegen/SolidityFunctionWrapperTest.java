@@ -12,17 +12,20 @@
 // */
 //package org.web3j.codegen;
 //
+//import static com.squareup.kotlinpoet.ParameterizedTypeNames.asTypeName;
+//
 //import java.math.BigInteger;
 //import java.util.ArrayList;
 //import java.util.Arrays;
 //import java.util.Collections;
 //import java.util.List;
 //
-//import com.squareup.javapoet.ClassName;
-//import com.squareup.javapoet.MethodSpec;
-//import com.squareup.javapoet.ParameterizedTypeName;
-//import com.squareup.javapoet.TypeName;
-//import com.squareup.javapoet.TypeSpec;
+//import com.squareup.javapoet.ArrayTypeName;
+//import com.squareup.kotlinpoet.ClassName;
+//import com.squareup.kotlinpoet.FunSpec;
+//import com.squareup.kotlinpoet.ParameterizedTypeName;
+//import com.squareup.kotlinpoet.TypeName;
+//import com.squareup.kotlinpoet.TypeSpec;
 //import org.junit.jupiter.api.BeforeEach;
 //import org.junit.jupiter.api.Test;
 //
@@ -48,6 +51,8 @@
 //import static org.junit.jupiter.api.Assertions.assertThrows;
 //import static org.junit.jupiter.api.Assertions.assertTrue;
 //
+//import static org.mockito.Mockito.mock;
+//import static org.mockito.Mockito.verify;
 //import static org.web3j.codegen.SolidityFunctionWrapper.buildTypeName;
 //import static org.web3j.codegen.SolidityFunctionWrapper.createValidParamName;
 //import static org.web3j.codegen.SolidityFunctionWrapper.getEventNativeType;
@@ -82,9 +87,18 @@
 //
 //    @Test
 //    public void testBuildTypeName() throws Exception {
-//        assertEquals(buildTypeName("uint256"), (ClassName.get(Uint256.class)));
-//        assertEquals(buildTypeName("uint64"), (ClassName.get(Uint64.class)));
-//        assertEquals(buildTypeName("string"), (ClassName.get(Utf8String.class)));
+//        assertEquals(
+//                buildTypeName("uint256"),
+//                new ClassName("package.name", "Uint256")
+//        );
+//        assertEquals(
+//                buildTypeName("uint64"),
+//                new ClassName("package.name", "Uint64")
+//        );
+//        assertEquals(
+//                buildTypeName("string"),
+//                new ClassName("package.name", "Utf8String")
+//        );
 //
 //        assertEquals(
 //                buildTypeName("uint256[]"),
@@ -109,69 +123,87 @@
 //        assertEquals(
 //                buildTypeName("uint256[10][3]"),
 //                (ParameterizedTypeName.get(
-//                        ClassName.get(StaticArray3.class),
+//                        new ClassName("package.name", "StaticArray3"),
 //                        ParameterizedTypeName.get(StaticArray10.class, Uint256.class))));
 //
 //        assertEquals(
 //                buildTypeName("uint256[2][]"),
 //                (ParameterizedTypeName.get(
-//                        ClassName.get(DynamicArray.class),
+//                        new ClassName("package.name", "DynamicArray"),
 //                        ParameterizedTypeName.get(StaticArray2.class, Uint256.class))));
 //
 //        assertEquals(
 //                buildTypeName("uint256[33][]"),
 //                (ParameterizedTypeName.get(
-//                        ClassName.get(DynamicArray.class),
+//                        new ClassName("package.name", "DynamicArray"),
 //                        ParameterizedTypeName.get(StaticArray.class, Uint256.class))));
 //
 //        assertEquals(
 //                buildTypeName("uint256[][]"),
 //                (ParameterizedTypeName.get(
-//                        ClassName.get(DynamicArray.class),
+//                        new ClassName("package.name", "DynamicArray"),
 //                        ParameterizedTypeName.get(DynamicArray.class, Uint256.class))));
 //    }
 //
 //    @Test
 //    public void testGetNativeType() {
-//        assertEquals(getNativeType(TypeName.get(Address.class)), (TypeName.get(String.class)));
-//        assertEquals(getNativeType(TypeName.get(Uint256.class)), (TypeName.get(BigInteger.class)));
-//        assertEquals(getNativeType(TypeName.get(Int256.class)), (TypeName.get(BigInteger.class)));
-//        assertEquals(getNativeType(TypeName.get(Utf8String.class)), (TypeName.get(String.class)));
-//        assertEquals(getNativeType(TypeName.get(Bool.class)), (TypeName.get(Boolean.class)));
-//        assertEquals(getNativeType(TypeName.get(Bytes32.class)), (TypeName.get(byte[].class)));
-//        assertEquals(getNativeType(TypeName.get(DynamicBytes.class)), (TypeName.get(byte[].class)));
+//        assertEquals(getNativeType(new ClassName("package.name", "Address")),
+//                new ClassName("kotlin", "String"));
+//        assertEquals(getNativeType(new ClassName("package.name", "Uint256")),
+//                new ClassName("java.math", "BigInteger"));
+//        assertEquals(getNativeType(new ClassName("package.name", "Int256")),
+//                new ClassName("java.math", "BigInteger"));
+//        assertEquals(getNativeType(new ClassName("package.name", "Utf8String")),
+//                new ClassName("kotlin", "String"));
+//        assertEquals(getNativeType(new ClassName("package.name", "Bool")),
+//                new ClassName("kotlin", "Boolean"));
+//        assertEquals(getNativeType(new ClassName("package.name", "Bytes32")),
+//                ArrayTypeName.of(new ClassName("kotlin", "Byte").getClass()));
+//        assertEquals(getNativeType(new ClassName("package.name", "DynamicBytes")),
+//                ArrayTypeName.of(new ClassName("kotlin", "Byte").getClass()));
 //    }
+//
 //
 //    @Test
 //    public void testGetNativeTypeParameterized() {
 //        assertEquals(
 //                getNativeType(
-//                        ParameterizedTypeName.get(
-//                                ClassName.get(DynamicArray.class), TypeName.get(Address.class))),
-//                (ParameterizedTypeName.get(ClassName.get(List.class), TypeName.get(String.class))));
+//                        ParameterizedTypeName.Companion.get(
+//                                new ClassName("package.name", "DynamicArray"),
+//                                new ClassName("package.name", "Address"))),
+//                ParameterizedTypeName.Companion.get(
+//                        new ClassName("java.util", "List"),
+//                        new ClassName("kotlin", "String"))
+//        );
 //    }
 //
 //    @Test
 //    public void testGetNativeTypeInvalid() {
 //        assertThrows(
 //                UnsupportedOperationException.class,
-//                () -> getNativeType(TypeName.get(BigInteger.class)));
+//                () -> getNativeType(new ClassName("java.math", "BigInteger"))
+//        );
 //    }
 //
 //    @Test
 //    public void testGetEventNativeType() {
 //        assertEquals(
-//                getEventNativeType(TypeName.get(Utf8String.class)), (TypeName.get(byte[].class)));
+//                getEventNativeType(new ClassName("package.name", "Utf8String")),
+//                ArrayTypeName.of(new ClassName("kotlin", "Byte").getClass())
+//        );
 //    }
 //
 //    @Test
 //    public void testGetEventNativeTypeParameterized() {
 //        assertEquals(
 //                getEventNativeType(
-//                        ParameterizedTypeName.get(
-//                                ClassName.get(DynamicArray.class), TypeName.get(Address.class))),
-//                (TypeName.get(byte[].class)));
+//                        ParameterizedTypeName.Companion.get(
+//                                new ClassName("package.name", "DynamicArray"),
+//                                new ClassName("package.name", "Address"))),
+//                ArrayTypeName.of(new ClassName("kotlin", "Byte").getClass())
+//        );
 //    }
+//
 //
 //    @Test
 //    public void testBuildFunctionTransaction() throws Exception {
@@ -184,7 +216,7 @@
 //                        "type",
 //                        false);
 //
-//        MethodSpec methodSpec = solidityFunctionWrapper.buildFunction(functionDefinition);
+//        FunSpec methodSpec = solidityFunctionWrapper.buildFunction(functionDefinition);
 //
 //        String expected =
 //                "public org.web3j.protocol.core.RemoteFunctionCall<org.web3j.protocol.core.methods.response.TransactionReceipt> functionName(\n"
@@ -229,7 +261,7 @@
 //                        "type",
 //                        true);
 //
-//        MethodSpec methodSpec = solidityFunctionWrapper.buildFunction(functionDefinition);
+//        FunSpec methodSpec = solidityFunctionWrapper.buildFunction(functionDefinition);
 //
 //        String expected =
 //                "public org.web3j.protocol.core.RemoteFunctionCall<org.web3j.protocol.core.methods.response.TransactionReceipt> functionName(\n"
@@ -255,7 +287,7 @@
 //                        "type",
 //                        false);
 //
-//        MethodSpec methodSpec = solidityFunctionWrapper.buildFunction(functionDefinition);
+//        FunSpec methodSpec = solidityFunctionWrapper.buildFunction(functionDefinition);
 //
 //        String expected =
 //                "public org.web3j.protocol.core.RemoteFunctionCall<java.math.BigInteger> functionName(\n"
@@ -280,7 +312,7 @@
 //                        "type",
 //                        false);
 //
-//        MethodSpec methodSpec = solidityFunctionWrapper.buildFunction(functionDefinition);
+//        FunSpec methodSpec = solidityFunctionWrapper.buildFunction(functionDefinition);
 //
 //        String expected =
 //                "public org.web3j.protocol.core.RemoteFunctionCall<java.util.List> functionName(\n"
@@ -313,7 +345,7 @@
 //                        "type",
 //                        false);
 //
-//        MethodSpec methodSpec = solidityFunctionWrapper.buildFunction(functionDefinition);
+//        FunSpec methodSpec = solidityFunctionWrapper.buildFunction(functionDefinition);
 //
 //        String expected =
 //                "public org.web3j.protocol.core.RemoteFunctionCall<java.util.List> functionName(\n"
@@ -348,7 +380,7 @@
 //                        "type",
 //                        false);
 //
-//        MethodSpec methodSpec = solidityFunctionWrapper.buildFunction(functionDefinition);
+//        FunSpec methodSpec = solidityFunctionWrapper.buildFunction(functionDefinition);
 //
 //        String expected =
 //                "public org.web3j.protocol.core.RemoteFunctionCall<java.util.List> functionName(\n"
@@ -565,7 +597,7 @@
 //                        false,
 //                        "pure");
 //
-//        MethodSpec methodSpec = solidityFunctionWrapper.buildFunction(functionDefinition);
+//        FunSpec methodSpec = solidityFunctionWrapper.buildFunction(functionDefinition);
 //
 //        String expected =
 //                "public org.web3j.protocol.core.RemoteFunctionCall<org.web3j.tuples.generated.Tuple5<java.util.List<Nar>, java.util.List<Bar>, java.util.List<Foo>, java.util.List<Nar>, java.util.List<Foo>>> idNarBarFooArrays(\n"
@@ -618,7 +650,7 @@
 //                        "type",
 //                        false);
 //
-//        List<MethodSpec> methodSpecs = solidityFunctionWrapper.buildFunctions(functionDefinition);
+//        List<FunSpec> methodSpecs = solidityFunctionWrapper.buildFunctions(functionDefinition);
 //        assertTrue(methodSpecs.isEmpty());
 //    }
 //
@@ -638,7 +670,7 @@
 //                        "type",
 //                        false);
 //
-//        MethodSpec methodSpec = solidityFunctionWrapper.buildFunction(functionDefinition);
+//        FunSpec methodSpec = solidityFunctionWrapper.buildFunction(functionDefinition);
 //
 //        String expected =
 //                "public org.web3j.protocol.core.RemoteFunctionCall<org.web3j.tuples.generated.Tuple2<java.math.BigInteger, java.math.BigInteger>> functionName(\n"
@@ -684,7 +716,7 @@
 //                        false);
 //        TypeSpec.Builder builder = TypeSpec.classBuilder("testClass");
 //
-//        builder.addMethods(
+//        builder.addFunctions(
 //                solidityFunctionWrapper.buildEventFunctions(functionDefinition, builder));
 //
 //        String expected =
@@ -772,7 +804,7 @@
 //                        false);
 //        TypeSpec.Builder builder = TypeSpec.classBuilder("testClass");
 //
-//        builder.addMethods(
+//        builder.addFunctions(
 //                solidityFunctionWrapper.buildEventFunctions(functionDefinition, builder));
 //
 //        String expected =
@@ -852,7 +884,7 @@
 //                        false, Arrays.asList(array), "Transfer", new ArrayList<>(), "event", false);
 //        TypeSpec.Builder builder = TypeSpec.classBuilder("testClass");
 //
-//        builder.addMethods(
+//        builder.addFunctions(
 //                solidityFunctionWrapper.buildEventFunctions(functionDefinition, builder));
 //
 //        String expected =
@@ -914,7 +946,7 @@
 //                        true);
 //        TypeSpec.Builder builder = TypeSpec.classBuilder("testClass");
 //
-//        builder.addFields(
+//        builder.addProperties(
 //                solidityFunctionWrapper.buildFuncNameConstants(
 //                        Collections.singletonList(functionDefinition)));
 //
@@ -937,7 +969,7 @@
 //                        "type",
 //                        false);
 //
-//        List<MethodSpec> methodSpecs =
+//        List<FunSpec> methodSpecs =
 //                solidityFunctionWrapperBoth.buildFunctions(functionDefinition);
 //
 //        String expectedSend =
@@ -975,7 +1007,7 @@
 //                        "type",
 //                        false);
 //
-//        List<MethodSpec> methodSpecs =
+//        List<FunSpec> methodSpecs =
 //                solidityFunctionWrapperBoth.buildFunctions(functionDefinition);
 //
 //        String expectedCall =
@@ -1004,7 +1036,7 @@
 //
 //    @Test
 //    public void testBuildFunctionLinkBinaryWithReferences() throws Exception {
-//        MethodSpec methodSpec = solidityFunctionWrapper.buildLinkLibraryMethod();
+//        FunSpec methodSpec = solidityFunctionWrapper.buildLinkLibraryMethod();
 //
 //        String expected =
 //                "public static void linkLibraries(java.util.List<org.web3j.tx.Contract.LinkReference> references) {\n"
