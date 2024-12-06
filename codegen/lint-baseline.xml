@@ -30,7 +30,7 @@
         errorLine2="                         ~~~~~~~~~~~">
         <location
             file="src/main/java/org/web3j/codegen/SolidityFunctionWrapper.java"
-            line="443"
+            line="444"
             column="26"/>
     </issue>
 
@@ -41,7 +41,7 @@
         errorLine2="                                               ~~~~~~~~~~~">
         <location
             file="src/main/java/org/web3j/codegen/SolidityFunctionWrapper.java"
-            line="2281"
+            line="2279"
             column="48"/>
     </issue>
 
@@ -102,12 +102,67 @@
 
     <issue
         id="GradleDependency"
+        message="A newer version of androidx.core:core-ktx than 1.13.1 is available: 1.15.0"
+        errorLine1="    implementation &apos;androidx.core:core-ktx:1.13.1&apos;"
+        errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="76"
+            column="20"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of org.junit.jupiter:junit-jupiter-api than 5.10.0 is available: 5.11.0"
+        errorLine1="    testImplementation &apos;org.junit.jupiter:junit-jupiter-api:5.10.0&apos;"
+        errorLine2="                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="81"
+            column="24"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of org.junit.jupiter:junit-jupiter-engine than 5.10.0 is available: 5.11.0"
+        errorLine1="    testRuntimeOnly &apos;org.junit.jupiter:junit-jupiter-engine:5.10.0&apos;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="82"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of org.mockito:mockito-core than 5.5.0 is available: 5.13.0"
+        errorLine1="    testImplementation &apos;org.mockito:mockito-core:5.5.0&apos;"
+        errorLine2="                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="83"
+            column="24"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of org.mockito:mockito-junit-jupiter than 5.5.0 is available: 5.13.0"
+        errorLine1="    testImplementation &apos;org.mockito:mockito-junit-jupiter:5.5.0&apos;"
+        errorLine2="                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="84"
+            column="24"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
         message="A newer version of org.junit.platform:junit-platform-launcher than 1.5.2 is available: 1.11.0"
         errorLine1="    implementation &quot;org.junit.platform:junit-platform-launcher:$junitPlatformLauncherVersion&quot;"
         errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="build.gradle"
-            line="54"
+            line="86"
             column="20"/>
     </issue>
 
@@ -118,7 +173,7 @@
         errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="build.gradle"
-            line="55"
+            line="87"
             column="20"/>
     </issue>
 
@@ -129,7 +184,7 @@
         errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="build.gradle"
-            line="56"
+            line="88"
             column="20"/>
     </issue>
 
@@ -239,7 +294,7 @@
         errorLine2="                               ~~~~~~~">
         <location
             file="src/main/java/org/web3j/codegen/SolidityFunctionWrapper.java"
-            line="258"
+            line="259"
             column="32"/>
     </issue>
 
@@ -250,7 +305,7 @@
         errorLine2="                         ~~~~~~~~~~">
         <location
             file="src/main/java/org/web3j/codegen/SolidityFunctionWrapper.java"
-            line="381"
+            line="382"
             column="26"/>
     </issue>
 
@@ -261,7 +316,7 @@
         errorLine2="                                           ~~~~~~~">
         <location
             file="src/main/java/org/web3j/codegen/SolidityFunctionWrapper.java"
-            line="535"
+            line="536"
             column="44"/>
     </issue>
 
@@ -272,7 +327,7 @@
         errorLine2="                                               ~~~~~~~">
         <location
             file="src/main/java/org/web3j/codegen/SolidityFunctionWrapper.java"
-            line="546"
+            line="547"
             column="48"/>
     </issue>
 
@@ -283,7 +338,7 @@
         errorLine2="                    ~~~~~~~~~~">
         <location
             file="src/main/java/org/web3j/codegen/SolidityFunctionWrapper.java"
-            line="580"
+            line="581"
             column="21"/>
     </issue>
 
@@ -294,7 +349,7 @@
         errorLine2="                     ~~~~~~~~~~~~~">
         <location
             file="src/main/java/org/web3j/codegen/SolidityFunctionWrapper.java"
-            line="883"
+            line="884"
             column="22"/>
     </issue>
 
@@ -305,7 +360,7 @@
         errorLine2="                          ~~~~~~~~~~~~~">
         <location
             file="src/main/java/org/web3j/codegen/SolidityFunctionWrapper.java"
-            line="937"
+            line="938"
             column="27"/>
     </issue>
 
@@ -316,7 +371,7 @@
         errorLine2="                          ~~~~~~~~~~~~~">
         <location
             file="src/main/java/org/web3j/codegen/SolidityFunctionWrapper.java"
-            line="955"
+            line="956"
             column="27"/>
     </issue>
 
@@ -327,7 +382,7 @@
         errorLine2="                          ~~~~~~~~~~~~~">
         <location
             file="src/main/java/org/web3j/codegen/SolidityFunctionWrapper.java"
-            line="983"
+            line="984"
             column="27"/>
     </issue>
 
@@ -338,7 +393,7 @@
         errorLine2="                          ~~~~~~~~~~~~~">
         <location
             file="src/main/java/org/web3j/codegen/SolidityFunctionWrapper.java"
-            line="1000"
+            line="1001"
             column="27"/>
     </issue>
 
@@ -349,7 +404,7 @@
         errorLine2="                     ~~~~~~~~~~~~~">
         <location
             file="src/main/java/org/web3j/codegen/SolidityFunctionWrapper.java"
-            line="1070"
+            line="1071"
             column="22"/>
     </issue>
 
@@ -360,7 +415,7 @@
         errorLine2="                                                     ~~~~~~~~~~~~~">
         <location
             file="src/main/java/org/web3j/codegen/SolidityFunctionWrapper.java"
-            line="1621"
+            line="1619"
             column="54"/>
     </issue>
 
@@ -371,7 +426,7 @@
         errorLine2="                                                                           ~~~~~~~">
         <location
             file="src/main/java/org/web3j/codegen/SolidityFunctionWrapper.java"
-            line="1623"
+            line="1621"
             column="76"/>
     </issue>
 
@@ -382,7 +437,7 @@
         errorLine2="                ~~~~~~~~~~">
         <location
             file="src/main/java/org/web3j/codegen/SolidityFunctionWrapper.java"
-            line="1767"
+            line="1765"
             column="17"/>
     </issue>
 
@@ -393,7 +448,7 @@
         errorLine2="                                         ~~~~~~~~~~~~~">
         <location
             file="src/main/java/org/web3j/codegen/SolidityFunctionWrapper.java"
-            line="2229"
+            line="2227"
             column="42"/>
     </issue>
 
