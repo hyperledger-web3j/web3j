@@ -3,6 +3,62 @@ import java.text.SimpleDateFormat
 plugins {
     id 'com.android.library'
     id 'org.ajoberstar.git-publish'
+    id 'maven-publish'
+}
+publishing {
+    publications {
+        release(MavenPublication) {
+            groupId = group
+            artifactId = project.name
+            version = version
+
+            artifact("$buildDir/outputs/aar/${project.name}-release.aar")
+
+            pom {
+                withXml {
+                    def dependenciesNode = asNode().appendNode('dependencies')
+                    configurations.api.allDependencies.each { dependency ->
+                        def dependencyNode = dependenciesNode.appendNode('dependency')
+                        dependencyNode.appendNode('groupId', dependency.group)
+                        dependencyNode.appendNode('artifactId', dependency.name)
+                        dependencyNode.appendNode('version', dependency.version)
+                    }
+                }
+            }
+        }
+    }
+    repositories {
+        mavenLocal()
+    }
+}
+
+
+android {
+    namespace 'org.web3j'
+
+    defaultConfig {
+        compileSdk 34
+        minSdkVersion 24
+        targetSdkVersion 34
+    }
+
+    lint {
+        baseline = file("lint-baseline.xml")
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java']
+        }
+        test {
+            test.java.srcDirs += ["${project(':core').projectDir}/src/test/java"]
+        }
+    }
 }
 
 android {

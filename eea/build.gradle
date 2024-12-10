@@ -1,5 +1,33 @@
 plugins {
     id 'com.android.library' // Android library plugin for Android compatibility
+    id 'maven-publish'
+}
+
+publishing {
+    publications {
+        release(MavenPublication) {
+            groupId = group
+            artifactId = project.name
+            version = version
+
+            artifact("$buildDir/outputs/aar/${project.name}-release.aar")
+
+            pom {
+                withXml {
+                    def dependenciesNode = asNode().appendNode('dependencies')
+                    configurations.api.allDependencies.each { dependency ->
+                        def dependencyNode = dependenciesNode.appendNode('dependency')
+                        dependencyNode.appendNode('groupId', dependency.group)
+                        dependencyNode.appendNode('artifactId', dependency.name)
+                        dependencyNode.appendNode('version', dependency.version)
+                    }
+                }
+            }
+        }
+    }
+    repositories {
+        mavenLocal()
+    }
 }
 
 android {
@@ -7,7 +35,7 @@ android {
     compileSdkVersion 34
 
     defaultConfig {
-        minSdkVersion 24
+        minSdkVersion 26
         targetSdkVersion 34
     }
 
@@ -32,6 +60,7 @@ dependencies {
     api project(':core')
     testImplementation project(path: ':core', configuration: 'testArtifacts')
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testImplementation project(':android-test-utils')
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
 }
 

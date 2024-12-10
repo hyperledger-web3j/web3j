@@ -14,7 +14,8 @@ package org.web3j.protocol.eea;
 
 import org.junit.jupiter.api.Test;
 
-import org.web3j.protocol.ResponseTester;
+
+import org.web3j.android_test_utils.ResponseTester;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
