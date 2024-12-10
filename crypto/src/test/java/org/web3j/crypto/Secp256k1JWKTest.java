@@ -98,7 +98,6 @@ public class Secp256k1JWKTest {
 
     @Test
     public void testPrivateJWK() throws IOException {
-//        String jwk = "build/resources/test/" + "jwk/Private256k1JWK.json";
         String jwk = "src/test/resources/jwk/Private256k1JWK.json";
 
         ObjectMapper mapper = new ObjectMapper();
@@ -128,7 +127,6 @@ public class Secp256k1JWKTest {
 
     @Test
     public void testPublicJWK() throws IOException {
-//        String jwk = "build/resources/test/" + "jwk/Public256k1JWK.json";
 
         String jwk = "src/test/resources/jwk/Private256k1JWK.json";
 
