@@ -2,33 +2,9 @@ apply plugin: 'maven-publish'
 apply plugin: 'signing'
 apply plugin: "de.marcphilipp.nexus-publish"
 
-//task javadocsJar(type: Jar) {
-//    archiveClassifier = 'javadoc'
-//    from javadoc
-//}
-
-//task sourcesJar(type: Jar) {
-//    archiveClassifier = 'sources'
-//    from android.sourceSets.main.allSource
-//}
-
-//task testsJar(type: Jar) {
-//    archiveClassifier = 'tests'
-//    from sourceSets.test.output
-//}
-
-//javadoc { options.encoding = 'UTF-8' }
-
-//artifacts { archives sourcesJar, javadocsJar, testsJar }
-
 publishing {
     publications {
         maven(MavenPublication) {
-//            from components.java
-
-//            artifact sourcesJar
-//            artifact javadocsJar
-//            artifact testsJar
 
             pom {
                 name = project.name
