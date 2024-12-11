@@ -3,7 +3,9 @@ name: Publish snapshot
 on:
   workflow_run:
     workflows: [ 'Build' ]
-    branches: [ main ]
+    branches:
+      - main
+      - web3j-android
     types: [ completed ]
 
 jobs:
