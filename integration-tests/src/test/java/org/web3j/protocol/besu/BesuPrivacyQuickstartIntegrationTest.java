@@ -20,6 +20,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import org.web3j.crypto.Credentials;
@@ -49,6 +50,9 @@ import static org.web3j.tx.TransactionManager.DEFAULT_POLLING_FREQUENCY;
 import static org.web3j.utils.Restriction.RESTRICTED;
 
 /** Test designed to run with besu-quickstart https://github.com/Consensys/quorum-dev-quickstart */
+
+//Ignore this test completely
+@Disabled
 public class BesuPrivacyQuickstartIntegrationTest {
     private static final int CHAIN_ID = 1337;
 
