@@ -112,7 +112,7 @@ sourceSets {
 
 
 compileTestJava {
-    dependsOn project(':codegen').getTasksByName("testClasses", false)
+    dependsOn project(':java-utils').getTasksByName("testClasses", false)
 }
 
 //tasks.named("spotlessJava").configure { dependsOn("compileTestJava","spotlessGroovyGradle","processTestResources") }
