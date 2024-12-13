@@ -213,7 +213,7 @@ public class AbiTypesGenerator extends Generator {
                             .addModifiers(KModifier.PUBLIC)
                             .addParameter("values",
                                     ParameterizedTypeName.get(
-                                            new ClassName(String.valueOf(List.class)), typeVariableName).getClass()
+                                            new ClassName("java.util", "List"), typeVariableName).getClass()
                                     )
                             .addStatement("super($L, $N)", length, "values")
                             .build();
@@ -232,11 +232,11 @@ public class AbiTypesGenerator extends Generator {
                             .addModifiers(KModifier.PUBLIC)
                             .addParameter("type",
                                     ParameterizedTypeName.get(
-                                            new ClassName(String.valueOf(Class.class)), typeVariableName)
+                                            new ClassName("java.lang", "Class"), typeVariableName)
                                     )
                             .addParameter("values",
                                     ParameterizedTypeName.get(
-                                            new ClassName(String.valueOf(List.class)), typeVariableName)
+                                            new ClassName("java.util", "List"), typeVariableName)
                                     )
                             .addStatement("super(type, $L, values)", length)
                             .build();
@@ -247,7 +247,7 @@ public class AbiTypesGenerator extends Generator {
                             .addModifiers(KModifier.PUBLIC)
                             .addParameter("type",
                                     ParameterizedTypeName.get(
-                                            new ClassName(String.valueOf(Class.class)), typeVariableName)
+                                            new ClassName("java.lang", "Class"), typeVariableName)
                                     )
                             .addParameter("values", ArrayTypeName.of(typeVariableName.getClass()).getClass())
                             .addStatement("super(type, $L, values)", length)
@@ -260,7 +260,7 @@ public class AbiTypesGenerator extends Generator {
                             .addTypeVariable(typeVariableName)
                             .superclass(
                                     ParameterizedTypeName.get(
-                                            new ClassName(String.valueOf(StaticArray.class)), typeVariableName))
+                                            new ClassName("org.web3j.abi.datatypes", "StaticArray"), typeVariableName))
                             .addModifiers(KModifier.PUBLIC)
                             .addFunctions(
                                     Arrays.asList(

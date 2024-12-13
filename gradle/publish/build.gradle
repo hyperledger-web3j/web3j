@@ -2,33 +2,9 @@ apply plugin: 'maven-publish'
 apply plugin: 'signing'
 apply plugin: "de.marcphilipp.nexus-publish"
 
-task javadocsJar(type: Jar) {
-    archiveClassifier = 'javadoc'
-    from javadoc
-}
-
-task sourcesJar(type: Jar) {
-    archiveClassifier = 'sources'
-    from sourceSets.main.allSource
-}
-
-task testsJar(type: Jar) {
-    archiveClassifier = 'tests'
-    from sourceSets.test.output
-}
-
-javadoc { options.encoding = 'UTF-8' }
-
-artifacts { archives sourcesJar, javadocsJar, testsJar }
-
 publishing {
     publications {
         maven(MavenPublication) {
-            from components.java
-
-            artifact sourcesJar
-            artifact javadocsJar
-            artifact testsJar
 
             pom {
                 name = project.name
@@ -83,8 +59,7 @@ nexusStaging {
 
 signing {
     sign publishing.publications.maven
-    def signingKey = new File("$rootDir/web3j.asc")
-    if (signingKey.exists()) {
-        useInMemoryPgpKeys(signingKey.getText('UTF-8'), System.getenv('GPG_PASSPHRASE'))
-    }
+    def gpgSecretKey = System.getenv('OSSRH_GPG_SECRET_KEY')
+    def password = System.getenv('OSSRH_GPG_SECRET_KEY_PASSWORD')
+    useInMemoryPgpKeys(gpgSecretKey, password)
 }

@@ -1,0 +1,21 @@
+import org.web3j.solidity.gradle.plugin.EVMVersion
+
+plugins {
+    id 'java-library'
+    id("org.web3j") version "4.12.2"
+}
+web3j {
+    generatedPackageName = "org.web3j.java_utils"
+}
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+node {
+    nodeProjectDir.set(file("$projectDir"))
+}
+solidity {
+    evmVersion = EVMVersion.CONSTANTINOPLE
+}
+
+

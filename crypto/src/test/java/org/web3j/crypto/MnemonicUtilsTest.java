@@ -38,7 +38,7 @@ public class MnemonicUtilsTest {
      * @see <a href="https://github.com/trezor/python-mnemonic/blob/master/vectors.json">Test
      *     vectors</a>
      */
-    private static final String SAMPLE_FILE = "build/resources/test/mnemonics/test-vectors.txt";
+    private static final String SAMPLE_FILE = "src/test/resources/mnemonics/test-vectors.txt";
 
     /**
      * Loads the test vectors into a in-memory list and feed them one after another to our

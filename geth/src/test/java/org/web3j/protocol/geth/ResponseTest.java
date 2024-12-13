@@ -14,7 +14,8 @@ package org.web3j.protocol.geth;
 
 import org.junit.jupiter.api.Test;
 
-import org.web3j.protocol.ResponseTester;
+
+import org.web3j.android_test_utils.ResponseTester;
 import org.web3j.protocol.geth.response.PersonalEcRecover;
 import org.web3j.protocol.geth.response.PersonalImportRawKey;
 

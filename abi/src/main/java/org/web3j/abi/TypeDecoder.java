@@ -151,9 +151,9 @@ public class TypeDecoder {
 
             BigInteger numericValue;
             if (Uint.class.isAssignableFrom(type) || Ufixed.class.isAssignableFrom(type)) {
-                numericValue = new BigInteger(1, inputByteArray, valueOffset, typeLengthAsBytes);
+                numericValue = new BigInteger(1, Arrays.copyOfRange(inputByteArray, valueOffset, valueOffset + typeLengthAsBytes));
             } else {
-                numericValue = new BigInteger(inputByteArray, valueOffset, typeLengthAsBytes);
+                numericValue = new BigInteger(Arrays.copyOfRange(inputByteArray, valueOffset, valueOffset + typeLengthAsBytes));
             }
             return type.getConstructor(BigInteger.class).newInstance(numericValue);
 

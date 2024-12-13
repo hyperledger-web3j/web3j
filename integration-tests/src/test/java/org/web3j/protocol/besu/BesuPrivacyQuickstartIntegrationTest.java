@@ -20,18 +20,20 @@ import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.Sign;
 import org.web3j.crypto.TransactionEncoder;
+import org.web3j.java_utils.HumanStandardToken;
+import org.web3j.java_utils.SimpleStorage;
 import org.web3j.protocol.besu.response.privacy.PrivateTransactionReceipt;
 import org.web3j.protocol.besu.response.privacy.PrivateTransactionWithPrivacyGroup;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.protocol.eea.crypto.PrivateTransactionEncoder;
 import org.web3j.protocol.eea.crypto.RawPrivateTransaction;
 import org.web3j.protocol.http.HttpService;
-import org.web3j.test.contract.HumanStandardToken;
 import org.web3j.tx.ChainIdLong;
 import org.web3j.tx.PrivateTransactionManager;
 import org.web3j.tx.gas.BesuPrivacyGasProvider;
@@ -48,6 +50,9 @@ import static org.web3j.tx.TransactionManager.DEFAULT_POLLING_FREQUENCY;
 import static org.web3j.utils.Restriction.RESTRICTED;
 
 /** Test designed to run with besu-quickstart https://github.com/Consensys/quorum-dev-quickstart */
+
+//Ignore this test completely
+@Disabled
 public class BesuPrivacyQuickstartIntegrationTest {
     private static final int CHAIN_ID = 1337;
 

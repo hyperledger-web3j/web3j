@@ -1,6 +1,34 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'maven-publish'
+}
+
+publishing {
+    publications {
+        release(MavenPublication) {
+            groupId = group
+            artifactId = project.name
+            version = version
+
+            artifact("$buildDir/outputs/aar/${project.name}-release.aar")
+
+            pom {
+                withXml {
+                    def dependenciesNode = asNode().appendNode('dependencies')
+                    configurations.api.allDependencies.each { dependency ->
+                        def dependencyNode = dependenciesNode.appendNode('dependency')
+                        dependencyNode.appendNode('groupId', dependency.group)
+                        dependencyNode.appendNode('artifactId', dependency.name)
+                        dependencyNode.appendNode('version', dependency.version)
+                    }
+                }
+            }
+        }
+    }
+    repositories {
+        mavenLocal()
+    }
 }
 
 android {
@@ -8,7 +36,7 @@ android {
     compileSdkVersion 34
 
     defaultConfig {
-        minSdkVersion 24
+        minSdkVersion 26
         targetSdkVersion 34
 
     }
@@ -29,9 +57,10 @@ android {
         test {
             java.srcDirs = ['src/test/java']
         }
+
     }
     kotlinOptions {
-        jvmTarget = '17'
+        jvmTarget = "17"
     }
 }
 
@@ -49,11 +78,15 @@ dependencies {
     //testImplementation project(':core').sourceSets.test.output
     testImplementation "ch.qos.logback:logback-core:$logbackVersion"
     testImplementation "ch.qos.logback:logback-classic:$logbackVersion"
-    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+    testImplementation 'org.mockito:mockito-core:5.5.0'
+    testImplementation 'org.mockito:mockito-junit-jupiter:5.5.0'
 
     implementation "org.junit.platform:junit-platform-launcher:$junitPlatformLauncherVersion"
     implementation "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
     implementation "org.junit.vintage:junit-vintage-engine:$junitVersion"
+//    implementation 'org.eclipse.jdt:org.eclipse.jdt.core:3.32.0'
     testImplementation project(':android-test-utils')
 }
 

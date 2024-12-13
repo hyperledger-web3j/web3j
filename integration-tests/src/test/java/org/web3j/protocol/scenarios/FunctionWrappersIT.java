@@ -19,11 +19,11 @@ import org.junit.jupiter.api.Test;
 
 import org.web3j.EVMTest;
 import org.web3j.NodeType;
+import org.web3j.java_utils.Fibonacci;
+import org.web3j.java_utils.JavaReservedWords;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.http.HttpService;
-import org.web3j.test.contract.Fibonacci;
-import org.web3j.test.contract.JavaReservedWords;
 import org.web3j.tx.gas.ContractGasProvider;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

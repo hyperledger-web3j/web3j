@@ -1,5 +1,22 @@
 plugins {
     id 'com.android.library'
+    id 'maven-publish'
+}
+
+
+publishing {
+    publications {
+        release(MavenPublication) {
+            groupId = 'org.web3j'
+            artifactId = 'integration-tests'
+            version = '4.12.4'
+
+            artifact("$buildDir/outputs/aar/${project.name}-release.aar")
+        }
+    }
+    repositories {
+        mavenLocal()
+    }
 }
 
 description 'web3j integration tests'
@@ -46,6 +63,7 @@ ext {
 def withoutAbi = { exclude group: 'org.web3j', module: 'abi' }
 
 dependencies {
+    implementation project(':java-utils')
     testImplementation project(':core')
     testImplementation project(':besu')
     testImplementation project(':parity')
@@ -93,9 +111,9 @@ sourceSets {
 }
 
 
-//compileTestJava {
-//    dependsOn project(':codegen').getTasksByName("testClasses", false)
-//}
+compileTestJava {
+    dependsOn project(':java-utils').getTasksByName("testClasses", false)
+}
 
 //tasks.named("spotlessJava").configure { dependsOn("compileTestJava","spotlessGroovyGradle","processTestResources") }
 //tasks.named("spotlessKotlin").configure { dependsOn("compileTestJava","spotlessJava", "spotlessGroovyGradle","processTestResources") }

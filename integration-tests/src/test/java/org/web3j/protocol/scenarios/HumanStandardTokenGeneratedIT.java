@@ -22,13 +22,12 @@ import org.junit.jupiter.api.Test;
 
 import org.web3j.EVMTest;
 import org.web3j.NodeType;
+import org.web3j.java_utils.HumanStandardToken;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
-import org.web3j.test.contract.HumanStandardToken;
 import org.web3j.tx.gas.ContractGasProvider;
 import org.web3j.tx.gas.DefaultGasProvider;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.web3j.tx.TransactionManager.DEFAULT_POLLING_FREQUENCY;
