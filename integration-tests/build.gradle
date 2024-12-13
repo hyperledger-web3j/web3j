@@ -7,9 +7,9 @@ plugins {
 publishing {
     publications {
         release(MavenPublication) {
-            groupId = 'org.web3j'
-            artifactId = 'integration-tests'
-            version = '4.12.4'
+            groupId = group
+            artifactId = project.name
+            version = version
 
             artifact("$buildDir/outputs/aar/${project.name}-release.aar")
         }
