@@ -33,6 +33,7 @@ import org.reactivestreams.Subscription;
 
 import org.web3j.protocol.core.BatchRequest;
 import org.web3j.protocol.core.BatchResponse;
+import org.web3j.protocol.core.DefaultIdProvider;
 import org.web3j.protocol.core.Request;
 import org.web3j.protocol.core.Response;
 import org.web3j.protocol.core.methods.response.EthSubscribe;
@@ -213,6 +214,7 @@ class WebSocketServiceTest {
                                 NetVersion.class));
         request.getRequests().get(0).setId(1L);
         request.getRequests().get(1).setId(1L);
+        DefaultIdProviderReset.resetNextId();
 
         CompletableFuture<BatchResponse> reply = service.sendBatchAsync(request);
 
@@ -624,5 +626,11 @@ class WebSocketServiceTest {
                         + "    }"
                         + "  }"
                         + "}");
+    }
+
+    private class DefaultIdProviderReset extends DefaultIdProvider {
+        static void resetNextId() {
+            nextId.set(0);
+        }
     }
 }

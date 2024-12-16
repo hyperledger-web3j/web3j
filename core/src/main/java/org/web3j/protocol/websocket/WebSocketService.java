@@ -26,7 +26,6 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Consumer;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -44,6 +43,7 @@ import org.web3j.protocol.ObjectMapperFactory;
 import org.web3j.protocol.Web3jService;
 import org.web3j.protocol.core.BatchRequest;
 import org.web3j.protocol.core.BatchResponse;
+import org.web3j.protocol.core.DefaultIdProvider;
 import org.web3j.protocol.core.Request;
 import org.web3j.protocol.core.Response;
 import org.web3j.protocol.core.methods.response.EthSubscribe;
@@ -65,8 +65,6 @@ public class WebSocketService implements Web3jService {
 
     // Timeout for JSON-RPC requests
     static final long REQUEST_TIMEOUT = 60;
-    // replaced batch's next id
-    static final AtomicLong nextBatchId = new AtomicLong(0);
 
     // WebSocket client
     private final WebSocketClient webSocketClient;
@@ -223,7 +221,7 @@ public class WebSocketService implements Web3jService {
         CompletableFuture<BatchResponse> result = new CompletableFuture<>();
 
         // replace first batch elements's id to handle response
-        long requestId = nextBatchId.getAndIncrement();
+        long requestId = DefaultIdProvider.getNextId();
         Request<?, ? extends Response<?>> firstRequest = requests.getRequests().get(0);
         long originId = firstRequest.getId();
         requests.getRequests().get(0).setId(requestId);

@@ -7,7 +7,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* 
+* fixed subscription id conflict [#2127](https://github.com/hyperledger/web3j/pull/2127)
 
 ### Features
 
