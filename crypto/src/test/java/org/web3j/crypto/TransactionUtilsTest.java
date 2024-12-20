@@ -15,6 +15,7 @@ package org.web3j.crypto;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.web3j.crypto.TransactionUtils.generateTransactionHashHexEncoded;
 
 public class TransactionUtilsTest {
@@ -60,10 +61,10 @@ public class TransactionUtilsTest {
         long v1 = 27;
         long v2 = 28;
 
-        long chainId_1 = TransactionUtils.deriveChainId(v1);
-        long chainId_2 = TransactionUtils.deriveChainId(v2);
+        Long chainId_1 = TransactionUtils.deriveChainId(v1);
+        Long chainId_2 = TransactionUtils.deriveChainId(v2);
 
-        assertEquals(0, chainId_1);
-        assertEquals(0, chainId_2);
+        assertNull(chainId_1);
+        assertNull(chainId_2);
     }
 }
