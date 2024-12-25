@@ -65,7 +65,7 @@ class ClientTransactionManagerTest {
 
         String result =
                 clientTransactionManager.sendCall(
-                        "0xAdress", "data", DefaultBlockParameter.valueOf("latest"));
+                        "0xAddress", "data", DefaultBlockParameter.valueOf("latest"));
 
         assertEquals(responseData, result);
     }
@@ -87,7 +87,7 @@ class ClientTransactionManagerTest {
                 ContractCallException.class,
                 () ->
                         clientTransactionManager.sendCall(
-                                "0xAdress", "data", DefaultBlockParameter.valueOf("latest")));
+                                "0xAddress", "data", DefaultBlockParameter.valueOf("latest")));
     }
 
     @Test
@@ -107,7 +107,7 @@ class ClientTransactionManagerTest {
                 ContractCallException.class,
                 () ->
                         clientTransactionManager.sendCall(
-                                "0xAdress", "data", DefaultBlockParameter.valueOf("latest")));
+                                "0xAddress", "data", DefaultBlockParameter.valueOf("latest")));
     }
 
     @Test
@@ -122,7 +122,7 @@ class ClientTransactionManagerTest {
 
         String result =
                 clientTransactionManager.sendCall(
-                        "0xAdress", "data", DefaultBlockParameter.valueOf("latest"));
+                        "0xAddress", "data", DefaultBlockParameter.valueOf("latest"));
 
         assertEquals(responseData, result);
     }
