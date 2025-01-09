@@ -1,70 +1,33 @@
 plugins {
     id 'com.android.library' // Android library plugin for Android compatibility
     id 'maven-publish'
-    id 'signing'
-    id 'de.marcphilipp.nexus-publish'
 }
 
 publishing {
     publications {
-        maven(MavenPublication) {
+        release(MavenPublication) {
+            groupId = group
+            artifactId = project.name
+            version = version
+
+            artifact("$buildDir/outputs/aar/${project.name}-release.aar")
 
             pom {
-                name = project.name
-                description.set(project.provider({ project.description }))
-                url = 'https://web3j.io'
-
-                licenses {
-                    license {
-                        name = 'The Apache License, Version 2.0'
-                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                    }
-                }
-
-                scm {
-                    def slug = project.name
-                    if (project.hasProperty('rootProjectOverride')) {
-                        slug = project.rootProjectOverride
-                    }
-
-                    url = "https://github.com/hyperledger-web3j/$slug"
-                    connection = "scm:https://github.com/hyperledger-web3j/${slug}.git"
-                    developerConnection = "scm:git://github.com/hyperledger-web3j/${slug}.git"
-                }
-
-                developers {
-                    developer {
-                        id = 'conor10'
-                        name = 'Conor Svensson'
-                        email = 'conor10@gmail.com'
+                withXml {
+                    def dependenciesNode = asNode().appendNode('dependencies')
+                    configurations.api.allDependencies.each { dependency ->
+                        def dependencyNode = dependenciesNode.appendNode('dependency')
+                        dependencyNode.appendNode('groupId', dependency.group)
+                        dependencyNode.appendNode('artifactId', dependency.name)
+                        dependencyNode.appendNode('version', dependency.version)
                     }
                 }
             }
         }
     }
-}
-
-nexusPublishing {
     repositories {
-        sonatype {
-            username = System.getenv('OSSRH_USERNAME')
-            password = System.getenv('OSSRH_PASSWORD')
-        }
+        mavenLocal()
     }
-}
-
-
-nexusStaging {
-    username System.getenv('OSSRH_USERNAME')
-    password System.getenv('OSSRH_PASSWORD')
-    packageGroup = rootProject.group
-}
-
-signing {
-    sign publishing.publications.maven
-    def gpgSecretKey = System.getenv('OSSRH_GPG_SECRET_KEY')
-    def password = System.getenv('OSSRH_GPG_SECRET_KEY_PASSWORD')
-    useInMemoryPgpKeys(gpgSecretKey, password)
 }
 
 android {
