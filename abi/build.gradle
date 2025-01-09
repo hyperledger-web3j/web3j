@@ -1,7 +1,6 @@
 plugins {
     id 'com.android.library'
-    id 'maven-publish'
-    id 'signing'
+    id 'maven-publish'    id 'signing'
     id 'de.marcphilipp.nexus-publish'
 }
 
