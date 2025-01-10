@@ -83,3 +83,7 @@ signing {
     useInMemoryPgpKeys(gpgSecretKey, password)
 }
 
+tasks.named('signReleasePublication') {
+    dependsOn('bundleReleaseAar')
+}
+
