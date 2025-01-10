@@ -75,7 +75,7 @@ allprojects {
         }
     }
 
-    if (project.name != 'integration-tests' && project.name != 'web3j') {
+    if (project.name != 'integration-tests' && project.name != 'web3j' && project.name != 'java-utils') {
         apply from: "$rootDir/gradle/publish/build.gradle"
     }
 }
