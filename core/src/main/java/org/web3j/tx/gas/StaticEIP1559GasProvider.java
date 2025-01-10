@@ -12,6 +12,8 @@
  */
 package org.web3j.tx.gas;
 
+import org.web3j.protocol.core.methods.request.Transaction;
+
 import java.math.BigInteger;
 
 public class StaticEIP1559GasProvider implements ContractEIP1559GasProvider {
@@ -42,8 +44,8 @@ public class StaticEIP1559GasProvider implements ContractEIP1559GasProvider {
     }
 
     @Override
-    public BigInteger getGasLimit(String contractFunc) {
-        return gasLimit;
+    public BigInteger getGasLimit(Transaction transaction) {
+        return getGasLimit();
     }
 
     @Override

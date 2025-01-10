@@ -12,6 +12,8 @@
  */
 package org.web3j.tx.gas;
 
+import org.web3j.protocol.core.methods.request.Transaction;
+
 import java.math.BigInteger;
 
 public interface ContractGasProvider {
@@ -20,7 +22,7 @@ public interface ContractGasProvider {
     @Deprecated
     BigInteger getGasPrice();
 
-    BigInteger getGasLimit(String contractFunc);
+    BigInteger getGasLimit(Transaction transaction);
 
     @Deprecated
     BigInteger getGasLimit();

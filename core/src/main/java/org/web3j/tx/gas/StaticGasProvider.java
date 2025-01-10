@@ -12,6 +12,8 @@
  */
 package org.web3j.tx.gas;
 
+import org.web3j.protocol.core.methods.request.Transaction;
+
 import java.math.BigInteger;
 
 @SuppressWarnings("deprecation")
@@ -35,8 +37,8 @@ public class StaticGasProvider implements ContractGasProvider {
     }
 
     @Override
-    public BigInteger getGasLimit(String contractFunc) {
-        return gasLimit;
+    public BigInteger getGasLimit(Transaction transaction) {
+        return getGasLimit();
     }
 
     @Override

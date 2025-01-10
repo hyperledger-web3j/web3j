@@ -42,6 +42,7 @@ import org.web3j.protocol.core.DefaultBlockParameter;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.RemoteCall;
 import org.web3j.protocol.core.RemoteFunctionCall;
+import org.web3j.protocol.core.methods.request.Transaction;
 import org.web3j.protocol.core.methods.response.EthGetCode;
 import org.web3j.protocol.core.methods.response.Log;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
@@ -69,9 +70,9 @@ public abstract class Contract extends ManagedTransaction {
      * @see org.web3j.tx.gas.DefaultGasProvider
      */
     public static final BigInteger GAS_LIMIT = BigInteger.valueOf(4_300_000);
-
     public static final String BIN_NOT_PROVIDED = "Bin file was not provided";
     public static final String FUNC_DEPLOY = "deploy";
+    private static final String ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 
     protected final String contractBinary;
     protected String contractAddress;
@@ -399,7 +400,7 @@ public abstract class Contract extends ManagedTransaction {
                                     contractAddress,
                                     data,
                                     weiValue,
-                                    eip1559GasProvider.getGasLimit(funcName),
+                                    eip1559GasProvider.getGasLimit(Transaction.createEthCallTransaction(ZERO_ADDRESS, contractAddress, data)),
                                     eip1559GasProvider.getMaxPriorityFeePerGas(funcName),
                                     eip1559GasProvider.getMaxFeePerGas(funcName),
                                     constructor);
@@ -413,7 +414,7 @@ public abstract class Contract extends ManagedTransaction {
                                 data,
                                 weiValue,
                                 gasProvider.getGasPrice(funcName),
-                                gasProvider.getGasLimit(funcName),
+                                gasProvider.getGasLimit(Transaction.createEthCallTransaction(ZERO_ADDRESS, contractAddress, data)),
                                 constructor);
             }
         } catch (JsonRpcError error) {
