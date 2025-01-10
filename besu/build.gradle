@@ -31,6 +31,8 @@ android {
     }
 }
 
+description 'web3j besu support project'
+
 dependencies {
     api project(':eea')
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'

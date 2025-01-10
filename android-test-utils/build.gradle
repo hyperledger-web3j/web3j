@@ -30,6 +30,8 @@ android {
     }
 }
 
+description 'web3j android test lib'
+
 dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.7.0'
