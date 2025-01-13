@@ -55,3 +55,4 @@ integration-tests/src/test/resources/quorum-test-network/logs
 
 **/lint-baseline.xml
 /local.properties
+**/*.pro

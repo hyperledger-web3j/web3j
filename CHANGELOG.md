@@ -3,7 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [4.12.3]() (Upcoming)
+# [4.12.4-android]() (Upcoming)
+
+### Bug Fixes
+
+* Fix release scripts [#2138](https://github.com/hyperledger-web3j/web3j/pull/2138)
+
+### Features
+
+* 
+
+### BREAKING CHANGES
+
+* 
+
+# [4.12.3-android](https://github.com/hyperledger-web3j/web3j/releases/tag/v4.12.3-android) (2025-01-10)
 
 ### Bug Fixes
 
@@ -17,7 +31,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### BREAKING CHANGES
 
-*
+* Web3j android specific modules [#2110](https://github.com/hyperledger-web3j/web3j/pull/2110)
+* Web3j android specific modules [#2122](https://github.com/hyperledger-web3j/web3j/pull/2122)
 
 # [4.12.2](https://github.com/hyperledger/web3j/releases/tag/v4.12.2) (2024-09-18)
 
