@@ -2,36 +2,7 @@ import java.text.SimpleDateFormat
 
 plugins {
     id 'com.android.library'
-    id 'org.ajoberstar.git-publish'
-    id 'maven-publish'
 }
-publishing {
-    publications {
-        release(MavenPublication) {
-            groupId = group
-            artifactId = project.name
-            version = version
-
-            artifact("$buildDir/outputs/aar/${project.name}-release.aar")
-
-            pom {
-                withXml {
-                    def dependenciesNode = asNode().appendNode('dependencies')
-                    configurations.api.allDependencies.each { dependency ->
-                        def dependencyNode = dependenciesNode.appendNode('dependency')
-                        dependencyNode.appendNode('groupId', dependency.group)
-                        dependencyNode.appendNode('artifactId', dependency.name)
-                        dependencyNode.appendNode('version', dependency.version)
-                    }
-                }
-            }
-        }
-    }
-    repositories {
-        mavenLocal()
-    }
-}
-
 
 android {
     namespace 'org.web3j'
@@ -131,31 +102,6 @@ def getTimestamp() {
 ext {
     docsPath = 'web3j/web3j-docs'
     ghToken = System.getenv('GITHUB_TOKEN')
-}
-
-gitPublish {
-
-    if (ghToken) {
-        repoUri = "https://github.com/${docsPath}.git"
-    } else {
-        repoUri = "git@github.com:${docsPath}.git"
-    }
-
-    branch = 'main'
-
-    def coreDocs = files("${buildDir.path}/docs/javadoc/")
-
-    contents {
-        from(coreDocs) {
-            into '/docs/javadoc-api'
-        }
-    }
-
-    preserve {
-        include '/**'
-    }
-
-    commitMessage = 'Publishing a new page'
 }
 
 // Define the testArtifacts configuration

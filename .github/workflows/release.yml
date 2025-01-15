@@ -12,6 +12,7 @@ jobs:
       OSSRH_GPG_SECRET_KEY_PASSWORD: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
       OSSRH_GPG_SECRET_KEY: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      ACTIONS_STEP_DEBUG: true
     steps:
       - uses: actions/checkout@v4
       - name: Build Workflow Dispatch
