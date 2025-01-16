@@ -17,9 +17,7 @@ import org.web3j.protocol.core.methods.request.Transaction;
 import java.math.BigInteger;
 
 public interface ContractGasProvider {
-    BigInteger getGasPrice(String contractFunc);
 
-    @Deprecated
     BigInteger getGasPrice();
 
     BigInteger getGasLimit(Transaction transaction);

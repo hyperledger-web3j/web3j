@@ -31,12 +31,7 @@ public class DynamicGasProvider implements ContractGasProvider, PriorityGasProvi
 
     @Override
     public BigInteger getGasPrice() {
-        return calculateGasPrice(fetchCurrentGasPrice(), priority, customMultiplier);
-    }
-
-    @Override
-    public BigInteger getGasPrice(String contractFunc) {
-        return calculateGasPrice(fetchCurrentGasPrice(), priority, customMultiplier);
+        return applyPriority(fetchCurrentGasPrice(), priority, customMultiplier);
     }
 
     @Override
@@ -67,10 +62,5 @@ public class DynamicGasProvider implements ContractGasProvider, PriorityGasProvi
         } catch (Exception e) {
             throw new RuntimeException("Failed to fetch gas price", e);
         }
-    }
-
-    @Override
-    public BigInteger calculateGasPrice(BigInteger baseGasPrice, Priority priority, BigDecimal customMultiplier) {
-        return applyPriority(baseGasPrice, priority, customMultiplier);
     }
 }

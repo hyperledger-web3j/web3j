@@ -10,9 +10,6 @@ public interface PriorityGasProvider {
         SLOW,
         CUSTOM
     }
-
-    BigInteger calculateGasPrice(BigInteger baseGasPrice, Priority priority, BigDecimal customMultiplier);
-
     default BigInteger applyPriority(BigInteger baseGasPrice, Priority priority, BigDecimal customMultiplier) {
 
         return switch (priority) {
