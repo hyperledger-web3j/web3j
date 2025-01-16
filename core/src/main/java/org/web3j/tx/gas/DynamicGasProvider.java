@@ -6,24 +6,37 @@ import org.web3j.protocol.core.methods.response.EthGasPrice;
 import org.web3j.protocol.core.methods.request.Transaction;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
-public class DynamicGasProvider implements ContractGasProvider {
+public class DynamicGasProvider implements ContractGasProvider, PriorityGasProvider {
 
     private final Web3j web3j;
+    private final Priority priority;
+    private final BigDecimal customMultiplier;
 
     public DynamicGasProvider(Web3j web3j) {
-        this.web3j = web3j;
+        this(web3j, Priority.NORMAL);
     }
 
-    @Override
-    public BigInteger getGasPrice(String contractFunc) {
-        return fetchCurrentGasPrice();
+    public DynamicGasProvider(Web3j web3j, Priority priority) {
+        this(web3j, priority, BigDecimal.ONE);
+    }
+
+    public DynamicGasProvider(Web3j web3j, Priority priority, BigDecimal customMultiplier) {
+        this.web3j = web3j;
+        this.priority = priority;
+        this.customMultiplier = customMultiplier;
     }
 
     @Override
     public BigInteger getGasPrice() {
-        return fetchCurrentGasPrice();
+        return calculateGasPrice(fetchCurrentGasPrice(), priority, customMultiplier);
+    }
+
+    @Override
+    public BigInteger getGasPrice(String contractFunc) {
+        return calculateGasPrice(fetchCurrentGasPrice(), priority, customMultiplier);
     }
 
     @Override
@@ -54,5 +67,10 @@ public class DynamicGasProvider implements ContractGasProvider {
         } catch (Exception e) {
             throw new RuntimeException("Failed to fetch gas price", e);
         }
+    }
+
+    @Override
+    public BigInteger calculateGasPrice(BigInteger baseGasPrice, Priority priority, BigDecimal customMultiplier) {
+        return applyPriority(baseGasPrice, priority, customMultiplier);
     }
 }
