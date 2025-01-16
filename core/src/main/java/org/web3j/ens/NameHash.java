@@ -107,4 +107,17 @@ public class NameHash {
 
         return Numeric.toHexString(outputStream.toByteArray()) + "00";
     }
+
+    public static String labelHash(String ensName) {
+        if (ensName.isEmpty()) {
+            return Numeric.toHexString(EMPTY);
+        } else {
+            String normalisedEnsName = normalise(ensName);
+            return Numeric.toHexString(Hash.sha3(normalisedEnsName.split("\\.")[0].getBytes(StandardCharsets.UTF_8)));
+        }
+    }
+
+    public static byte[] labelHashAsBytes(String ensName) {
+        return Numeric.hexStringToByteArray(labelHash(ensName));
+    }
 }
