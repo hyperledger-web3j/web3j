@@ -18,6 +18,7 @@ import java.math.BigInteger;
 
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.methods.request.Transaction;
+import org.web3j.protocol.core.methods.response.EthEstimateGas;
 import org.web3j.protocol.core.methods.response.EthGasPrice;
 import org.web3j.protocol.core.methods.response.EthMaxPriorityFeePerGas;
 
@@ -26,6 +27,7 @@ public class DynamicEIP1559GasProvider implements ContractEIP1559GasProvider, Pr
     private long chainId;
     private final Priority priority;
     private final BigDecimal customMultiplier;
+    public static final BigInteger GAS_LIMIT = BigInteger.valueOf(9_000_000);
 
     public DynamicEIP1559GasProvider(Web3j web3j, long chainId) {
         this(web3j, chainId, Priority.NORMAL);
@@ -81,12 +83,21 @@ public class DynamicEIP1559GasProvider implements ContractEIP1559GasProvider, Pr
 
     @Override
     public BigInteger getGasLimit(Transaction transaction) {
-        return null;
+        try {
+            EthEstimateGas ethEstimateGas = web3j.ethEstimateGas(transaction).send();
+            if (ethEstimateGas.hasError()) {
+                throw new RuntimeException(
+                        "Error estimating gas limit: " + ethEstimateGas.getError().getMessage());
+            }
+            return ethEstimateGas.getAmountUsed();
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to estimate gas limit", e);
+        }
     }
 
     @Override
     public BigInteger getGasLimit() {
-        return null;
+        return GAS_LIMIT;
     }
 
     private BigInteger fetchCurrentGasPrice() {

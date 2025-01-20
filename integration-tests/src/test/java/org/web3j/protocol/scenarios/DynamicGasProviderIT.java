@@ -12,6 +12,7 @@
  */
 package org.web3j.protocol.scenarios;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -23,6 +24,7 @@ import org.web3j.protocol.Web3j;
 import org.web3j.test.contract.HumanStandardToken;
 import org.web3j.tx.gas.ContractGasProvider;
 import org.web3j.tx.gas.DynamicGasProvider;
+import org.web3j.tx.gas.PriorityGasProvider;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -31,6 +33,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class DynamicGasProviderIT extends Scenario {
     static ContractGasProvider dynamicGasProvider;
     static String contractAddress;
+    static final String TOKEN_NAME = "Alice Token";
+    static final String TOKEN_SYMBOL = "ATK";
+    static final BigInteger TOKEN_DECIMALS = BigInteger.valueOf(18L);
+    static final BigInteger TOKEN_SUPPLY = BigInteger.valueOf(10_000_000L);
 
     @BeforeAll
     static void setUp(Web3j web3j) throws Exception {
@@ -54,7 +60,38 @@ public class DynamicGasProviderIT extends Scenario {
         HumanStandardToken humanStandardToken =
                 HumanStandardToken.load(contractAddress, web3j, ALICE, dynamicGasProvider);
 
-        assertEquals(humanStandardToken.name().send(), "Alice Token");
+        assertEquals(humanStandardToken.name().send(), TOKEN_NAME);
+
+        assertNotNull(humanStandardToken.transfer(BOB.getAddress(), BigInteger.ONE).send());
+        assertEquals(humanStandardToken.balanceOf(BOB.getAddress()).send(), BigInteger.ONE);
+    }
+
+    @Test
+    public void callSmartContractFunctionWithPriority() throws Exception {
+        DynamicGasProvider fastDynamicGasProvider =
+                new DynamicGasProvider(web3j, PriorityGasProvider.Priority.FAST);
+        DynamicGasProvider slowDynamicGasProvider =
+                new DynamicGasProvider(web3j, PriorityGasProvider.Priority.SLOW);
+        DynamicGasProvider customDynamicGasProvider =
+                new DynamicGasProvider(
+                        web3j, PriorityGasProvider.Priority.CUSTOM, BigDecimal.valueOf(1.5));
+
+        assertEquals(
+                dynamicGasProvider.getGasPrice().multiply(BigInteger.TWO),
+                fastDynamicGasProvider.getGasPrice());
+        assertEquals(
+                dynamicGasProvider.getGasPrice().divide(BigInteger.TWO),
+                slowDynamicGasProvider.getGasPrice());
+        assertEquals(
+                new BigDecimal(dynamicGasProvider.getGasPrice())
+                        .multiply(BigDecimal.valueOf(1.5))
+                        .toBigInteger(),
+                customDynamicGasProvider.getGasPrice());
+
+        HumanStandardToken humanStandardToken =
+                HumanStandardToken.load(contractAddress, web3j, ALICE, fastDynamicGasProvider);
+
+        assertEquals(humanStandardToken.name().send(), TOKEN_NAME);
 
         assertNotNull(humanStandardToken.transfer(BOB.getAddress(), BigInteger.ONE).send());
         assertEquals(humanStandardToken.balanceOf(BOB.getAddress()).send(), BigInteger.ONE);
@@ -65,10 +102,10 @@ public class DynamicGasProviderIT extends Scenario {
                         web3j,
                         ALICE,
                         dynamicGasProvider,
-                        BigInteger.valueOf(100L),
-                        "Alice Token",
-                        BigInteger.valueOf(18L),
-                        "ATK")
+                        TOKEN_SUPPLY,
+                        TOKEN_NAME,
+                        TOKEN_DECIMALS,
+                        TOKEN_SYMBOL)
                 .send()
                 .getContractAddress();
     }
