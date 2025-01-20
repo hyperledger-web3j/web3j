@@ -39,7 +39,6 @@ public class ArraysIT extends Scenario {
 
     @BeforeAll
     public static void setUp(Web3j web3j) throws Exception {
-        Scenario.web3j = web3j;
         ArraysIT.contract =
                 Arrays.deploy(
                                 web3j,

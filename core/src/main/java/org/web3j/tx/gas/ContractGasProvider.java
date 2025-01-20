@@ -12,9 +12,9 @@
  */
 package org.web3j.tx.gas;
 
-import org.web3j.protocol.core.methods.request.Transaction;
-
 import java.math.BigInteger;
+
+import org.web3j.protocol.core.methods.request.Transaction;
 
 public interface ContractGasProvider {
 

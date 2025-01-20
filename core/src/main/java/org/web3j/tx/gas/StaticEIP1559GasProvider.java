@@ -12,9 +12,9 @@
  */
 package org.web3j.tx.gas;
 
-import org.web3j.protocol.core.methods.request.Transaction;
-
 import java.math.BigInteger;
+
+import org.web3j.protocol.core.methods.request.Transaction;
 
 public class StaticEIP1559GasProvider implements ContractEIP1559GasProvider {
     private long chainId;
@@ -59,12 +59,12 @@ public class StaticEIP1559GasProvider implements ContractEIP1559GasProvider {
     }
 
     @Override
-    public BigInteger getMaxFeePerGas(String contractFunc) {
+    public BigInteger getMaxFeePerGas() {
         return maxFeePerGas;
     }
 
     @Override
-    public BigInteger getMaxPriorityFeePerGas(String contractFunc) {
+    public BigInteger getMaxPriorityFeePerGas() {
         return maxPriorityFeePerGas;
     }
 }

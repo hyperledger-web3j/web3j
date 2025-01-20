@@ -70,6 +70,7 @@ public abstract class Contract extends ManagedTransaction {
      * @see org.web3j.tx.gas.DefaultGasProvider
      */
     public static final BigInteger GAS_LIMIT = BigInteger.valueOf(4_300_000);
+
     public static final String BIN_NOT_PROVIDED = "Bin file was not provided";
     public static final String FUNC_DEPLOY = "deploy";
     private static final String ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
@@ -400,9 +401,11 @@ public abstract class Contract extends ManagedTransaction {
                                     contractAddress,
                                     data,
                                     weiValue,
-                                    eip1559GasProvider.getGasLimit(Transaction.createEthCallTransaction(ZERO_ADDRESS, contractAddress, data)),
-                                    eip1559GasProvider.getMaxPriorityFeePerGas(funcName),
-                                    eip1559GasProvider.getMaxFeePerGas(funcName),
+                                    eip1559GasProvider.getGasLimit(
+                                            Transaction.createEthCallTransaction(
+                                                    ZERO_ADDRESS, contractAddress, data)),
+                                    eip1559GasProvider.getMaxPriorityFeePerGas(),
+                                    eip1559GasProvider.getMaxFeePerGas(),
                                     constructor);
                 }
             }
@@ -413,8 +416,10 @@ public abstract class Contract extends ManagedTransaction {
                                 contractAddress,
                                 data,
                                 weiValue,
-                                gasProvider.getGasPrice(funcName),
-                                gasProvider.getGasLimit(Transaction.createEthCallTransaction(ZERO_ADDRESS, contractAddress, data)),
+                                gasProvider.getGasPrice(),
+                                gasProvider.getGasLimit(
+                                        Transaction.createEthCallTransaction(
+                                                ZERO_ADDRESS, contractAddress, data)),
                                 constructor);
             }
         } catch (JsonRpcError error) {

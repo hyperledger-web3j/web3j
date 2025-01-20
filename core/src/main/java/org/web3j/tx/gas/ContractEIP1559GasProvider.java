@@ -19,7 +19,7 @@ public interface ContractEIP1559GasProvider extends ContractGasProvider {
 
     long getChainId();
 
-    BigInteger getMaxFeePerGas(String contractFunc);
+    BigInteger getMaxFeePerGas();
 
-    BigInteger getMaxPriorityFeePerGas(String contractFunc);
+    BigInteger getMaxPriorityFeePerGas();
 }
