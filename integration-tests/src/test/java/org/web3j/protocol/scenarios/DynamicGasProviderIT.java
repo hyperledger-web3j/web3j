@@ -28,11 +28,11 @@ import org.web3j.tx.gas.PriorityGasProvider;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @EVMTest(type = NodeType.BESU)
 public class DynamicGasProviderIT extends Scenario {
     static ContractGasProvider dynamicGasProvider;
-    static String contractAddress;
     static final String TOKEN_NAME = "Alice Token";
     static final String TOKEN_SYMBOL = "ATK";
     static final BigInteger TOKEN_DECIMALS = BigInteger.valueOf(18L);
@@ -40,34 +40,37 @@ public class DynamicGasProviderIT extends Scenario {
 
     @BeforeAll
     static void setUp(Web3j web3j) throws Exception {
+        Scenario.web3j = web3j;
         dynamicGasProvider = new DynamicGasProvider(web3j);
-        contractAddress = sendTransaction();
     }
 
     @Test
-    public void testContractCreation() {
-        HumanStandardToken humanStandardToken =
-                HumanStandardToken.load(contractAddress, web3j, ALICE, dynamicGasProvider);
+    public void testContractFunctionalities() throws Exception {
 
-        assertNotNull(humanStandardToken.getTransactionReceipt().get());
+        HumanStandardToken humanStandardToken =
+                HumanStandardToken.deploy(
+                                web3j,
+                                ALICE,
+                                dynamicGasProvider,
+                                TOKEN_SUPPLY,
+                                TOKEN_NAME,
+                                TOKEN_DECIMALS,
+                                TOKEN_SYMBOL)
+                        .send();
+
+        String contractAddress = humanStandardToken.getContractAddress();
+
+        assertTrue(humanStandardToken.isValid());
         assertEquals(
                 humanStandardToken.getTransactionReceipt().get().getContractAddress(),
                 contractAddress);
-    }
-
-    @Test
-    public void callSmartContractFunction() throws Exception {
-        HumanStandardToken humanStandardToken =
-                HumanStandardToken.load(contractAddress, web3j, ALICE, dynamicGasProvider);
 
         assertEquals(humanStandardToken.name().send(), TOKEN_NAME);
+        assertEquals(humanStandardToken.totalSupply().send(), TOKEN_SUPPLY);
 
         assertNotNull(humanStandardToken.transfer(BOB.getAddress(), BigInteger.ONE).send());
         assertEquals(humanStandardToken.balanceOf(BOB.getAddress()).send(), BigInteger.ONE);
-    }
 
-    @Test
-    public void callSmartContractFunctionWithPriority() throws Exception {
         DynamicGasProvider fastDynamicGasProvider =
                 new DynamicGasProvider(web3j, PriorityGasProvider.Priority.FAST);
         DynamicGasProvider slowDynamicGasProvider =
@@ -88,25 +91,12 @@ public class DynamicGasProviderIT extends Scenario {
                         .toBigInteger(),
                 customDynamicGasProvider.getGasPrice());
 
-        HumanStandardToken humanStandardToken =
+        humanStandardToken =
                 HumanStandardToken.load(contractAddress, web3j, ALICE, fastDynamicGasProvider);
 
         assertEquals(humanStandardToken.name().send(), TOKEN_NAME);
 
         assertNotNull(humanStandardToken.transfer(BOB.getAddress(), BigInteger.ONE).send());
-        assertEquals(humanStandardToken.balanceOf(BOB.getAddress()).send(), BigInteger.ONE);
-    }
-
-    private static String sendTransaction() throws Exception {
-        return HumanStandardToken.deploy(
-                        web3j,
-                        ALICE,
-                        dynamicGasProvider,
-                        TOKEN_SUPPLY,
-                        TOKEN_NAME,
-                        TOKEN_DECIMALS,
-                        TOKEN_SYMBOL)
-                .send()
-                .getContractAddress();
+        assertEquals(humanStandardToken.balanceOf(BOB.getAddress()).send(), BigInteger.TWO);
     }
 }
