@@ -7,11 +7,14 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* 
+* fix Transaction.getChainId when v=27 must return null [#2133](https://github.com/hyperledger-web3j/web3j/pull/2133)
+* Fix android scripts [#2138](https://github.com/hyperledger-web3j/web3j/pull/2138)
 
 ### Features
 
 * bump snapshot version to 4.12.4 [#2132](https://github.com/hyperledger-web3j/web3j/pull/2132)
+* ENS - Label Hash function added [#2140](https://github.com/hyperledger-web3j/web3j/pull/2140)
+* Added Dynamic gas providers [#2142](https://github.com/hyperledger-web3j/web3j/pull/2142)
 
 
 ### BREAKING CHANGES

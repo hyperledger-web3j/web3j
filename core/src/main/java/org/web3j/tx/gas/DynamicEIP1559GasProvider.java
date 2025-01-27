@@ -17,6 +17,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import org.web3j.protocol.Web3j;
+import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.request.Transaction;
 import org.web3j.protocol.core.methods.response.EthEstimateGas;
 import org.web3j.protocol.core.methods.response.EthGasPrice;
@@ -57,7 +58,17 @@ public class DynamicEIP1559GasProvider implements ContractEIP1559GasProvider, Pr
 
     @Override
     public BigInteger getMaxFeePerGas() {
-        return getGasPrice();
+        try {
+            BigInteger baseFee =
+                    web3j.ethGetBlockByNumber(DefaultBlockParameterName.LATEST, false)
+                            .send()
+                            .getBlock()
+                            .getBaseFeePerGas();
+
+            return baseFee.multiply(BigInteger.valueOf(2)).add(getMaxPriorityFeePerGas());
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to get ethMaxFeePerGas");
+        }
     }
 
     @Override
