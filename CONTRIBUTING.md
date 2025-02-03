@@ -38,6 +38,6 @@ Thank you for reading this! If you'd like to report a bug or join in the buidl-i
 ### Note
 ** If you are unable to open the Web3j discord channel then first join the [Hyperledger Server](https://discord.gg/hyperledger) and then go to the [#web3-general](https://discord.com/channels/905194001349627914/1195062053682032700)
 
-## :heart: BUIDL :heart:
+## :heart: BUILD :heart:
 
 team web3j 
