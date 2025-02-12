@@ -25,7 +25,7 @@ public class DynamicGasProvider implements ContractGasProvider, PriorityGasProvi
     private final Web3j web3j;
     private final Priority priority;
     private final BigDecimal customMultiplier;
-    public static final BigInteger GAS_LIMIT = BigInteger.valueOf(9_000_000);
+    private BigInteger maxGasLimit = BigInteger.valueOf(9_000_000);
 
     public DynamicGasProvider(Web3j web3j) {
         this(web3j, Priority.NORMAL);
@@ -48,7 +48,11 @@ public class DynamicGasProvider implements ContractGasProvider, PriorityGasProvi
 
     @Override
     public BigInteger getGasLimit() {
-        return GAS_LIMIT;
+        return maxGasLimit;
+    }
+
+    public void setMaxGasLimit(BigInteger gasLimit) {
+        maxGasLimit = gasLimit;
     }
 
     public BigInteger getGasLimit(Transaction transaction) {

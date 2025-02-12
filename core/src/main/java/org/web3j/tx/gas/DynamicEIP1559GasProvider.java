@@ -28,7 +28,7 @@ public class DynamicEIP1559GasProvider implements ContractEIP1559GasProvider, Pr
     private long chainId;
     private final Priority priority;
     private final BigDecimal customMultiplier;
-    public static final BigInteger GAS_LIMIT = BigInteger.valueOf(9_000_000);
+    private BigInteger maxGasLimit = BigInteger.valueOf(9_000_000);
 
     public DynamicEIP1559GasProvider(Web3j web3j, long chainId) {
         this(web3j, chainId, Priority.NORMAL);
@@ -108,7 +108,11 @@ public class DynamicEIP1559GasProvider implements ContractEIP1559GasProvider, Pr
 
     @Override
     public BigInteger getGasLimit() {
-        return GAS_LIMIT;
+        return maxGasLimit;
+    }
+
+    public void setMaxGasLimit(BigInteger gasLimit) {
+        maxGasLimit = gasLimit;
     }
 
     private BigInteger fetchCurrentGasPrice() {

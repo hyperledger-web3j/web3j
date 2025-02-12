@@ -73,8 +73,6 @@ public abstract class Contract extends ManagedTransaction {
 
     public static final String BIN_NOT_PROVIDED = "Bin file was not provided";
     public static final String FUNC_DEPLOY = "deploy";
-    private static final String ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
-
     protected final String contractBinary;
     protected String contractAddress;
     protected ContractGasProvider gasProvider;
@@ -395,31 +393,14 @@ public abstract class Contract extends ManagedTransaction {
                 ContractEIP1559GasProvider eip1559GasProvider =
                         (ContractEIP1559GasProvider) gasProvider;
                 if (eip1559GasProvider.isEIP1559Enabled()) {
-                    Transaction tx;
-                    if (constructor) {
-                        tx =
-                                Transaction.createContractTransaction(
-                                        this.transactionManager.getFromAddress(),
-                                        BigInteger.ONE,
-                                        gasProvider.getGasPrice(),
-                                        data);
-                    } else {
-                        tx =
-                                Transaction.createFunctionCallTransaction(
-                                        this.transactionManager.getFromAddress(),
-                                        BigInteger.ONE,
-                                        gasProvider.getGasPrice(),
-                                        gasProvider.getGasLimit(),
-                                        contractAddress,
-                                        data);
-                    }
                     receipt =
                             sendEIP1559(
                                     eip1559GasProvider.getChainId(),
                                     contractAddress,
                                     data,
                                     weiValue,
-                                    eip1559GasProvider.getGasLimit(tx),
+                                    eip1559GasProvider.getGasLimit(
+                                            getGenericTransaction(data, constructor)),
                                     eip1559GasProvider.getMaxPriorityFeePerGas(),
                                     eip1559GasProvider.getMaxFeePerGas(),
                                     constructor);
@@ -427,31 +408,13 @@ public abstract class Contract extends ManagedTransaction {
             }
 
             if (receipt == null) {
-                Transaction tx;
-                if (constructor) {
-                    tx =
-                            Transaction.createContractTransaction(
-                                    this.transactionManager.getFromAddress(),
-                                    BigInteger.ONE,
-                                    gasProvider.getGasPrice(),
-                                    data);
-                } else {
-                    tx =
-                            Transaction.createFunctionCallTransaction(
-                                    this.transactionManager.getFromAddress(),
-                                    BigInteger.ONE,
-                                    gasProvider.getGasPrice(),
-                                    gasProvider.getGasLimit(),
-                                    contractAddress,
-                                    data);
-                }
                 receipt =
                         send(
                                 contractAddress,
                                 data,
                                 weiValue,
                                 gasProvider.getGasPrice(),
-                                gasProvider.getGasLimit(tx),
+                                gasProvider.getGasLimit(getGenericTransaction(data, constructor)),
                                 constructor);
             }
         } catch (JsonRpcError error) {
@@ -483,6 +446,24 @@ public abstract class Contract extends ManagedTransaction {
                     receipt);
         }
         return receipt;
+    }
+
+    protected Transaction getGenericTransaction(String data, boolean constructor) {
+        if (constructor) {
+            return Transaction.createContractTransaction(
+                    this.transactionManager.getFromAddress(),
+                    BigInteger.ONE,
+                    gasProvider.getGasPrice(),
+                    data);
+        } else {
+            return Transaction.createFunctionCallTransaction(
+                    this.transactionManager.getFromAddress(),
+                    BigInteger.ONE,
+                    gasProvider.getGasPrice(),
+                    gasProvider.getGasLimit(),
+                    contractAddress,
+                    data);
+        }
     }
 
     protected <T extends Type> RemoteFunctionCall<T> executeRemoteCallSingleValueReturn(
