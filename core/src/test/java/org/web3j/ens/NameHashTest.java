@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.web3j.ens.NameHash.labelHash;
 import static org.web3j.ens.NameHash.nameHash;
 import static org.web3j.ens.NameHash.normalise;
 
@@ -40,6 +41,25 @@ class NameHashTest {
         assertEquals(
                 nameHash("\uD83D\uDC8E.gmcafe.art"),
                 ("0xf7de5954cda078ee481b14cff677e8066fe805a89b5c87b4a9b866338049b04a"));
+    }
+
+    @Test
+    void testLabelHash() {
+        assertEquals(
+                labelHash(""),
+                ("0x0000000000000000000000000000000000000000000000000000000000000000"));
+
+        assertEquals(
+                labelHash("label"),
+                ("0x1b036544434cea9770a413fd03e0fb240e1ccbd10a452f7dba85c8eca9ca3eda"));
+
+        assertEquals(
+                labelHash("label.eth"),
+                ("0x1b036544434cea9770a413fd03e0fb240e1ccbd10a452f7dba85c8eca9ca3eda"));
+
+        assertEquals(
+                labelHash("\uD83D\uDC8E.gmcafe.art"),
+                ("0xed2cc33b0587afe42a04579d79c23b72b25c5416efcb50c674f3f59e2db9cce6"));
     }
 
     @Test

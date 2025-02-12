@@ -77,9 +77,9 @@ public class TransactionUtils {
      * @param v recovery identifier
      * @return Chain id
      */
-    public static long deriveChainId(long v) {
+    public static Long deriveChainId(long v) {
         if (v == LOWER_REAL_V || v == (LOWER_REAL_V + 1)) {
-            return 0L;
+            return null;
         }
         return (v - CHAIN_ID_INC) / 2;
     }

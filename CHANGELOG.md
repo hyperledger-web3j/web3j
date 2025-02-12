@@ -9,6 +9,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 * fix Transaction.getChainId when v=27 must return null [#2133](https://github.com/hyperledger-web3j/web3j/pull/2133)
 * Fix android scripts [#2138](https://github.com/hyperledger-web3j/web3j/pull/2138)
+* fixed subscription id conflict [#2127](https://github.com/hyperledger/web3j/pull/2127)
 
 ### Features
 

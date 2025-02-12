@@ -1181,6 +1181,21 @@ class ResponseTest extends ResponseTester {
         Transaction transaction = new Transaction();
         transaction.setV(0x25);
         assertEquals(transaction.getChainId(), (1L));
+
+        Transaction transaction2 = new Transaction();
+        transaction2.setV(0x24);
+        assertEquals(transaction2.getChainId(), (0L));
+    }
+
+    @Test
+    void testTransactionWithoutChainId() {
+        Transaction transaction1 = new Transaction();
+        transaction1.setV(0x1b); // 27
+        assertEquals(transaction1.getChainId(), null);
+
+        Transaction transaction2 = new Transaction();
+        transaction2.setV(0x1c); // 28
+        assertEquals(transaction2.getChainId(), null);
     }
 
     @Test
