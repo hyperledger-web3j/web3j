@@ -843,4 +843,20 @@ class RequestTest extends RequestTester {
         BigInteger resultWhenExcessBlobGasIsNotZero = jsonRpc20Web3j.ethGetBaseFeePerBlobGas();
         assertEquals(BigInteger.valueOf(21518435987L), resultWhenExcessBlobGasIsNotZero);
     }
+
+    @Test
+    void testLineaEstimateGas() throws Exception {
+        web3j.lineaEstimateGas(
+                        Transaction.createEthCallTransaction(
+                                "0xa70e8dd61c5d32be8058bb8eb970870f07233155",
+                                "0x52b93c80364dc2dd4444c146d73b9836bbbb2b3f",
+                                "0x0"))
+                .send();
+
+        verifyResult(
+                "{\"jsonrpc\":\"2.0\",\"method\":\"linea_estimateGas\","
+                        + "\"params\":[{\"from\":\"0xa70e8dd61c5d32be8058bb8eb970870f07233155\","
+                        + "\"to\":\"0x52b93c80364dc2dd4444c146d73b9836bbbb2b3f\",\"data\":\"0x0\"}],"
+                        + "\"id\":1}");
+    }
 }

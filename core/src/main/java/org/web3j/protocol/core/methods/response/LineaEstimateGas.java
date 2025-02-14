@@ -29,7 +29,7 @@ import org.web3j.utils.Numeric;
 public class LineaEstimateGas extends Response<LineaEstimateGas.LineaEstimateGasResponse> {
 
     @Override
-    @JsonDeserialize(using = EthBlock.ResponseDeserialiser.class)
+    @JsonDeserialize(using = LineaEstimateGas.ResponseDeserialiser.class)
     public void setResult(LineaEstimateGas.LineaEstimateGasResponse result) {
         super.setResult(result);
     }
