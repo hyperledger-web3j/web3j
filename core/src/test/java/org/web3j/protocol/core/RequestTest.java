@@ -875,4 +875,16 @@ class RequestTest extends RequestTester {
                         + "\"latest\"],"
                         + "\"id\":0}");
     }
+
+    @Test
+    void testLineaGetTransactionExclusionStatusV1() throws Exception {
+        web3j.lineaGetTransactionExclusionStatusV1(
+                        "0xb903239f8543d04b5dc1ba6579132b143087c68db1b2168786408fcbce568238")
+                .send();
+
+        verifyResult(
+                "{\"jsonrpc\":\"2.0\",\"method\":\"linea_getTransactionExclusionStatusV1\",\"params\":["
+                        + "\"0xb903239f8543d04b5dc1ba6579132b143087c68db1b2168786408fcbce568238\"],"
+                        + "\"id\":1}");
+    }
 }

@@ -75,6 +75,33 @@ public class LineaEstimateGas extends Response<LineaEstimateGas.LineaEstimateGas
         public void setPriorityFeePerGas(String priorityFeePerGas) {
             this.priorityFeePerGas = Numeric.decodeQuantity(priorityFeePerGas);
         }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (!(o instanceof LineaEstimateGasResponse)) {
+                return false;
+            }
+            LineaEstimateGasResponse res = (LineaEstimateGasResponse) o;
+
+            if (getGasLimit() != null
+                    ? !getGasLimit().equals(res.getGasLimit())
+                    : res.getGasLimit() != null) {
+                return false;
+            }
+
+            if (getBaseFeePerGas() != null
+                    ? !getBaseFeePerGas().equals(res.getBaseFeePerGas())
+                    : res.getBaseFeePerGas() != null) {
+                return false;
+            }
+
+            return getPriorityFeePerGas() != null
+                    ? getPriorityFeePerGas().equals(res.getPriorityFeePerGas())
+                    : res.getPriorityFeePerGas() == null;
+        }
     }
 
     public static class ResponseDeserialiser

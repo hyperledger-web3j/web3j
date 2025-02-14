@@ -70,6 +70,7 @@ import org.web3j.protocol.core.methods.response.EthTransaction;
 import org.web3j.protocol.core.methods.response.EthUninstallFilter;
 import org.web3j.protocol.core.methods.response.LineaEstimateGas;
 import org.web3j.protocol.core.methods.response.LineaGetProof;
+import org.web3j.protocol.core.methods.response.LineaGetTransactionExclusionStatusV1;
 import org.web3j.protocol.core.methods.response.Log;
 import org.web3j.protocol.core.methods.response.NetListening;
 import org.web3j.protocol.core.methods.response.NetPeerCount;
@@ -2179,5 +2180,36 @@ class ResponseTest extends ResponseTester {
                                         "0x0",
                                         new ArrayList<>())));
         assertEquals(proof, lineaGetProof.getProof());
+    }
+
+    @Test
+    void testLineaGetTransactionExclusionStatusV1() {
+        buildResponse(
+                "{\n"
+                        + "  \"jsonrpc\": \"2.0\",\n"
+                        + "  \"id\": 1,\n"
+                        + "  \"result\": {\n"
+                        + "    \"txHash\": \"0x526e56101cf39c1e717cef9cedf6fdddb42684711abda35bae51136dbb350ad7\",\n"
+                        + "    \"from\": \"0x4d144d7b9c96b26361d6ac74dd1d8267edca4fc2\",\n"
+                        + "    \"nonce\": \"0x64\",\n"
+                        + "    \"txRejectionStage\": \"SEQUENCER\",\n"
+                        + "    \"reasonMessage\": \"Transaction line count for module ADD=402 is above the limit 70\",\n"
+                        + "    \"blockNumber\": \"0x3039\",\n"
+                        + "	   \"timestamp\": \"2024-08-22T09:18:51Z\"}\n"
+                        + "}");
+
+        LineaGetTransactionExclusionStatusV1 lineaExclusionStatus =
+                deserialiseResponse(LineaGetTransactionExclusionStatusV1.class);
+
+        LineaGetTransactionExclusionStatusV1.LineaExclusionStatus exclusionStatus =
+                new LineaGetTransactionExclusionStatusV1.LineaExclusionStatus(
+                        "0x526e56101cf39c1e717cef9cedf6fdddb42684711abda35bae51136dbb350ad7",
+                        "0x4d144d7b9c96b26361d6ac74dd1d8267edca4fc2",
+                        "0x64",
+                        "SEQUENCER",
+                        "Transaction line count for module ADD=402 is above the limit 70",
+                        "0x3039",
+                        "2024-08-22T09:18:51Z");
+        assertEquals(exclusionStatus, lineaExclusionStatus.getLineaTransactionExclusionStatus());
     }
 }

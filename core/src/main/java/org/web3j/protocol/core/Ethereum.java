@@ -60,6 +60,7 @@ import org.web3j.protocol.core.methods.response.EthTransaction;
 import org.web3j.protocol.core.methods.response.EthUninstallFilter;
 import org.web3j.protocol.core.methods.response.LineaEstimateGas;
 import org.web3j.protocol.core.methods.response.LineaGetProof;
+import org.web3j.protocol.core.methods.response.LineaGetTransactionExclusionStatusV1;
 import org.web3j.protocol.core.methods.response.NetListening;
 import org.web3j.protocol.core.methods.response.NetPeerCount;
 import org.web3j.protocol.core.methods.response.NetVersion;
@@ -252,4 +253,7 @@ public interface Ethereum {
     Request<?, ShhMessages> shhGetMessages(BigInteger filterId);
 
     Request<?, TxPoolStatus> txPoolStatus();
+
+    Request<?, LineaGetTransactionExclusionStatusV1> lineaGetTransactionExclusionStatusV1(
+            String transactionHash);
 }
