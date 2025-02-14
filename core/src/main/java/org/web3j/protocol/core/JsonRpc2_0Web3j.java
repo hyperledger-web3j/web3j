@@ -72,6 +72,7 @@ import org.web3j.protocol.core.methods.response.EthSyncing;
 import org.web3j.protocol.core.methods.response.EthTransaction;
 import org.web3j.protocol.core.methods.response.EthUninstallFilter;
 import org.web3j.protocol.core.methods.response.LineaEstimateGas;
+import org.web3j.protocol.core.methods.response.LineaGetProof;
 import org.web3j.protocol.core.methods.response.Log;
 import org.web3j.protocol.core.methods.response.NetListening;
 import org.web3j.protocol.core.methods.response.NetPeerCount;
@@ -596,6 +597,16 @@ public class JsonRpc2_0Web3j implements Web3j {
                 Arrays.asList(address, storageKeys, quantity),
                 web3jService,
                 EthGetProof.class);
+    }
+
+    @Override
+    public Request<?, LineaGetProof> lineaGetProof(
+            String address, List<String> storageKeys, String quantity) {
+        return new Request<>(
+                "linea_getProof",
+                Arrays.asList(address, storageKeys, quantity),
+                web3jService,
+                LineaGetProof.class);
     }
 
     @Override

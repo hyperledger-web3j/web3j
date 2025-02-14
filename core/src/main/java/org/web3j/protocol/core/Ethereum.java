@@ -59,6 +59,7 @@ import org.web3j.protocol.core.methods.response.EthSyncing;
 import org.web3j.protocol.core.methods.response.EthTransaction;
 import org.web3j.protocol.core.methods.response.EthUninstallFilter;
 import org.web3j.protocol.core.methods.response.LineaEstimateGas;
+import org.web3j.protocol.core.methods.response.LineaGetProof;
 import org.web3j.protocol.core.methods.response.NetListening;
 import org.web3j.protocol.core.methods.response.NetPeerCount;
 import org.web3j.protocol.core.methods.response.NetVersion;
@@ -211,6 +212,9 @@ public interface Ethereum {
     Request<?, EthLog> ethGetLogs(org.web3j.protocol.core.methods.request.EthFilter ethFilter);
 
     Request<?, EthGetProof> ethGetProof(String address, List<String> storageKeys, String quantity);
+
+    Request<?, LineaGetProof> lineaGetProof(
+            String address, List<String> storageKeys, String quantity);
 
     Request<?, EthGetWork> ethGetWork();
 

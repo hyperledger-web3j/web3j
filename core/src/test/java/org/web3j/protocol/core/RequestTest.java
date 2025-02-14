@@ -859,4 +859,20 @@ class RequestTest extends RequestTester {
                         + "\"to\":\"0x52b93c80364dc2dd4444c146d73b9836bbbb2b3f\",\"data\":\"0x0\"}],"
                         + "\"id\":1}");
     }
+
+    @Test
+    void testLineaGetProof() throws Exception {
+        web3j.lineaGetProof(
+                        "0x7F0d15C7FAae65896648C8273B6d7E43f58Fa842",
+                        Arrays.asList(
+                                "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421"),
+                        "latest")
+                .send();
+        verifyResult(
+                "{\"jsonrpc\":\"2.0\",\"method\":\"linea_getProof\","
+                        + "\"params\":[\"0x7F0d15C7FAae65896648C8273B6d7E43f58Fa842\","
+                        + "[\"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\"],"
+                        + "\"latest\"],"
+                        + "\"id\":0}");
+    }
 }
