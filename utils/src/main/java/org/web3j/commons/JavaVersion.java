@@ -12,13 +12,38 @@
  */
 package org.web3j.commons;
 
+/**
+ * A utility class to retrieve the current Java version.
+ */
 public class JavaVersion {
 
+    /**
+     * Returns the Java specification version as a string.
+     * For example, "1.8" for Java 8 or "9" for Java 9 and above.
+     *
+     * @return the Java version as a string.
+     */
     public static String getJavaVersion() {
         return System.getProperty("java.specification.version");
     }
 
+    /**
+     * Returns the Java specification version as a double.
+     * For Java versions before 9 (e.g., Java 8), it returns the version number after "1."
+     * (e.g., 8.0 for Java 1.8).
+     * For Java versions 9 and above, it returns the version number directly
+     * (e.g., 9.0 for Java 9).
+     *
+     * @return the Java version as a double.
+     */
     public static double getJavaVersionAsDouble() {
-        return Double.parseDouble(System.getProperty("java.specification.version"));
+        String version = System.getProperty("java.specification.version");
+        if (version.startsWith("1.")) {
+            // For versions before Java 9 (e.g., "1.8"), extract the part after "1."
+            return Double.parseDouble(version.substring(2));
+        } else {
+            // For Java 9 and above (e.g., "9", "10"), parse the version directly
+            return Double.parseDouble(version);
+        }
     }
 }
