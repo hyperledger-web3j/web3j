@@ -15,8 +15,6 @@ package org.web3j.tx.gas;
 import java.math.BigInteger;
 
 public interface ContractEIP1559GasProvider extends ContractGasProvider {
-    boolean isEIP1559Enabled();
-
     long getChainId();
 
     BigInteger getMaxFeePerGas();

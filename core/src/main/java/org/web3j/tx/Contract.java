@@ -392,19 +392,18 @@ public abstract class Contract extends ManagedTransaction {
             if (gasProvider instanceof ContractEIP1559GasProvider) {
                 ContractEIP1559GasProvider eip1559GasProvider =
                         (ContractEIP1559GasProvider) gasProvider;
-                if (eip1559GasProvider.isEIP1559Enabled()) {
-                    receipt =
-                            sendEIP1559(
-                                    eip1559GasProvider.getChainId(),
-                                    contractAddress,
-                                    data,
-                                    weiValue,
-                                    eip1559GasProvider.getGasLimit(
-                                            getGenericTransaction(data, constructor)),
-                                    eip1559GasProvider.getMaxPriorityFeePerGas(),
-                                    eip1559GasProvider.getMaxFeePerGas(),
-                                    constructor);
-                }
+
+                receipt =
+                        sendEIP1559(
+                                eip1559GasProvider.getChainId(),
+                                contractAddress,
+                                data,
+                                weiValue,
+                                eip1559GasProvider.getGasLimit(
+                                        getGenericTransaction(data, constructor)),
+                                eip1559GasProvider.getMaxPriorityFeePerGas(),
+                                eip1559GasProvider.getMaxFeePerGas(),
+                                constructor);
             }
 
             if (receipt == null) {

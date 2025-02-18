@@ -22,6 +22,5 @@ public interface ContractGasProvider {
 
     BigInteger getGasLimit(Transaction transaction);
 
-    @Deprecated
     BigInteger getGasLimit();
 }
