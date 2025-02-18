@@ -1,4 +1,4 @@
-Web3j: Web3 Java Ethereum Ðapp API
+Web3j: Web3 Java Ethereum Dapp API
 ==================================
 
 [![Documentation Status](https://readthedocs.org/projects/web3j-docs/badge/?version=latest)](https://docs.web3j.io)
