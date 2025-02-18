@@ -113,7 +113,8 @@ public class NameHash {
             return Numeric.toHexString(EMPTY);
         } else {
             String normalisedEnsName = normalise(ensName);
-            return Numeric.toHexString(Hash.sha3(normalisedEnsName.split("\\.")[0].getBytes(StandardCharsets.UTF_8)));
+            return Numeric.toHexString(
+                    Hash.sha3(normalisedEnsName.split("\\.")[0].getBytes(StandardCharsets.UTF_8)));
         }
     }
 

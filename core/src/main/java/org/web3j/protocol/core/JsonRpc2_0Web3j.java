@@ -71,6 +71,9 @@ import org.web3j.protocol.core.methods.response.EthSubscribe;
 import org.web3j.protocol.core.methods.response.EthSyncing;
 import org.web3j.protocol.core.methods.response.EthTransaction;
 import org.web3j.protocol.core.methods.response.EthUninstallFilter;
+import org.web3j.protocol.core.methods.response.LineaEstimateGas;
+import org.web3j.protocol.core.methods.response.LineaGetProof;
+import org.web3j.protocol.core.methods.response.LineaGetTransactionExclusionStatusV1;
 import org.web3j.protocol.core.methods.response.Log;
 import org.web3j.protocol.core.methods.response.NetListening;
 import org.web3j.protocol.core.methods.response.NetPeerCount;
@@ -399,6 +402,15 @@ public class JsonRpc2_0Web3j implements Web3j {
     }
 
     @Override
+    public Request<?, LineaEstimateGas> lineaEstimateGas(Transaction transaction) {
+        return new Request<>(
+                "linea_estimateGas",
+                Arrays.asList(transaction),
+                web3jService,
+                LineaEstimateGas.class);
+    }
+
+    @Override
     public Request<?, EthBlock> ethGetBlockByHash(
             String blockHash, boolean returnFullTransactionObjects) {
         return new Request<>(
@@ -589,6 +601,16 @@ public class JsonRpc2_0Web3j implements Web3j {
     }
 
     @Override
+    public Request<?, LineaGetProof> lineaGetProof(
+            String address, List<String> storageKeys, String quantity) {
+        return new Request<>(
+                "linea_getProof",
+                Arrays.asList(address, storageKeys, quantity),
+                web3jService,
+                LineaGetProof.class);
+    }
+
+    @Override
     public Request<?, EthGetWork> ethGetWork() {
         return new Request<>(
                 "eth_getWork", Collections.<String>emptyList(), web3jService, EthGetWork.class);
@@ -760,6 +782,16 @@ public class JsonRpc2_0Web3j implements Web3j {
                         EthSubscribe.class),
                 "eth_unsubscribe",
                 LogNotification.class);
+    }
+
+    @Override
+    public Request<?, LineaGetTransactionExclusionStatusV1> lineaGetTransactionExclusionStatusV1(
+            String transactionHash) {
+        return new Request<>(
+                "linea_getTransactionExclusionStatusV1",
+                Arrays.asList(transactionHash),
+                web3jService,
+                LineaGetTransactionExclusionStatusV1.class);
     }
 
     private Map<String, Object> createLogsParams(List<String> addresses, List<String> topics) {

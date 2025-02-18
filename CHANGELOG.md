@@ -16,6 +16,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 * bump snapshot version to 4.12.4 [#2132](https://github.com/hyperledger-web3j/web3j/pull/2132)
 * ENS - Label Hash function added [#2140](https://github.com/hyperledger-web3j/web3j/pull/2140)
 * Added Dynamic gas providers [#2142](https://github.com/hyperledger-web3j/web3j/pull/2142)
+* Added Linea RPC APIs [#2150](https://github.com/hyperledger-web3j/web3j/pull/2150)
 
 
 ### BREAKING CHANGES
