@@ -20,6 +20,11 @@ import org.web3j.utils.Numeric;
 /** eth_estimateGas. */
 public class EthEstimateGas extends Response<String> {
     public BigInteger getAmountUsed() {
+        if (getResult().isEmpty()) {
+            System.out.println("Empty result for EthEstimateGas");
+            return BigInteger.ONE;
+        }
+
         return Numeric.decodeQuantity(getResult());
     }
 }
