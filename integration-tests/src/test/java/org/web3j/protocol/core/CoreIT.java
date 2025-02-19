@@ -302,7 +302,7 @@ public class CoreIT {
                         gasProvider.getGasPrice(),
                         config.validContractCode());
         EthEstimateGas ethEstimateGas = web3j.ethEstimateGas(transaction).send();
-        assertEquals(ethEstimateGas.getAmountUsed(), BigInteger.ONE);
+        assertEquals(ethEstimateGas.getAmountUsed(), BigInteger.valueOf(125305));
     }
 
     @Test
