@@ -294,15 +294,25 @@ public class CoreIT {
     }
 
     @Test
-    public void testEthEstimateGas(Web3j web3j, ContractGasProvider gasProvider) throws Exception {
+    public void testEthEstimateGas(Web3j web3j, ContractGasProvider gasProvider) {
         org.web3j.protocol.core.methods.request.Transaction transaction =
                 org.web3j.protocol.core.methods.request.Transaction.createContractTransaction(
                         config.validAccount(),
                         BigInteger.ZERO, // nonce
                         gasProvider.getGasPrice(),
                         config.validContractCode());
-        EthEstimateGas ethEstimateGas = web3j.ethEstimateGas(transaction).send();
-        assertEquals(ethEstimateGas.getAmountUsed().signum(), 1);
+        EthEstimateGas ethEstimateGas;
+        try {
+            ethEstimateGas = web3j.ethEstimateGas(transaction).send();
+        } catch (Exception e) {
+            throw new IllegalStateException("error at deploy", e);
+        }
+        try {
+            assertEquals(ethEstimateGas.getAmountUsed().signum(), 1);
+
+        } catch (Exception e) {
+            throw new IllegalStateException("error at getAmountUsed", e);
+        }
     }
 
     @Test
