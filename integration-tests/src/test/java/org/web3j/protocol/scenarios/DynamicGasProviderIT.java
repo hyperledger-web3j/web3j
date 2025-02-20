@@ -96,6 +96,7 @@ public class DynamicGasProviderIT extends Scenario {
 
         assertEquals(humanStandardToken.name().send(), TOKEN_NAME);
 
+        wait(10000);
         assertNotNull(humanStandardToken.transfer(BOB.getAddress(), BigInteger.ONE).send());
         assertEquals(humanStandardToken.balanceOf(BOB.getAddress()).send(), BigInteger.TWO);
     }

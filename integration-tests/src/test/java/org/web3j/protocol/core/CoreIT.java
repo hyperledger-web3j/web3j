@@ -294,7 +294,7 @@ public class CoreIT {
     }
 
     @Test
-    public void testEthEstimateGas(Web3j web3j, ContractGasProvider gasProvider) {
+    public void testEthEstimateGas(Web3j web3j, ContractGasProvider gasProvider) throws InterruptedException {
         org.web3j.protocol.core.methods.request.Transaction transaction =
                 org.web3j.protocol.core.methods.request.Transaction.createContractTransaction(
                         config.validAccount(),
@@ -307,6 +307,8 @@ public class CoreIT {
         } catch (Exception e) {
             throw new IllegalStateException("error at deploy", e);
         }
+        wait(10000);
+
         try {
             assertEquals(ethEstimateGas.getAmountUsed().signum(), 1);
 
