@@ -98,7 +98,7 @@ public class TransactionEncoder {
     }
 
     /**
-     * Encode transaction with chainId together, it make sense only for Legacy transactions
+     * Encode transaction with chainId together, it makes sense only for Legacy transactions
      *
      * @return encoded bytes
      */
