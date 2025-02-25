@@ -294,13 +294,16 @@ public class CoreIT {
     }
 
     @Test
-    public void testEthEstimateGas(Web3j web3j, ContractGasProvider gasProvider) throws InterruptedException {
+    public void testEthEstimateGas(Web3j web3j, ContractGasProvider gasProvider)
+            throws InterruptedException {
         org.web3j.protocol.core.methods.request.Transaction transaction =
                 org.web3j.protocol.core.methods.request.Transaction.createContractTransaction(
                         config.validAccount(),
                         BigInteger.ZERO, // nonce
                         gasProvider.getGasPrice(),
                         config.validContractCode());
+
+        wait(60000);
         EthEstimateGas ethEstimateGas;
         try {
             ethEstimateGas = web3j.ethEstimateGas(transaction).send();

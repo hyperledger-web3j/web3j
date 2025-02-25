@@ -47,11 +47,6 @@ public class DynamicEIP1559GasProvider implements ContractEIP1559GasProvider, Pr
     }
 
     @Override
-    public boolean isEIP1559Enabled() {
-        return true;
-    }
-
-    @Override
     public long getChainId() {
         return chainId;
     }
