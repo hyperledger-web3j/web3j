@@ -303,14 +303,14 @@ public class CoreIT {
                         gasProvider.getGasPrice(),
                         config.validContractCode());
 
-        wait(60000);
+        Thread.sleep(60000);
         EthEstimateGas ethEstimateGas;
         try {
             ethEstimateGas = web3j.ethEstimateGas(transaction).send();
         } catch (Exception e) {
             throw new IllegalStateException("error at deploy", e);
         }
-        wait(10000);
+        Thread.sleep(10000);
 
         try {
             assertEquals(ethEstimateGas.getAmountUsed().signum(), 1);
