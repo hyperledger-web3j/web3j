@@ -58,9 +58,6 @@ import org.web3j.protocol.core.methods.response.EthSubmitWork;
 import org.web3j.protocol.core.methods.response.EthSyncing;
 import org.web3j.protocol.core.methods.response.EthTransaction;
 import org.web3j.protocol.core.methods.response.EthUninstallFilter;
-import org.web3j.protocol.core.methods.response.LineaEstimateGas;
-import org.web3j.protocol.core.methods.response.LineaGetProof;
-import org.web3j.protocol.core.methods.response.LineaGetTransactionExclusionStatusV1;
 import org.web3j.protocol.core.methods.response.NetListening;
 import org.web3j.protocol.core.methods.response.NetPeerCount;
 import org.web3j.protocol.core.methods.response.NetVersion;
@@ -163,9 +160,6 @@ public interface Ethereum {
     Request<?, EthEstimateGas> ethEstimateGas(
             org.web3j.protocol.core.methods.request.Transaction transaction);
 
-    Request<?, LineaEstimateGas> lineaEstimateGas(
-            org.web3j.protocol.core.methods.request.Transaction transaction);
-
     Request<?, EthBlock> ethGetBlockByHash(String blockHash, boolean returnFullTransactionObjects);
 
     Request<?, EthBlock> ethGetBlockByNumber(
@@ -214,9 +208,6 @@ public interface Ethereum {
 
     Request<?, EthGetProof> ethGetProof(String address, List<String> storageKeys, String quantity);
 
-    Request<?, LineaGetProof> lineaGetProof(
-            String address, List<String> storageKeys, String quantity);
-
     Request<?, EthGetWork> ethGetWork();
 
     Request<?, EthSubmitWork> ethSubmitWork(String nonce, String headerPowHash, String mixDigest);
@@ -253,7 +244,4 @@ public interface Ethereum {
     Request<?, ShhMessages> shhGetMessages(BigInteger filterId);
 
     Request<?, TxPoolStatus> txPoolStatus();
-
-    Request<?, LineaGetTransactionExclusionStatusV1> lineaGetTransactionExclusionStatusV1(
-            String transactionHash);
 }
