@@ -14,13 +14,14 @@ package org.web3j.tx.gas;
 
 import java.math.BigInteger;
 
-import org.web3j.protocol.core.methods.request.Transaction;
-
 public interface ContractGasProvider {
+    BigInteger getGasPrice(String contractFunc);
 
+    @Deprecated
     BigInteger getGasPrice();
 
-    BigInteger getGasLimit(Transaction transaction);
+    BigInteger getGasLimit(String contractFunc);
 
+    @Deprecated
     BigInteger getGasLimit();
 }

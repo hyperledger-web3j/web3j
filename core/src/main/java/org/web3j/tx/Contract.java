@@ -42,7 +42,6 @@ import org.web3j.protocol.core.DefaultBlockParameter;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.RemoteCall;
 import org.web3j.protocol.core.RemoteFunctionCall;
-import org.web3j.protocol.core.methods.request.Transaction;
 import org.web3j.protocol.core.methods.response.EthGetCode;
 import org.web3j.protocol.core.methods.response.Log;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
@@ -73,6 +72,7 @@ public abstract class Contract extends ManagedTransaction {
 
     public static final String BIN_NOT_PROVIDED = "Bin file was not provided";
     public static final String FUNC_DEPLOY = "deploy";
+
     protected final String contractBinary;
     protected String contractAddress;
     protected ContractGasProvider gasProvider;
@@ -392,18 +392,18 @@ public abstract class Contract extends ManagedTransaction {
             if (gasProvider instanceof ContractEIP1559GasProvider) {
                 ContractEIP1559GasProvider eip1559GasProvider =
                         (ContractEIP1559GasProvider) gasProvider;
-
-                receipt =
-                        sendEIP1559(
-                                eip1559GasProvider.getChainId(),
-                                contractAddress,
-                                data,
-                                weiValue,
-                                eip1559GasProvider.getGasLimit(
-                                        getGenericTransaction(data, constructor)),
-                                eip1559GasProvider.getMaxPriorityFeePerGas(),
-                                eip1559GasProvider.getMaxFeePerGas(),
-                                constructor);
+                if (eip1559GasProvider.isEIP1559Enabled()) {
+                    receipt =
+                            sendEIP1559(
+                                    eip1559GasProvider.getChainId(),
+                                    contractAddress,
+                                    data,
+                                    weiValue,
+                                    eip1559GasProvider.getGasLimit(funcName),
+                                    eip1559GasProvider.getMaxPriorityFeePerGas(funcName),
+                                    eip1559GasProvider.getMaxFeePerGas(funcName),
+                                    constructor);
+                }
             }
 
             if (receipt == null) {
@@ -412,8 +412,8 @@ public abstract class Contract extends ManagedTransaction {
                                 contractAddress,
                                 data,
                                 weiValue,
-                                gasProvider.getGasPrice(),
-                                gasProvider.getGasLimit(getGenericTransaction(data, constructor)),
+                                gasProvider.getGasPrice(funcName),
+                                gasProvider.getGasLimit(funcName),
                                 constructor);
             }
         } catch (JsonRpcError error) {
@@ -445,24 +445,6 @@ public abstract class Contract extends ManagedTransaction {
                     receipt);
         }
         return receipt;
-    }
-
-    protected Transaction getGenericTransaction(String data, boolean constructor) {
-        if (constructor) {
-            return Transaction.createContractTransaction(
-                    this.transactionManager.getFromAddress(),
-                    BigInteger.ONE,
-                    gasProvider.getGasPrice(),
-                    data);
-        } else {
-            return Transaction.createFunctionCallTransaction(
-                    this.transactionManager.getFromAddress(),
-                    BigInteger.ONE,
-                    gasProvider.getGasPrice(),
-                    gasProvider.getGasLimit(),
-                    contractAddress,
-                    data);
-        }
     }
 
     protected <T extends Type> RemoteFunctionCall<T> executeRemoteCallSingleValueReturn(
