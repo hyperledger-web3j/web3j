@@ -12,7 +12,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Features
 
 * bump snapshot version to 4.12.4 [#2132](https://github.com/hyperledger-web3j/web3j/pull/2132)
-* Added LineaEstimateGas api [#2150](https://github.com/hyperledger-web3j/web3j/pull/2150)
 
 
 ### BREAKING CHANGES
